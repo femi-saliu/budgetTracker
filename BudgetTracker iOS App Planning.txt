@@ -1,0 +1,53 @@
+**************************************
+BudgetTracker iOS App Planning
+**************************************
+
+Budget Class:
+- Store SubBudgets in a data structure
+	I believe that an arraylist or vector would be the best way to store the SubBudgets because we need a data structure with the ability to change its size dynamically.
+- Total Amount of Money
+	The user should be able to see the sum of the remaining amount of money from all Budgets.
+- Transaction Histoty
+	A record of all of the recent transactions from each of the Budgets all in one place. The user should be able to control how long this data is stored on their phone.
+- Create new SubBudget
+	An option to create a new SubBudget and allocate some money to it
+- Delete SubBudget
+	An option to remove a subBudget and reallocate any money that it had to other Budgets.
+- Allocate funds / Change total Budget
+	The ability to deposit money in each of the SubBudgets
+- Transfer Funds
+	The ability to move a given amount of money from one SubBudget to another
+
+SubBudget Class:
+- Name
+	The user's chosen name for the SubBudget
+- Rename
+	The ability to edit the name of the SubBudget
+- Color
+	The Hue of the SubBudget
+- Change Color
+	The ability to change the hue of the SubBudget
+- Shade
+	A combination between saturation and brightness that correlates to the amount of money spent in the current SubBudget
+- Maximum Allocated money
+	The total amount of money that the user wants to spend in the given time period (Week, month, season, year, etc)
+- Current Balance	
+	The maximum allocated money - the amount of money spent so far in the given time period
+- OverBudget
+	A boolean value that lets the user know if they have spent more than they have allocated
+- Add / Subtract Spenditure
+	A way for the user to log purchases or add money for future purchases
+- Borrow money
+	The ability to borrow money from another SubBudget	
+
+Settings
+- Currency 
+	The type of money that the user spends (depends on country of residence)
+- OverBudget 
+	The user should be able to decide whether the app will let them spend more than their budget allows
+- Export Data
+	An action that exports all of the users budget info into either an excel document or email
+	Maybe the user can have this export of data performed automatically every time interval
+- Select time interval	
+	The ability to choose the time interval that the budget tracking is based around.
+	This affects when each budget refreshes, when data is exported from the app and more.
