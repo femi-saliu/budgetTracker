@@ -6,4 +6,4 @@
 //  Copyright (c) 2015年 Zehao Zhang. All rights reserved.
 //
 
-import Foundation
+import UIView
