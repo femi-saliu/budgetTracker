@@ -17,6 +17,8 @@
 		5B2CDD071AB1313200F288C7 /* TrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD061AB1313200F288C7 /* TrackerModel.swift */; };
 		5B2CDD0B1AB134BD00F288C7 /* BucketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */; };
 		5B2CDD0D1AB13C1000F288C7 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */; };
+		92DB4B4D1ACA2C9A00C9AA16 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4B4C1ACA2C9A00C9AA16 /* SettingsViewController.swift */; };
+		92DB4B4F1ACA2E8D00C9AA16 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4B4E1ACA2E8D00C9AA16 /* SettingsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		5B2CDD061AB1313200F288C7 /* TrackerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerModel.swift; sourceTree = "<group>"; };
 		5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketModel.swift; sourceTree = "<group>"; };
 		5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		92DB4B4C1ACA2C9A00C9AA16 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		92DB4B4E1ACA2E8D00C9AA16 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +91,10 @@
 			children = (
 				5B2CDCE61AB12F9500F288C7 /* AppDelegate.swift */,
 				5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */,
+				92DB4B4C1ACA2C9A00C9AA16 /* SettingsViewController.swift */,
 				5B2CDD061AB1313200F288C7 /* TrackerModel.swift */,
 				5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */,
+				92DB4B4E1ACA2E8D00C9AA16 /* SettingsModel.swift */,
 				5B0EDBB31ACA2B1A00BE505F /* BucketList.swift */,
 				5B22136D1AC25E7400417589 /* BucketCell.swift */,
 				5B2CDCEA1AB12F9500F288C7 /* Main.storyboard */,
@@ -224,8 +230,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DB4B4F1ACA2E8D00C9AA16 /* SettingsModel.swift in Sources */,
 				5B2CDD071AB1313200F288C7 /* TrackerModel.swift in Sources */,
 				5B22136E1AC25E7400417589 /* BucketCell.swift in Sources */,
+				92DB4B4D1ACA2C9A00C9AA16 /* SettingsViewController.swift in Sources */,
 				5B2CDD0B1AB134BD00F288C7 /* BucketModel.swift in Sources */,
 				5B0EDBB41ACA2B1A00BE505F /* BucketList.swift in Sources */,
 				5B2CDD0D1AB13C1000F288C7 /* AddViewController.swift in Sources */,
