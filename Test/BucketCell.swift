@@ -30,25 +30,29 @@ class BucketCell: UIButton {
         let labelh = frame.height;
         let limitx = titlex + labelw;
         self.title = title;
-        //self.color = UIColor.whiteColor();
         self.limit = limit;
         nameLabel = UILabel(frame:CGRect(x: titlex, y: labely, width: labelw, height: labelh));
         limitLabel = UILabel(frame:CGRect(x: limitx, y: labely, width: labelw, height: labelh));
+        
         super.init(frame: frame);
+        
         self.alpha = 0.3;
         self.backgroundColor = color;
         self.addSubview(nameLabel!);
         self.addSubview(limitLabel!);
+        
         nameLabel?.text = title;
         nameLabel?.font = UIFont(name: "Helvetica",
             size: 16.0)
         nameLabel?.textAlignment = NSTextAlignment.Center;
         nameLabel?.textColor = defaultTextColor;
-        limitLabel?.text = String(format:"%f", limit);
+        nameLabel?.alpha = 1;
+        limitLabel?.text = String(format:"%.02f", limit);
         limitLabel?.font = UIFont(name: "Helvetica",
             size: 16.0)
         limitLabel?.textAlignment = NSTextAlignment.Center;
         limitLabel?.textColor = defaultTextColor;
+        limitLabel?.alpha = 1;
 
         
         //swipeCell.addTarget(self, action: "deleteBucket");

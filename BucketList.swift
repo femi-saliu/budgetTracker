@@ -15,6 +15,7 @@ class BucketList:UIScrollView {
     var bucketFrameX:CGFloat = 0;
     var bucketFrameH:CGFloat = 0;
     var bucketFrameW:CGFloat = 0;
+    var currentContentHeight:CGFloat = 0;
     var viewStart:CGFloat?
     
     override init(frame:CGRect) {
@@ -22,7 +23,9 @@ class BucketList:UIScrollView {
         self.bucketFrameH = frame.height/4;
         self.bucketFrameX = frame.origin.x;
         self.viewStart = 0;
+        self.currentContentHeight = bucketFrameH;
         super.init(frame: frame);
+        self.contentSize = CGSize(width:bucketFrameW, height:currentContentHeight);
         //self.backgroundColor = UIColor.whiteColor();
     }
     required init(coder aDecoder: NSCoder) {
@@ -35,6 +38,8 @@ class BucketList:UIScrollView {
         var newCell = BucketCell(title:name, limit:limit, frame:CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH));
         buckets.append(newCell);
         self.addSubview(newCell);
+        self.currentContentHeight += bucketFrameH;
+        self.contentSize = CGSize(width:bucketFrameW, height:currentContentHeight);
         //newCell.addTarget(self, action: "deleteBucketCell:name", forControlEvents: UIControlEvents.TouchUpInside);
         currentYOff += bucketFrameH;
     }
