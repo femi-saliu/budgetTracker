@@ -17,6 +17,7 @@
 		5B2CDD071AB1313200F288C7 /* TrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD061AB1313200F288C7 /* TrackerModel.swift */; };
 		5B2CDD0B1AB134BD00F288C7 /* BucketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */; };
 		5B2CDD0D1AB13C1000F288C7 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */; };
+		9293ECDB1AD62D5F00DEB3F0 /* BudgetTrackerBT.png in Resources */ = {isa = PBXBuildFile; fileRef = 9293ECDA1AD62D5F00DEB3F0 /* BudgetTrackerBT.png */; };
 		92DB4B4D1ACA2C9A00C9AA16 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4B4C1ACA2C9A00C9AA16 /* SettingsViewController.swift */; };
 		92DB4B4F1ACA2E8D00C9AA16 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4B4E1ACA2E8D00C9AA16 /* SettingsModel.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		5B2CDD061AB1313200F288C7 /* TrackerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerModel.swift; sourceTree = "<group>"; };
 		5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketModel.swift; sourceTree = "<group>"; };
 		5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		9293ECDA1AD62D5F00DEB3F0 /* BudgetTrackerBT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BudgetTrackerBT.png; sourceTree = "<group>"; };
 		92DB4B4C1ACA2C9A00C9AA16 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		92DB4B4E1ACA2E8D00C9AA16 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +110,7 @@
 		5B2CDCE41AB12F9500F288C7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9293ECDA1AD62D5F00DEB3F0 /* BudgetTrackerBT.png */,
 				5B2CDCE51AB12F9500F288C7 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -213,6 +216,7 @@
 				5B2CDCEC1AB12F9500F288C7 /* Main.storyboard in Resources */,
 				5B2CDCF11AB12F9500F288C7 /* LaunchScreen.xib in Resources */,
 				5B2CDCEE1AB12F9500F288C7 /* Images.xcassets in Resources */,
+				9293ECDB1AD62D5F00DEB3F0 /* BudgetTrackerBT.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
