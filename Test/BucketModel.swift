@@ -7,12 +7,20 @@
 //
 
 import Foundation
+import UIKit
 
 class BucketModel {
     var limit = 0.0;
     var name:String;
     var spending:Double;
-    init(n:String,newlimit: Double){
+    var currentHue:CGFloat = 0;
+    let saturationLowerLimit:CGFloat = 20 / 100;
+    let saturationUpperLimit:CGFloat = 100 / 100;
+    var currentSaturation:CGFloat = 0;
+    let defaultBrightness:CGFloat = 100 / 100;
+    let defaultAlpha:CGFloat = 1;
+    
+    init(n:String,newlimit:Double, hue:CGFloat) {
         limit = newlimit;
         name = n;
         spending = 0;

@@ -13,35 +13,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5hC-Du-4cY">
-                                <rect key="frame" x="283" y="7" width="30" height="30"/>
+                                <rect key="frame" x="283" y="5" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="+">
-                                    <color key="titleColor" red="1" green="0.89955849480000005" blue="0.56358241379999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="0.90612396790000005" blue="0.047712810379999998" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="addTapped:" destination="Wbp-oF-bJe" eventType="touchUpInside" id="cUQ-Nw-rJY"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="total budget" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZKR-Hu-t4z">
-                                <rect key="frame" x="114" y="88" width="93" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="stW-XJ-COJ">
+                                <rect key="frame" x="16" y="5" width="44" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.89955849480000005" blue="0.56358241379999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" red="1" green="0.90612396790000005" blue="0.047712810379999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteTapped:" destination="Wbp-oF-bJe" eventType="touchUpInside" id="jHC-87-1kA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="budget" id="0cr-z3-vHk"/>
                     <connections>
                         <outlet property="addButton" destination="5hC-Du-4cY" id="Foh-pg-Wr4"/>
+                        <outlet property="deleteButton" destination="stW-XJ-COJ" id="cGB-N6-u5L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdO-9r-9GM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="250" y="153"/>
+            <point key="canvasLocation" x="246" y="145"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="s5r-DV-qPg">

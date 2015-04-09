@@ -8,52 +8,57 @@
 
 import UIKit
 
-protocol bucketCellProtocol{
-    func deleteBucketCell(name:String);
-}
 
 class BucketCell: UIButton {
     var title:String = "";
-    var color:UIColor = UIColor.whiteColor();
-    var limit:Double?
-    var nameLabel:UILabel?
-    var limitLabel:UILabel?
+    var currentSpending:Double = 0;
+    var bgColorHue:CGFloat = 0;
+    var limit:Double = 0;
+    var nameLabel:UILabel = UILabel();
+    var limitLabel:UILabel = UILabel();
+    var color:UIColor = UIColor();
     let defaultTextColor = UIColor.blackColor();
+    let saturationLowerLimit:CGFloat = 20 / 100;
+    let saturationUpperLimit:CGFloat = 100 / 100;
+    var currentSaturation:CGFloat = 0;
+    let defaultBrightness:CGFloat = 100 / 100;
+    let defaultAlpha:CGFloat = 1;
 
     
     //todo: add color
-    init(title: String, limit:Double, frame:CGRect) {
+    init(title: String, limit:Double, frame:CGRect, hue:CGFloat) {
         println("creating bucket");
         let titlex:CGFloat = 0;
+        let limitx:CGFloat = frame.width / 2;
         let labely:CGFloat = 0;
-        let labelw = frame.width/2;
+        let labelw = frame.width / 2;
         let labelh = frame.height;
-        let limitx = titlex + labelw;
         self.title = title;
         self.limit = limit;
+        self.bgColorHue = hue;
+        self.currentSaturation = saturationLowerLimit;
         nameLabel = UILabel(frame:CGRect(x: titlex, y: labely, width: labelw, height: labelh));
         limitLabel = UILabel(frame:CGRect(x: limitx, y: labely, width: labelw, height: labelh));
         
         super.init(frame: frame);
         
-        self.alpha = 0.3;
+        self.color = UIColor(hue: bgColorHue, saturation: currentSaturation, brightness: defaultBrightness, alpha: defaultAlpha);
         self.backgroundColor = color;
-        self.addSubview(nameLabel!);
-        self.addSubview(limitLabel!);
+        self.addSubview(nameLabel);
+        self.addSubview(limitLabel);
         
-        nameLabel?.text = title;
-        nameLabel?.font = UIFont(name: "Helvetica",
+        nameLabel.text = title;
+        nameLabel.font = UIFont(name: "Helvetica",
             size: 16.0)
-        nameLabel?.textAlignment = NSTextAlignment.Center;
-        nameLabel?.textColor = defaultTextColor;
-        nameLabel?.alpha = 1;
-        limitLabel?.text = String(format:"%.02f", limit);
-        limitLabel?.font = UIFont(name: "Helvetica",
+        nameLabel.textAlignment = NSTextAlignment.Center;
+        nameLabel.textColor = defaultTextColor;
+        nameLabel.alpha = 1;
+        limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
+        limitLabel.font = UIFont(name: "Helvetica",
             size: 16.0)
-        limitLabel?.textAlignment = NSTextAlignment.Center;
-        limitLabel?.textColor = defaultTextColor;
-        limitLabel?.alpha = 1;
-
+        limitLabel.textAlignment = NSTextAlignment.Center;
+        limitLabel.textColor = defaultTextColor;
+        limitLabel.alpha = 1;
         
         //swipeCell.addTarget(self, action: "deleteBucket");
     }
@@ -66,7 +71,12 @@ class BucketCell: UIButton {
         return title;
     }
     
-    var delegate: bucketCellProtocol?
+    func setSpending(spend:Double, saturation:CGFloat){
+        currentSpending = spend;
+        self.backgroundColor = UIColor(hue: bgColorHue, saturation: saturation, brightness: defaultBrightness, alpha: defaultAlpha);
+    }
+    
+    //var delegate: bucketCellProtocol?
 //    func deleteBucket() {
 //        delegate?.deleteBucketCell(title);
 //    }

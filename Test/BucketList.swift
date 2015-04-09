@@ -8,46 +8,63 @@
 
 import UIKit
 
+protocol bucketCellProtocol{
+    func bucketTapped(sender:BucketCell);
+}
+
 class BucketList:UIScrollView {
-    var currentYOff:CGFloat = 0.0;
-    var bucketFrameY:CGFloat = 0.0;
+    let cellGap:CGFloat = 0.1;
+    let cellsPerView:CGFloat = 6;
+    var currentYOff:CGFloat = 0;
+    var frameWidth:CGFloat = 0;
+    var bucketFrameY:CGFloat = 0;
     var buckets = [BucketCell]();
     var bucketFrameX:CGFloat = 0;
-    var bucketFrameH:CGFloat = 0;
     var bucketFrameW:CGFloat = 0;
+    var bucketFrameH:CGFloat = 0;
     var currentContentHeight:CGFloat = 0;
-    var viewStart:CGFloat?
+    var viewStart:CGFloat = 0;
+    var bucketCellDelegate:bucketCellProtocol?
+    //var cells = [CGRect]();
+    var cellCount = 0;
     
     override init(frame:CGRect) {
+        //self.gapSize = frame.width * cellGap;
         self.bucketFrameW = frame.width;
-        self.bucketFrameH = frame.height/4;
-        self.bucketFrameX = frame.origin.x;
         self.viewStart = 0;
+        self.frameWidth = frame.width;
+        self.bucketFrameH = frame.height / cellsPerView;
         self.currentContentHeight = bucketFrameH;
         super.init(frame: frame);
-        self.contentSize = CGSize(width:bucketFrameW, height:currentContentHeight);
+        self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
         //self.backgroundColor = UIColor.whiteColor();
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func addNewBucket(name:String,limit:Double){
+    func addNewBucket(name:String,limit:Double, hue:CGFloat){
         println("add");
-        bucketFrameY = viewStart! + currentYOff;
-        var newCell = BucketCell(title:name, limit:limit, frame:CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH));
+        var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
+        var newCell = BucketCell(title:name, limit:limit, frame:newFrame, hue:hue);
+        //newCell.addTarget(self, action: "deleteBucketCell:", forControlEvents: UIControlEvents.TouchUpInside);
         buckets.append(newCell);
+        //cells.append(newFrame);
         self.addSubview(newCell);
-        self.currentContentHeight += bucketFrameH;
-        self.contentSize = CGSize(width:bucketFrameW, height:currentContentHeight);
-        //newCell.addTarget(self, action: "deleteBucketCell:name", forControlEvents: UIControlEvents.TouchUpInside);
+        cellCount++;
+        
         currentYOff += bucketFrameH;
+        bucketFrameY = viewStart + currentYOff;
+        self.currentContentHeight += bucketFrameH;
+        self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
+        newCell.addTarget(self, action: "bucketSelected:", forControlEvents: UIControlEvents.TouchUpInside);
     }
     
-    func deleteBucketCell(name:String){
+    @IBAction func deleteBucketCell(sender:BucketCell){
         println("delete");
         var index = 0;
         var found = false;
+        var name = sender.getName();
         for bucket in buckets{
             if(bucket.getName()==name){
                 buckets[index].removeFromSuperview();
@@ -58,20 +75,29 @@ class BucketList:UIScrollView {
             index++;
         }
         if(found){
-            for(var i = index+1; i < buckets.count; i++){
-                UIView.animateWithDuration(0.7, delay: 1.0, options: .CurveEaseOut, animations: {
+            for(var i = index; i < buckets.count; i++){
+                UIView.animateWithDuration(0.7, delay: 0.2, options: .CurveEaseOut, animations: {
                     var bucketFrame = self.buckets[i].frame;
-                    bucketFrame.origin.y -= self.bucketFrameW;
+                    bucketFrame.origin.y -= self.bucketFrameH;
                     
                     self.buckets[i].frame = bucketFrame;
                     }, completion: { finished in
-                        println("Buckets moved")
+                        //println("Buckets moved")
                 })
-                buckets[i-1] = buckets[i];
+                //buckets[i-1] = buckets[i];
             }
-            buckets.removeLast();
+            //buckets.removeLast();
         }
-        
+        bucketFrameY -= bucketFrameH;
+        currentYOff -=  bucketFrameH;
+        cellCount--;
+        self.currentContentHeight -= bucketFrameH;
+        self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
+    }
+    
+    @IBAction func bucketSelected(sender: AnyObject){
+        let bucketCell = sender as BucketCell;
+        self.bucketCellDelegate!.bucketTapped(bucketCell);
     }
     
 }

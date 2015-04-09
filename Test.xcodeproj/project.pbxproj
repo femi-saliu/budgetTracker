@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B0EDBB41ACA2B1A00BE505F /* BucketList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0EDBB31ACA2B1A00BE505F /* BucketList.swift */; };
+		5B0EDBB61ACA40D600BE505F /* AddOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0EDBB51ACA40D600BE505F /* AddOptionsView.swift */; };
 		5B22136E1AC25E7400417589 /* BucketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B22136D1AC25E7400417589 /* BucketCell.swift */; };
 		5B2CDCE71AB12F9500F288C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDCE61AB12F9500F288C7 /* AppDelegate.swift */; };
 		5B2CDCEC1AB12F9500F288C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B2CDCEA1AB12F9500F288C7 /* Main.storyboard */; };
@@ -17,6 +18,10 @@
 		5B2CDD071AB1313200F288C7 /* TrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD061AB1313200F288C7 /* TrackerModel.swift */; };
 		5B2CDD0B1AB134BD00F288C7 /* BucketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */; };
 		5B2CDD0D1AB13C1000F288C7 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */; };
+		5B8E6CD81AD4DEAA00E7675E /* BucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E6CD71AD4DEAA00E7675E /* BucketViewController.swift */; };
+		5B8E6CDA1AD5D3B300E7675E /* TotalBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E6CD91AD5D3B300E7675E /* TotalBudgetView.swift */; };
+		5B8E6CDC1AD6227C00E7675E /* FirstTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */; };
+		5B9A1D171ACC9A7900D9BABC /* BucketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A1D161ACC9A7900D9BABC /* BucketView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		5B0EDBB31ACA2B1A00BE505F /* BucketList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketList.swift; sourceTree = "<group>"; };
+		5B0EDBB51ACA40D600BE505F /* AddOptionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddOptionsView.swift; sourceTree = "<group>"; };
 		5B22136D1AC25E7400417589 /* BucketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketCell.swift; sourceTree = "<group>"; };
 		5B2CDCE11AB12F9500F288C7 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B2CDCE51AB12F9500F288C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,6 +50,10 @@
 		5B2CDD061AB1313200F288C7 /* TrackerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerModel.swift; sourceTree = "<group>"; };
 		5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketModel.swift; sourceTree = "<group>"; };
 		5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		5B8E6CD71AD4DEAA00E7675E /* BucketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketViewController.swift; sourceTree = "<group>"; };
+		5B8E6CD91AD5D3B300E7675E /* TotalBudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalBudgetView.swift; sourceTree = "<group>"; };
+		5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTimeView.swift; sourceTree = "<group>"; };
+		5B9A1D161ACC9A7900D9BABC /* BucketView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +97,15 @@
 			children = (
 				5B2CDCE61AB12F9500F288C7 /* AppDelegate.swift */,
 				5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */,
+				5B8E6CD91AD5D3B300E7675E /* TotalBudgetView.swift */,
 				5B2CDD061AB1313200F288C7 /* TrackerModel.swift */,
 				5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */,
 				5B0EDBB31ACA2B1A00BE505F /* BucketList.swift */,
 				5B22136D1AC25E7400417589 /* BucketCell.swift */,
+				5B9A1D161ACC9A7900D9BABC /* BucketView.swift */,
+				5B8E6CD71AD4DEAA00E7675E /* BucketViewController.swift */,
+				5B0EDBB51ACA40D600BE505F /* AddOptionsView.swift */,
+				5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */,
 				5B2CDCEA1AB12F9500F288C7 /* Main.storyboard */,
 				5B2CDCED1AB12F9500F288C7 /* Images.xcassets */,
 				5B2CDCEF1AB12F9500F288C7 /* LaunchScreen.xib */,
@@ -224,11 +239,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B8E6CDA1AD5D3B300E7675E /* TotalBudgetView.swift in Sources */,
 				5B2CDD071AB1313200F288C7 /* TrackerModel.swift in Sources */,
 				5B22136E1AC25E7400417589 /* BucketCell.swift in Sources */,
 				5B2CDD0B1AB134BD00F288C7 /* BucketModel.swift in Sources */,
+				5B0EDBB61ACA40D600BE505F /* AddOptionsView.swift in Sources */,
+				5B8E6CD81AD4DEAA00E7675E /* BucketViewController.swift in Sources */,
+				5B9A1D171ACC9A7900D9BABC /* BucketView.swift in Sources */,
 				5B0EDBB41ACA2B1A00BE505F /* BucketList.swift in Sources */,
 				5B2CDD0D1AB13C1000F288C7 /* AddViewController.swift in Sources */,
+				5B8E6CDC1AD6227C00E7675E /* FirstTimeView.swift in Sources */,
 				5B2CDCE71AB12F9500F288C7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

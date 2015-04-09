@@ -7,21 +7,33 @@
 //
 
 import Foundation
+import UIKit
 
 class TrackerModel {
     var buckets = [BucketModel]();
-    var totalLimit:Double;
+    var totalLimit:Double = 0;
     var numBuckets=0;
     
-    init(totalBudget:Double){
+//    init(){
+//    
+//    }
+    
+    func setTotalBudget(totalBudget:Double){
         totalLimit = totalBudget;
+
     }
         
-    func addNewBucket(name:String, limit:Double){ // Add color of the bucket later
+    func addNewBucket(name:String, limit:Double, hue:CGFloat) -> Bool{ // Add color of the bucket later
+        for bucket in buckets{
+            if(bucket.getName() == name){
+                return false;
+            }
+        }
         var newBucket:BucketModel;
-        newBucket = BucketModel(n:name,newlimit:limit);
+        newBucket = BucketModel(n:name,newlimit:limit, hue:hue);
         buckets.append(newBucket);
         numBuckets++;
+        return true;
     }
     
     func removeBucket(name:String){
