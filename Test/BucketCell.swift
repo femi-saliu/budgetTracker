@@ -12,21 +12,19 @@ import UIKit
 class BucketCell: UIButton {
     var title:String = "";
     var currentSpending:Double = 0;
-    var bgColorHue:CGFloat = 0;
     var limit:Double = 0;
     var nameLabel:UILabel = UILabel();
     var limitLabel:UILabel = UILabel();
-    var color:UIColor = UIColor();
     let defaultTextColor = UIColor.blackColor();
-    let saturationLowerLimit:CGFloat = 20 / 100;
-    let saturationUpperLimit:CGFloat = 100 / 100;
-    var currentSaturation:CGFloat = 0;
-    let defaultBrightness:CGFloat = 100 / 100;
-    let defaultAlpha:CGFloat = 1;
+    
+    var currentColor:UIColor = UIColor.whiteColor();
+    
+    var blurView:UIVisualEffectView!;
+    var deleteMessage:UILabel!;
 
     
     //todo: add color
-    init(title: String, limit:Double, frame:CGRect, hue:CGFloat) {
+    init(title: String, limit:Double, frame:CGRect) {
         println("creating bucket");
         let titlex:CGFloat = 0;
         let limitx:CGFloat = frame.width / 2;
@@ -35,15 +33,22 @@ class BucketCell: UIButton {
         let labelh = frame.height;
         self.title = title;
         self.limit = limit;
-        self.bgColorHue = hue;
-        self.currentSaturation = saturationLowerLimit;
         nameLabel = UILabel(frame:CGRect(x: titlex, y: labely, width: labelw, height: labelh));
         limitLabel = UILabel(frame:CGRect(x: limitx, y: labely, width: labelw, height: labelh));
         
-        super.init(frame: frame);
+        var deleteFrame = CGRect(x: titlex, y: labely, width: frame.width, height: frame.height);
+//        var blurEffect:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light);
+//        self.blurView = UIVisualEffectView(effect: blurEffect);
+//        self.blurView.frame = deleteFrame;
         
-        self.color = UIColor(hue: bgColorHue, saturation: currentSaturation, brightness: defaultBrightness, alpha: defaultAlpha);
-        self.backgroundColor = color;
+        self.deleteMessage = UILabel(frame:deleteFrame);
+        self.deleteMessage.backgroundColor = UIColor.blackColor();
+        self.deleteMessage.alpha = 0.7;
+        self.deleteMessage.text = "Tap to delete";
+        self.deleteMessage.textAlignment = NSTextAlignment.Center;
+        
+        super.init(frame: frame);
+
         self.addSubview(nameLabel);
         self.addSubview(limitLabel);
         
@@ -60,7 +65,13 @@ class BucketCell: UIButton {
         limitLabel.textColor = defaultTextColor;
         limitLabel.alpha = 1;
         
-        //swipeCell.addTarget(self, action: "deleteBucket");
+        //self.addSubview(blurView);
+        //self.blurView.hidden = true;
+        
+        
+        //self.deleteMessage.textColor = UIColor.blackColor();
+        self.addSubview(deleteMessage);
+        self.deleteMessage.hidden = true;
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -73,7 +84,24 @@ class BucketCell: UIButton {
     
     func setSpending(spend:Double, saturation:CGFloat){
         currentSpending = spend;
-        self.backgroundColor = UIColor(hue: bgColorHue, saturation: saturation, brightness: defaultBrightness, alpha: defaultAlpha);
+    }
+    
+    func setColor(color:UIColor){
+        self.currentColor = color;
+        self.backgroundColor = currentColor;
+    }
+    
+    func deleteMode(inDeleteMode:Bool){
+        if(inDeleteMode){
+            self.deleteMessage.textColor = currentColor;
+        }
+        UIView.animateWithDuration(0.7, delay: 0.2, options: .ShowHideTransitionViews, animations: {
+            //self.blurView.hidden = !inDeleteMode;
+            self.deleteMessage.hidden = !inDeleteMode;
+            }, completion: { finished in
+                //println("Buckets moved")
+        })
+        
     }
     
     //var delegate: bucketCellProtocol?

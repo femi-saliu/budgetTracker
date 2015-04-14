@@ -43,10 +43,10 @@ class BucketList:UIScrollView {
         super.init(coder: aDecoder)
     }
     
-    func addNewBucket(name:String,limit:Double, hue:CGFloat){
+    func addNewBucket(name:String,limit:Double){
         println("add");
         var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
-        var newCell = BucketCell(title:name, limit:limit, frame:newFrame, hue:hue);
+        var newCell = BucketCell(title:name, limit:limit, frame:newFrame);
         //newCell.addTarget(self, action: "deleteBucketCell:", forControlEvents: UIControlEvents.TouchUpInside);
         buckets.append(newCell);
         //cells.append(newFrame);
@@ -58,6 +58,26 @@ class BucketList:UIScrollView {
         self.currentContentHeight += bucketFrameH;
         self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
         newCell.addTarget(self, action: "bucketSelected:", forControlEvents: UIControlEvents.TouchUpInside);
+    }
+    
+    func getBucket(name:String) -> BucketCell?{
+        var index = 0;
+        for bucket in buckets{
+            if(bucket.getName() == name){
+                return bucket;
+            }
+        }
+        return nil;
+    }
+    
+    func setBucketColorWithName(name:String, color:UIColor){
+        self.getBucket(name)?.setColor(color);
+    }
+    
+    func setDeleteMode(inDeleteMode:Bool){
+        for bucket in buckets{
+            bucket.deleteMode(inDeleteMode);
+        }
     }
     
     @IBAction func deleteBucketCell(sender:BucketCell){
