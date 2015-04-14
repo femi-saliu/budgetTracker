@@ -22,6 +22,7 @@
 		5B8E6CDA1AD5D3B300E7675E /* TotalBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E6CD91AD5D3B300E7675E /* TotalBudgetView.swift */; };
 		5B8E6CDC1AD6227C00E7675E /* FirstTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */; };
 		5B9A1D171ACC9A7900D9BABC /* BucketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A1D161ACC9A7900D9BABC /* BucketView.swift */; };
+		5BA971211ADC3ED200E80568 /* BucketAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA971201ADC3ED200E80568 /* BucketAddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		5B8E6CD91AD5D3B300E7675E /* TotalBudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalBudgetView.swift; sourceTree = "<group>"; };
 		5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTimeView.swift; sourceTree = "<group>"; };
 		5B9A1D161ACC9A7900D9BABC /* BucketView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketView.swift; sourceTree = "<group>"; };
+		5BA971201ADC3ED200E80568 /* BucketAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketAddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				5B0EDBB31ACA2B1A00BE505F /* BucketList.swift */,
 				5B22136D1AC25E7400417589 /* BucketCell.swift */,
 				5B9A1D161ACC9A7900D9BABC /* BucketView.swift */,
+				5BA971201ADC3ED200E80568 /* BucketAddView.swift */,
 				5B8E6CD71AD4DEAA00E7675E /* BucketViewController.swift */,
 				5B0EDBB51ACA40D600BE505F /* AddOptionsView.swift */,
 				5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */,
@@ -243,6 +246,7 @@
 				5B2CDD071AB1313200F288C7 /* TrackerModel.swift in Sources */,
 				5B22136E1AC25E7400417589 /* BucketCell.swift in Sources */,
 				5B2CDD0B1AB134BD00F288C7 /* BucketModel.swift in Sources */,
+				5BA971211ADC3ED200E80568 /* BucketAddView.swift in Sources */,
 				5B0EDBB61ACA40D600BE505F /* AddOptionsView.swift in Sources */,
 				5B8E6CD81AD4DEAA00E7675E /* BucketViewController.swift in Sources */,
 				5B9A1D171ACC9A7900D9BABC /* BucketView.swift in Sources */,
@@ -373,6 +377,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -383,6 +388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Test/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

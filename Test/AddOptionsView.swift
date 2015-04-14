@@ -9,12 +9,13 @@
 import UIKit
 
 protocol addOptionsProtocol{
-    func addBucketCell(name:String, budget:Double, hue: CGFloat);
+    func addBucketCell(name:String, budget:Double, hue: CGFloat)->Bool;
     func cancelAddOption();
+    func emptyAlert();
 }
 
 class AddOptionsView:UIView, UITextFieldDelegate{
-    let viewAlpha:CGFloat = 0.5;
+    let viewAlpha:CGFloat = 0.4;
     let numFrames:CGFloat = 7;
     let frameMargin:CGFloat = 0.1;
     var frameX:CGFloat = 0;
@@ -74,9 +75,11 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.nameLabel.textColor = UIColor.whiteColor();
         
         self.nameField = UITextField(frame: frames[1]);
-        self.nameField.backgroundColor = UIColor.whiteColor();
+        self.nameField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
+        //self.nameField.alpha = viewAlpha;
         self.nameField.delegate = self;
         self.nameField.keyboardType = UIKeyboardType.ASCIICapable;
+        self.nameField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.budgetLabel = UILabel(frame:frames[2]);
         self.budgetLabel.text = "Budget";
@@ -84,9 +87,11 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.budgetLabel.textColor = UIColor.whiteColor();
         
         self.budgetField = UITextField(frame: frames[3]);
-        self.budgetField.backgroundColor = UIColor.whiteColor();
+        self.budgetField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
+        //self.budgetField.alpha = viewAlpha;
         self.budgetField.delegate = self;
         self.budgetField.keyboardType = UIKeyboardType.NumberPad;
+        self.budgetField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.colorLabel = UILabel(frame:frames[4]);
         self.colorLabel.text = "Color: $";
@@ -119,16 +124,31 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.addSubview(doneButton);
     }
     
+    func setAvailableAmt(amt: Double){
+        budgetLabel.text = String(format:"Budget (%.02f left)", amt);
+    }
+    
     func textFieldShouldReturn(input: UITextField!) -> Bool {
         input.resignFirstResponder()
         return true;
     }
     
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        super.touchesBegan(touches, withEvent: event);
+        budgetField.resignFirstResponder();
+        nameField.resignFirstResponder();
+    }
+    
     @IBAction func done(sender: AnyObject){
-        var budgetDouble:Double = (budgetField.text as NSString).doubleValue;
-        self.delegate!.addBucketCell(nameField.text, budget: budgetDouble, hue:hueValue);
-        self.budgetField.text = "";
-        self.nameField.text = "";
+        if(self.budgetField.text == "" || self.nameField.text == ""){
+            self.delegate.emptyAlert();
+        }else{
+            var budgetDouble:Double = (budgetField.text as NSString).doubleValue;
+            if(self.delegate!.addBucketCell(nameField.text, budget: budgetDouble, hue:hueValue)){
+                self.budgetField.text = "";
+                self.nameField.text = "";
+            }
+        }
     }
     
     @IBAction func cancel(sender: AnyObject){

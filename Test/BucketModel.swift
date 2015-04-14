@@ -20,13 +20,19 @@ class BucketModel {
     let defaultBrightness:CGFloat = 100 / 100;
     let defaultAlpha:CGFloat = 1;
     
+    var transactions = [Double]();
+    var balances = [Double]();
+    var descriptions = [String]();
+    
     init(n:String,newlimit:Double, hue:CGFloat) {
         limit = newlimit;
         name = n;
+        currentHue = hue;
         spending = 0;
+        currentSaturation = saturationLowerLimit;
     }
-    func setLimit(nLimit:Double){
-        limit = nLimit;
+    func addToLimit(amt:Double){
+        limit += amt;
     }
     func getName()->String{
         return name;
@@ -40,13 +46,22 @@ class BucketModel {
     func currentBalance()->Double{
         return spending;
     }
-    func addtoBalance(s:Double){
-        spending += s;
+    func addtoBalance(s:Double) -> Bool{
+        if(spending + s < limit){
+            spending += s;
+            currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
+            return true;
+        }else{
+            return false;
+        }
+        
     }
     func subtractFromBalance(s:Double){
         spending -= s;
+        currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
     }
-    func chooseColor(){
-        //to be implemented
+    func getColor() -> UIColor{
+        let currentColor = UIColor(hue: currentHue, saturation: currentSaturation, brightness: defaultBrightness, alpha: defaultAlpha);
+        return currentColor;
     }
 }
