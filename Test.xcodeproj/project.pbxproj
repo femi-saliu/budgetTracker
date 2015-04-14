@@ -22,6 +22,7 @@
 		5B8E6CDA1AD5D3B300E7675E /* TotalBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E6CD91AD5D3B300E7675E /* TotalBudgetView.swift */; };
 		5B8E6CDC1AD6227C00E7675E /* FirstTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */; };
 		5B9A1D171ACC9A7900D9BABC /* BucketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9A1D161ACC9A7900D9BABC /* BucketView.swift */; };
+		92D96D8B1ADCA2500047B3C3 /* BudgetTrackerBT.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D96D8A1ADCA2500047B3C3 /* BudgetTrackerBT.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		5B8E6CD91AD5D3B300E7675E /* TotalBudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalBudgetView.swift; sourceTree = "<group>"; };
 		5B8E6CDB1AD6227C00E7675E /* FirstTimeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstTimeView.swift; sourceTree = "<group>"; };
 		5B9A1D161ACC9A7900D9BABC /* BucketView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketView.swift; sourceTree = "<group>"; };
+		92D96D8A1ADCA2500047B3C3 /* BudgetTrackerBT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BudgetTrackerBT.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 		5B2CDCE41AB12F9500F288C7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				92D96D8A1ADCA2500047B3C3 /* BudgetTrackerBT.png */,
 				5B2CDCE51AB12F9500F288C7 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -222,6 +225,7 @@
 				5B2CDCEC1AB12F9500F288C7 /* Main.storyboard in Resources */,
 				5B2CDCF11AB12F9500F288C7 /* LaunchScreen.xib in Resources */,
 				5B2CDCEE1AB12F9500F288C7 /* Images.xcassets in Resources */,
+				92D96D8B1ADCA2500047B3C3 /* BudgetTrackerBT.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
