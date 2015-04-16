@@ -15,6 +15,11 @@
 **/
 import UIKit
 
+protocol BucketViewProtocol{
+    func addTapped();
+    func minusTapped();
+}
+
 class BucketView:UIView {
     var subFrames = [CGRect]();
     
@@ -34,6 +39,8 @@ class BucketView:UIView {
     
     var nameLabel = UILabel();
     var budgetLabel = UILabel();
+    
+    var delegate:BucketViewProtocol!;
     
     @IBOutlet var addButton:UIButton!;
     @IBOutlet var minusButton:UIButton!;
@@ -83,12 +90,15 @@ class BucketView:UIView {
         addButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
         addButton.backgroundColor = UIColor.whiteColor();
         addButton.alpha = 0.5;
+        addButton.addTarget(self, action: "addTapped:", forControlEvents: .TouchUpInside);
         self.addSubview(addButton);
+        
         
         minusButton.setTitle("-", forState: UIControlState.Normal);
         minusButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
         minusButton.backgroundColor = UIColor.whiteColor();
         minusButton.alpha = 0.5;
+        minusButton.addTarget(self, action: "minusTapped:", forControlEvents: .TouchUpInside);
         self.addSubview(minusButton);
     }
     
@@ -104,5 +114,23 @@ class BucketView:UIView {
     
     func setSpending(limit:Double, spending:Double){
         self.budgetLabel.text = String(format:"%.02f / %.02f", spending, limit);
+    }
+    
+    func setCancelMinus(){
+        self.minusButton.setTitle("Cancel", forState: .Normal);
+        minusButton.titleLabel?.font = UIFont(name: "Helvetica", size: 30);
+    }
+    
+    func setOriginalMinus(){
+        self.minusButton.setTitle("-", forState: .Normal);
+        minusButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
+    }
+    
+    @IBAction func addTapped(sender:AnyObject){
+        self.delegate.addTapped();
+    }
+    
+    @IBAction func minusTapped(sender:AnyObject){
+                self.delegate.minusTapped();
     }
 }

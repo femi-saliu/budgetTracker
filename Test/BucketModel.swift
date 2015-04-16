@@ -31,6 +31,21 @@ class BucketModel {
         spending = 0;
         currentSaturation = saturationLowerLimit;
     }
+    func removeTransaction(desc:String){
+        var index = 0;
+        var found = true;
+        for description in descriptions{
+            if(desc == description){
+                descriptions.removeAtIndex(index);
+                found = true;
+                break;
+            }
+            index++ ;
+        }
+        if(found){
+            transactions.removeAtIndex(index);
+        }
+    }
     func addToLimit(amt:Double){
         limit += amt;
     }
@@ -46,10 +61,19 @@ class BucketModel {
     func currentBalance()->Double{
         return spending;
     }
-    func addtoBalance(s:Double) -> Bool{
+    
+    func getTransactions()->[Double]{
+        return transactions;
+    }
+    func getDescriptions()->[String]{
+        return descriptions;
+    }
+    func addtoBalance(s:Double, desc:String) -> Bool{
         if(spending + s < limit){
             spending += s;
             currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
+            transactions.append(s);
+            descriptions.append(desc);
             return true;
         }else{
             return false;

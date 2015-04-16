@@ -9,8 +9,9 @@
 import UIKit
 
 protocol BucketAddProtocol{
-    func addTransaction(amt:Double);
+    func addTransaction(amt:Double, desc:String);
     func cancel();
+    func characterOverFlow();
 }
 
 class BucketAddView:UIView, UITextFieldDelegate {
@@ -36,7 +37,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
         self.frameY = frame.height * frameMargin;
         let subFrame = CGRect(x: frameX, y: frameY, width: frame.width * (1 - 2 * frameMargin), height: frame.height * (1 - 2 * frameMargin));
         self.makeFrames(numFrames, motherFrame: subFrame);
-        
+        self.setUpView();
         self.backgroundColor = UIColor(red: 0.2, green: 0.8, blue: 1, alpha: viewAlpha);
 
     }
@@ -60,7 +61,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
         }
     }
 
-    func setUpView(frames:[CGRect]){
+    func setUpView(){
         self.amountLabel = UILabel(frame: subFrames[0]);
         self.amountLabel.text = "Transaction Amount";
         self.amountLabel.textAlignment = .Center;
@@ -87,12 +88,12 @@ class BucketAddView:UIView, UITextFieldDelegate {
         
         self.doneButton = UIButton(frame: subFrames[4]);
         self.doneButton.setTitle("Done", forState: .Normal);
-        self.doneButton.backgroundColor = UIColor.whiteColor();
+        //self.doneButton.backgroundColor = UIColor.whiteColor();
         self.doneButton.addTarget(self, action: "doneTapped:", forControlEvents: UIControlEvents.TouchUpInside);
         
         self.cancelButton = UIButton(frame: subFrames[5]);
         self.cancelButton.setTitle("Cancel", forState: .Normal);
-        self.cancelButton.backgroundColor = UIColor.whiteColor();
+        //self.cancelButton.backgroundColor = UIColor.whiteColor();
         self.cancelButton.addTarget(self, action: "cancelTapped:", forControlEvents: UIControlEvents.TouchUpInside);
         
         self.addSubview(amountLabel);
@@ -109,7 +110,15 @@ class BucketAddView:UIView, UITextFieldDelegate {
     
     @IBAction func doneTapped(sender:AnyObject){
         var amount = (self.amountField.text as NSString).doubleValue;
-        self.delegate.addTransaction(amount);
+        var desc = self.descriptionField.text;
+        if(desc == ""){
+            desc = "N/A";
+        }
+        if(countElements(self.descriptionField.text) < 15){
+            self.delegate.addTransaction(amount, desc:desc);
+        }else{
+            self.delegate.characterOverFlow();
+        }
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {

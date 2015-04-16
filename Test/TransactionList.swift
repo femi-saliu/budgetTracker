@@ -1,30 +1,31 @@
 //
-//  BucketList.swift
+//  TransactionList.swift
 //  Test
 //
-//  Created by Zehao Zhang on 15/3/24.
+//  Created by Zehao Zhang on 15/4/13.
 //  Copyright (c) 2015年 Zehao Zhang. All rights reserved.
 //
 
 import UIKit
 
-protocol bucketCellProtocol{
-    func bucketTapped(sender:BucketCell);
+protocol TransactionCellProtocol{
+    func transactionTapped(sender:TransactionCell);
+    func transactionDeleted(name:String);
 }
 
-class BucketList:UIScrollView {
+class TransactionList:UIScrollView {
     let cellGap:CGFloat = 0.1;
     let cellsPerView:CGFloat = 6;
     var currentYOff:CGFloat = 0;
     var frameWidth:CGFloat = 0;
     var bucketFrameY:CGFloat = 0;
-    var buckets = [BucketCell]();
+    var buckets = [TransactionCell]();
     var bucketFrameX:CGFloat = 0;
     var bucketFrameW:CGFloat = 0;
     var bucketFrameH:CGFloat = 0;
     var currentContentHeight:CGFloat = 0;
     var viewStart:CGFloat = 0;
-    var bucketCellDelegate:bucketCellProtocol?
+    var transactionCellDelegate:TransactionCellProtocol?
     //var cells = [CGRect]();
     var cellCount = 0;
     
@@ -43,13 +44,13 @@ class BucketList:UIScrollView {
         super.init(coder: aDecoder)
     }
     
-    func addNewBucket(name:String,limit:Double){
-        println("add");
+    func addNewTransaction(desc:String,amount:Double, sign:Double){
+        println("add transaction");
         var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
-        var newCell = BucketCell(title:name, limit:limit, frame:newFrame);
-        //newCell.addTarget(self, action: "deleteBucketCell:", forControlEvents: UIControlEvents.TouchUpInside);
+        var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, sign:sign);
+        
         buckets.append(newCell);
-        //cells.append(newFrame);
+
         self.addSubview(newCell);
         cellCount++;
         
@@ -57,10 +58,10 @@ class BucketList:UIScrollView {
         bucketFrameY = viewStart + currentYOff;
         self.currentContentHeight += bucketFrameH;
         self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
-        newCell.addTarget(self, action: "bucketSelected:", forControlEvents: UIControlEvents.TouchUpInside);
+        newCell.addTarget(self, action: "cellSelected:", forControlEvents: UIControlEvents.TouchUpInside);
     }
     
-    func getBucket(name:String) -> BucketCell?{
+    func getTransaction(name:String) -> TransactionCell?{
         var index = 0;
         for bucket in buckets{
             if(bucket.getName() == name){
@@ -70,13 +71,9 @@ class BucketList:UIScrollView {
         return nil;
     }
     
-    func setBucketColorWithName(name:String, color:UIColor){
-        self.getBucket(name)?.setColor(color);
-    }
-    
-    func setBucketSpendingWithName(name:String, s:Double){
-        self.getBucket(name)?.setSpending(s);
-    }
+//    func setBucketColorWithName(name:String, color:UIColor){
+//        self.getBucket(name)?.setColor(color);
+//    }
     
     func setDeleteMode(inDeleteMode:Bool){
         for bucket in buckets{
@@ -84,8 +81,9 @@ class BucketList:UIScrollView {
         }
     }
     
-    @IBAction func deleteBucketCell(sender:BucketCell){
+    @IBAction func deleteTransactionCell(sender:TransactionCell){
         println("delete");
+        self.transactionCellDelegate?.transactionDeleted(sender.getName());
         var index = 0;
         var found = false;
         var name = sender.getName();
@@ -119,9 +117,9 @@ class BucketList:UIScrollView {
         self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
     }
     
-    @IBAction func bucketSelected(sender: AnyObject){
-        let bucketCell = sender as BucketCell;
-        self.bucketCellDelegate!.bucketTapped(bucketCell);
+    @IBAction func cellSelected(sender: AnyObject){
+        let transactionCell = sender as TransactionCell;
+        self.transactionCellDelegate!.transactionTapped(transactionCell);
     }
     
 }

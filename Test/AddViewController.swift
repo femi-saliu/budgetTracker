@@ -72,7 +72,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         }
     }
     
-    //to do
+    //to do, read from core data
     func setTotalBudget(totalBudget: Double, hue:CGFloat){
         self.trackerModel.setTotalBudget(totalBudget);
         self.trackerModel.setMainHue(hue);
@@ -198,8 +198,6 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "presentBucket"){
             let bucketViewController = segue.destinationViewController as BucketViewController;
-            //let bucketModel = sender as BucketModel;
-            //bucketViewController.bucket = self.selectedBucketModel!;
             bucketViewController.bucketName = self.selectedBucketName;
             bucketViewController.tracker = self.trackerModel;
         }
@@ -221,13 +219,21 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         self.bucketList!.deleteBucketCell(bucket);
     }
     
+    func loadBucketsWithModel(){
+        self.totalBudgetView.setSpending(self.trackerModel.getSpending());
+        self.totalBudgetView.setColor(self.trackerModel.getMainColor());
+        let buckets = self.trackerModel.getBuckets();
+        for bucket in buckets{
+            self.bucketList.setBucketColorWithName(bucket.getName(), color:bucket.getColor());
+            self.bucketList.setBucketSpendingWithName(bucket.getName(), s:bucket.currentBalance());
+        }
+    }
+    
     @IBAction func bucketTapped(sender:BucketCell){
         let bucket = sender;
         if(delete){
             self.deleteBucketCell(bucket);
         }else{
-//            var bucketModel = self.trackerModel.getBucket(sender.getName());
-//            self.selectedBucketModel = bucketModel;
             self.selectedBucketName = sender.getName();
             self.goToBucketView();
         }
@@ -240,5 +246,6 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     
     @IBAction func unwindFromBucketViewController(segue: UIStoryboardSegue){
         println("unwind");
+        self.loadBucketsWithModel();
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BucketViewController: UIViewController, BucketAddProtocol {
+class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProtocol, TransactionCellProtocol {
     var bucketView:BucketView!
     var bucketName:String = "";
     //var bucket:BucketModel!
@@ -18,20 +18,25 @@ class BucketViewController: UIViewController, BucketAddProtocol {
     
     let bucketViewTopMargin:CGFloat = 0.1;
     let bucketViewProportion:CGFloat = 0.5;
+    let scrollViewMarginProportion:CGFloat = 1;
     var bucketViewX:CGFloat = 0;
     var bucketViewY:CGFloat = 0;
     var bucketViewW:CGFloat = 0;
     var bucketViewH:CGFloat = 0;
     
+    var transactionList:TransactionList!;
+    
+    var inDelete:Bool = false;
+    
     @IBOutlet var bucketAddView:BucketAddView!;
     @IBOutlet var subviewContainer:UIVisualEffectView!;
     
     override func viewDidLoad() {
-        println("BucketViewControllerVDL");
-//        bucketView = BucketView(frame: self.view.frame);
-//        self.view.addSubview(bucketView);
         self.loadBucketView(self.view.frame);
         self.loadBucketWithModel(tracker);
+        self.loadTransactionList(self.view.frame);
+        self.loadTransactionListWithModel(tracker);
+        self.setUpBucketAdd(self.view.frame);
         super.viewDidLoad()
     }
     
@@ -45,6 +50,7 @@ class BucketViewController: UIViewController, BucketAddProtocol {
         bucketViewW = frame.width;
         bucketViewH = frame.height * (bucketViewProportion - bucketViewTopMargin);
         bucketView = BucketView(frame: CGRect(x: bucketViewX, y: bucketViewY, width: bucketViewW, height: bucketViewH));
+        bucketView.delegate = self;
         self.view.addSubview(bucketView);
     }
     
@@ -54,7 +60,30 @@ class BucketViewController: UIViewController, BucketAddProtocol {
         self.bucketView.setSpending(model.getLimitWithBucket(bucketName)!, spending: model.getSpendingWithBucket(bucketName)!);
     }
     
-    func setUpAddOptions(frame:CGRect){
+    func loadTransactionList(frame:CGRect){
+        let screenWidth = frame.width;
+        let screenHeight = frame.height;
+        let scrollViewX = screenWidth * (1-scrollViewMarginProportion) / 2;
+        let scrollViewY = screenHeight * (1 - bucketViewProportion);
+        let scrollViewW = screenWidth * scrollViewMarginProportion;
+        let scrollViewH = screenHeight - scrollViewY;
+        transactionList = TransactionList(frame: CGRect(x: scrollViewX, y: scrollViewY, width: scrollViewW, height: scrollViewH));
+        transactionList.transactionCellDelegate = self;
+        self.view.addSubview(transactionList!);
+
+    }
+    
+    func loadTransactionListWithModel(model:TrackerModel){
+        let transactions = model.getTransactionsWithName(bucketName);
+        let descriptions = model.getDescriptionsWithName(bucketName);
+        
+        assert(transactions.count == descriptions.count, "transaction & descriptions length not equal");
+        for(var i = 0; i<transactions.count; i++){
+            self.transactionList.addNewTransaction(descriptions[i], amount: transactions[i], sign: -1);
+        }
+    }
+    
+    func setUpBucketAdd(frame:CGRect){
         var blurEffect:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light);
         self.subviewContainer = UIVisualEffectView(effect: blurEffect);
         self.subviewContainer.frame = self.view.frame;
@@ -71,13 +100,54 @@ class BucketViewController: UIViewController, BucketAddProtocol {
         subviewContainer.hidden = true;
     }
     
-    func addTransaction(amt: Double){
-        self.tracker.addNewTransaction(bucketName, amount: amt);
+    func transactionDeleted(name: String) {
+        self.tracker.removeTransactionWithName(bucketName, desc: name);
         self.loadBucketWithModel(tracker);
     }
     
-    func cancel() {
+    func addTransaction(amt: Double, desc:String){
+        self.bucketAddView.hidden = true;
+        self.subviewContainer.hidden = true;
+        self.tracker.addNewTransaction(bucketName, amount: amt, desc:desc);
+        self.transactionList.addNewTransaction(desc, amount: amt, sign: -1);
+        self.loadBucketWithModel(tracker);
         
+    }
+    
+    func characterOverFlow() {
+        let alertController = UIAlertController(title: "Exceeded Text Length", message:
+            "The description cannot be longer than 15 characters(Space included)", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Got it", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func cancel() {
+        self.bucketAddView.hidden = true;
+        self.subviewContainer.hidden = true;
+    }
+    
+    func addTapped() {
+        self.bucketAddView.hidden = false;
+        self.subviewContainer.hidden = false;
+    }
+    
+    func minusTapped() {
+        if(!inDelete){
+            inDelete = true;
+            self.bucketView.setCancelMinus();
+            self.transactionList.setDeleteMode(true);
+        }else{
+            inDelete = false;
+            self.bucketView.setOriginalMinus();
+            self.transactionList.setDeleteMode(false);
+        }
+    }
+    
+    func transactionTapped(sender: TransactionCell) {
+        if(inDelete){
+            self.transactionList.deleteTransactionCell(sender);
+        }
     }
     
 }
