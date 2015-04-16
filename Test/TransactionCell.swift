@@ -32,7 +32,7 @@ class TransactionCell: UIButton {
         nameLabel = UILabel(frame:CGRect(x: titlex, y: labely, width: labelw, height: labelh));
         amountLabel = UILabel(frame:CGRect(x: amountx, y: labely, width: labelw, height: labelh));
         
-        var deleteFrame = CGRect(x: titlex, y: labely, width: frame.width, height: frame.height);
+        var deleteFrame = CGRect(x: amountx, y: labely, width: frame.width, height: frame.height);
         
         self.deleteMessage = UILabel(frame:deleteFrame);
         self.deleteMessage.backgroundColor = UIColor.blackColor();

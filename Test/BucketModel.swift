@@ -69,7 +69,7 @@ class BucketModel {
         return descriptions;
     }
     func addtoBalance(s:Double, desc:String) -> Bool{
-        if(spending + s < limit){
+        if(spending + s <= limit){
             spending += s;
             currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
             transactions.append(s);

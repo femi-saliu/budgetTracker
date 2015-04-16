@@ -9,9 +9,10 @@
 import UIKit
 
 protocol BucketAddProtocol{
-    func addTransaction(amt:Double, desc:String);
+    func addTransaction(amt:Double, desc:String)->Bool;
     func cancel();
     func characterOverFlow();
+    func overBudget();
 }
 
 class BucketAddView:UIView, UITextFieldDelegate {
@@ -115,7 +116,12 @@ class BucketAddView:UIView, UITextFieldDelegate {
             desc = "N/A";
         }
         if(countElements(self.descriptionField.text) < 15){
-            self.delegate.addTransaction(amount, desc:desc);
+            if(self.delegate.addTransaction(amount, desc: desc)){
+                self.amountField.text = "";
+                self.descriptionField.text = "";
+            }else{
+                self.delegate.overBudget();
+            }
         }else{
             self.delegate.characterOverFlow();
         }

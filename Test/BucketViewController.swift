@@ -105,18 +105,29 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
         self.loadBucketWithModel(tracker);
     }
     
-    func addTransaction(amt: Double, desc:String){
-        self.bucketAddView.hidden = true;
-        self.subviewContainer.hidden = true;
-        self.tracker.addNewTransaction(bucketName, amount: amt, desc:desc);
-        self.transactionList.addNewTransaction(desc, amount: amt, sign: -1);
-        self.loadBucketWithModel(tracker);
-        
+    func addTransaction(amt: Double, desc:String) -> Bool{
+        if(self.tracker.addNewTransaction(bucketName, amount: amt, desc: desc)){
+            self.bucketAddView.hidden = true;
+            self.subviewContainer.hidden = true;
+            self.transactionList.addNewTransaction(desc, amount: amt, sign: -1);
+            self.loadBucketWithModel(tracker);
+            return true;
+        }else{
+            return false;
+        }
     }
     
     func characterOverFlow() {
         let alertController = UIAlertController(title: "Exceeded Text Length", message:
             "The description cannot be longer than 15 characters(Space included)", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Got it", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func overBudget() {
+        let alertController = UIAlertController(title: "Over Budget", message:
+            "You have gone over budget", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Got it", style: UIAlertActionStyle.Default,handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
