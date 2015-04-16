@@ -126,6 +126,7 @@
 		5B2CDCE41AB12F9500F288C7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				92D96D8A1ADCA2500047B3C3 /* BudgetTrackerBT.png */,
 				5B2CDCE51AB12F9500F288C7 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -231,6 +232,7 @@
 				5B2CDCEC1AB12F9500F288C7 /* Main.storyboard in Resources */,
 				5B2CDCF11AB12F9500F288C7 /* LaunchScreen.xib in Resources */,
 				5B2CDCEE1AB12F9500F288C7 /* Images.xcassets in Resources */,
+				92D96D8B1ADCA2500047B3C3 /* BudgetTrackerBT.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

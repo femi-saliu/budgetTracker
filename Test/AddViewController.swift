@@ -125,7 +125,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         addOptionsContainer.hidden = true;
     }
     
-    func setUpForFirstTime(frame:CGRect){
+    func setUpFirstTime(frame:CGRect){
         var addOptionsX = frame.width * addOptionsMargin;
         var addOptionsY = frame.height * addOptionsMargin;
         var addOptionsW = frame.width * (1 - 2 * addOptionsMargin);
