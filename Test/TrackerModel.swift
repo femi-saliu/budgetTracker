@@ -74,7 +74,8 @@ class TrackerModel {
         return success;
     }
     
-    func removeTransactionWithName(name:String, desc:String){
+    func removeTransactionWithName(name:String, desc:String, amt:Double){
+        self.currentSpending -= amt;
         self.getBucket(name)!.removeTransaction(desc);
     }
     
@@ -106,6 +107,8 @@ class TrackerModel {
         for bucket in buckets{
             if(bucket.getName()==name){
                 bucketTotal -= bucket.limit;
+                currentSpending -= bucket.currentBalance();
+                self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
                 buckets.removeAtIndex(index);
                 numBuckets--;
                 break;

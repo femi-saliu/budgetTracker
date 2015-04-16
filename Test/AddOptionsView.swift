@@ -140,7 +140,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
     }
     
     @IBAction func done(sender: AnyObject){
-        if(self.budgetField.text == "" || self.nameField.text == ""){
+        if(self.budgetField.text == "" || self.nameField.text == "" || (budgetField.text as NSString).doubleValue == 0){
             self.delegate.emptyAlert();
         }else{
             var budgetDouble:Double = (budgetField.text as NSString).doubleValue;

@@ -53,6 +53,7 @@ class TransactionCell: UIButton {
         nameLabel.textAlignment = NSTextAlignment.Center;
         nameLabel.textColor = defaultTextColor;
         nameLabel.alpha = 1;
+        nameLabel.adjustsFontSizeToFitWidth = true;
         if(sign == -1){
             amountLabel.text = String(format:"-%.02f", amount);
         }else{
@@ -64,6 +65,7 @@ class TransactionCell: UIButton {
         amountLabel.textAlignment = NSTextAlignment.Center;
         amountLabel.textColor = defaultTextColor;
         amountLabel.alpha = 1;
+        amountLabel.adjustsFontSizeToFitWidth = true;
         
         self.addSubview(deleteMessage);
         self.deleteMessage.hidden = true;
@@ -77,9 +79,13 @@ class TransactionCell: UIButton {
         return title;
     }
     
-    func setSpending(spend:Double){
-        currentSpending = spend;
+    func getAmount()->Double {
+        return amount;
     }
+    
+//    func setSpending(spend:Double){
+//        currentSpending = spend;
+//    }
     
 //    func setColor(color:UIColor){
 //        self.currentColor = color;

@@ -43,6 +43,7 @@ class BucketModel {
             index++ ;
         }
         if(found){
+            self.spending -= transactions[index];
             transactions.removeAtIndex(index);
         }
     }

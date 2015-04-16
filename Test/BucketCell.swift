@@ -52,12 +52,14 @@ class BucketCell: UIButton {
         nameLabel.textAlignment = NSTextAlignment.Center;
         nameLabel.textColor = defaultTextColor;
         nameLabel.alpha = 1;
+        nameLabel.adjustsFontSizeToFitWidth = true;
         limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
         limitLabel.font = UIFont(name: "Helvetica",
             size: 16.0)
         limitLabel.textAlignment = NSTextAlignment.Center;
         limitLabel.textColor = defaultTextColor;
         limitLabel.alpha = 1;
+        limitLabel.adjustsFontSizeToFitWidth = true;
         
         self.addSubview(deleteMessage);
         self.deleteMessage.hidden = true;

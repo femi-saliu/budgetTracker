@@ -10,7 +10,7 @@ import UIKit
 
 protocol TransactionCellProtocol{
     func transactionTapped(sender:TransactionCell);
-    func transactionDeleted(name:String);
+    func transactionDeleted(name:String, amt:Double);
 }
 
 class TransactionList:UIScrollView {
@@ -83,7 +83,7 @@ class TransactionList:UIScrollView {
     
     @IBAction func deleteTransactionCell(sender:TransactionCell){
         println("delete");
-        self.transactionCellDelegate?.transactionDeleted(sender.getName());
+        self.transactionCellDelegate?.transactionDeleted(sender.getName(), amt:sender.getAmount());
         var index = 0;
         var found = false;
         var name = sender.getName();

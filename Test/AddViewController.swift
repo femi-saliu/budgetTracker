@@ -216,7 +216,9 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     }
     
     func deleteBucketCell(bucket:BucketCell){
+        self.trackerModel.removeBucket(bucket.getName());
         self.bucketList!.deleteBucketCell(bucket);
+        self.loadBucketsWithModel();
     }
     
     func loadBucketsWithModel(){

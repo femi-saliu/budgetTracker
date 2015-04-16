@@ -83,6 +83,9 @@ class BucketView:UIView {
         self.nameLabel.font = UIFont(name: "Helvetica", size: 35);
         self.budgetLabel.font = UIFont(name: "Helvetica", size: 40);
         
+        self.nameLabel.adjustsFontSizeToFitWidth = true;
+        self.budgetLabel.adjustsFontSizeToFitWidth = true;
+        
         self.addSubview(nameLabel);
         self.addSubview(budgetLabel);
         

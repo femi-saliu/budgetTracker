@@ -100,8 +100,8 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
         subviewContainer.hidden = true;
     }
     
-    func transactionDeleted(name: String) {
-        self.tracker.removeTransactionWithName(bucketName, desc: name);
+    func transactionDeleted(name: String, amt:Double) {
+        self.tracker.removeTransactionWithName(bucketName, desc: name, amt:amt);
         self.loadBucketWithModel(tracker);
     }
     

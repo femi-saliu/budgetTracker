@@ -35,6 +35,7 @@ class TotalBudgetView: UIView {
         textFrameW = frame.width * (1 - 2 * xmarginProportion);
         textFrameH = frame.height * (1 - 2 * ymarginProportion);
         budgetNum = UILabel(frame: CGRect(x: textFrameX, y: textFrameY, width: textFrameW, height: textFrameH));
+        budgetNum.adjustsFontSizeToFitWidth = true;
         budgetNum.text = String(format:"%.02f / %.02f", currentSpending, totalLimit);
         budgetNum.font = UIFont(name: budgetNum.font.fontName, size: 30)
         budgetNum.textAlignment = NSTextAlignment.Center;
