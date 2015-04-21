@@ -1,0 +1,4 @@
+Budget Tracker QA Log
+
+- On the settings screen its possible to edit the label "Change Currency"
+- Its technically possible to create a bucket with a negative total amount of money
