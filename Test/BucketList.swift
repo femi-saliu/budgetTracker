@@ -74,9 +74,19 @@ class BucketList:UIScrollView {
         self.getBucket(name)?.setColor(color);
     }
     
+    func setBucketSpendingWithName(name:String, s:Double){
+        self.getBucket(name)?.setSpending(s);
+    }
+    
     func setDeleteMode(inDeleteMode:Bool){
         for bucket in buckets{
             bucket.deleteMode(inDeleteMode);
+        }
+    }
+    
+    func setTransferMode(mode:Int){
+        for bucket in buckets{
+            bucket.transferMode(mode);
         }
     }
     
@@ -116,7 +126,7 @@ class BucketList:UIScrollView {
     }
     
     @IBAction func bucketSelected(sender: AnyObject){
-        let bucketCell = sender as! BucketCell;
+        let bucketCell = sender as BucketCell;
         self.bucketCellDelegate!.bucketTapped(bucketCell);
     }
     

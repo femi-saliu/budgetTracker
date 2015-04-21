@@ -36,6 +36,22 @@ class TrackerModel {
 
     }
     
+    func getBuckets() -> [BucketModel]{
+        return buckets;
+    }
+    
+    func getTransactionsWithName(name:String) -> [Double]{
+        return self.getBucket(name)!.getTransactions();
+    }
+    
+    func getDescriptionsWithName(name:String) -> [String]{
+        return self.getBucket(name)!.getDescriptions();
+    }
+    
+    func getTransactionTypesWithName(name:String) -> [Int]{
+        return self.getBucket(name)!.getTransactionTypes();
+    }
+    
     func setMainHue(hue:CGFloat){
         self.currentHue = hue;
     }
@@ -62,6 +78,15 @@ class TrackerModel {
         return success;
     }
     
+    func removeTransactionWithName(name:String, desc:String, amt:Double){
+        self.currentSpending -= amt;
+        self.getBucket(name)!.removeTransaction(desc);
+    }
+    
+    func getSpending()->Double{
+        return currentSpending;
+    }
+    
     func getAvailableBudget() -> Double {
         return totalLimit - bucketTotal;
     }
@@ -86,6 +111,8 @@ class TrackerModel {
         for bucket in buckets{
             if(bucket.getName()==name){
                 bucketTotal -= bucket.limit;
+                currentSpending -= bucket.currentBalance();
+                self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
                 buckets.removeAtIndex(index);
                 numBuckets--;
                 break;
@@ -93,16 +120,21 @@ class TrackerModel {
             index++;
         }
     }
-    func transfer(from:BucketModel,to:BucketModel,amount:Double){
-        if(from.getLimit() > amount){
-            from.addToLimit(-amount);
-            to.addToLimit(amount);
+    func transfer(from:String,to:String,amount:Double)->Bool{
+        let fromBucket = self.getBucket(from)!;
+        let toBucket = self.getBucket(to)!;
+        if(fromBucket.availableBudget() > amount){
+            //fromBucket.addToLimit(amount);
+            //toBucket.addToLimit(amount);
+            return true;
+        }else{
+            return false;
         }
         
     }
     
-    func addNewTransaction(name:String, amount:Double)->Bool{
-        if(self.getBucket(name)!.addtoBalance(amount)){
+    func addNewTransaction(name:String, amount:Double, desc:String)->Bool{
+        if(self.getBucket(name)!.addtoBalance(amount, desc:desc)){
             self.currentSpending += amount;
             self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
             return true;
@@ -110,6 +142,10 @@ class TrackerModel {
             return false;
         }
     }
+    
+//    func addNewTransfer(name:String, amount:Double, sign:Int){
+//        self.getBucket(name)!.
+//    }
     
     func getColorWithBucket(name:String) -> UIColor?{
         return self.getBucket(name)!.getColor();

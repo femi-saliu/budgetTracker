@@ -20,12 +20,12 @@ class BucketCell: UIButton {
     var currentColor:UIColor = UIColor.whiteColor();
     
     var blurView:UIVisualEffectView!;
-    var deleteMessage:UILabel!;
+    var message:UILabel!;
+    var deleteString:String = "Tap to delete";
+    var transferFromString:String = "Select transfer from";
+    var transferToString:String = "Select transfer to";
 
-    
-    //todo: add color
     init(title: String, limit:Double, frame:CGRect) {
-        println("creating bucket");
         let titlex:CGFloat = 0;
         let limitx:CGFloat = frame.width / 2;
         let labely:CGFloat = 0;
@@ -37,15 +37,12 @@ class BucketCell: UIButton {
         limitLabel = UILabel(frame:CGRect(x: limitx, y: labely, width: labelw, height: labelh));
         
         var deleteFrame = CGRect(x: titlex, y: labely, width: frame.width, height: frame.height);
-//        var blurEffect:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light);
-//        self.blurView = UIVisualEffectView(effect: blurEffect);
-//        self.blurView.frame = deleteFrame;
         
-        self.deleteMessage = UILabel(frame:deleteFrame);
-        self.deleteMessage.backgroundColor = UIColor.blackColor();
-        self.deleteMessage.alpha = 0.7;
-        self.deleteMessage.text = "Tap to delete";
-        self.deleteMessage.textAlignment = NSTextAlignment.Center;
+        self.message = UILabel(frame:deleteFrame);
+        self.message.backgroundColor = UIColor.blackColor();
+        self.message.alpha = 0.7;
+        //self.message.text = "Tap to delete";
+        self.message.textAlignment = NSTextAlignment.Center;
         
         super.init(frame: frame);
 
@@ -58,20 +55,17 @@ class BucketCell: UIButton {
         nameLabel.textAlignment = NSTextAlignment.Center;
         nameLabel.textColor = defaultTextColor;
         nameLabel.alpha = 1;
+        nameLabel.adjustsFontSizeToFitWidth = true;
         limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
         limitLabel.font = UIFont(name: "Helvetica",
             size: 16.0)
         limitLabel.textAlignment = NSTextAlignment.Center;
         limitLabel.textColor = defaultTextColor;
         limitLabel.alpha = 1;
+        limitLabel.adjustsFontSizeToFitWidth = true;
         
-        //self.addSubview(blurView);
-        //self.blurView.hidden = true;
-        
-        
-        //self.deleteMessage.textColor = UIColor.blackColor();
-        self.addSubview(deleteMessage);
-        self.deleteMessage.hidden = true;
+        //self.addSubview(deleteMessage);
+        self.message.hidden = true;
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -82,8 +76,9 @@ class BucketCell: UIButton {
         return title;
     }
     
-    func setSpending(spend:Double, saturation:CGFloat){
+    func setSpending(spend:Double){
         currentSpending = spend;
+        limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
     }
     
     func setColor(color:UIColor){
@@ -91,24 +86,29 @@ class BucketCell: UIButton {
         self.backgroundColor = currentColor;
     }
     
+    func transferMode(mode:Int){
+        if(mode == 0){
+            self.message.hidden = true;
+        }else if(mode == 1){
+            self.message.text = transferFromString;
+            self.message.textColor = currentColor;
+            self.message.hidden = false;
+        }else{
+            self.message.text = transferToString;
+            self.message.textColor = currentColor;
+            self.message.hidden = false;
+        }
+    }
+    
     func deleteMode(inDeleteMode:Bool){
         if(inDeleteMode){
-            self.deleteMessage.textColor = currentColor;
+            self.message.text = deleteString;
+            self.message.textColor = currentColor;
         }
         UIView.animateWithDuration(0.7, delay: 0.2, options: .ShowHideTransitionViews, animations: {
-            //self.blurView.hidden = !inDeleteMode;
-            self.deleteMessage.hidden = !inDeleteMode;
+            self.message.hidden = !inDeleteMode;
             }, completion: { finished in
-                //println("Buckets moved")
         })
         
     }
-    
-    //var delegate: bucketCellProtocol?
-//    func deleteBucket() {
-//        delegate?.deleteBucketCell(title);
-//    }
-    
-    
-    
 }

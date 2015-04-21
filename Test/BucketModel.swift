@@ -23,6 +23,7 @@ class BucketModel {
     var transactions = [Double]();
     var balances = [Double]();
     var descriptions = [String]();
+    var transactionTypes = [Int]();
     
     init(n:String,newlimit:Double, hue:CGFloat) {
         limit = newlimit;
@@ -31,9 +32,24 @@ class BucketModel {
         spending = 0;
         currentSaturation = saturationLowerLimit;
     }
-    func addToLimit(amt:Double){
-        limit += amt;
+    func removeTransaction(desc:String){
+        var index = 0;
+        var found = true;
+        for description in descriptions{
+            if(desc == description){
+                descriptions.removeAtIndex(index);
+                found = true;
+                break;
+            }
+            index++ ;
+        }
+        if(found){
+            self.spending -= transactions[index];
+            transactions.removeAtIndex(index);
+            currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
+        }
     }
+    
     func getName()->String{
         return name;
     }
@@ -46,15 +62,44 @@ class BucketModel {
     func currentBalance()->Double{
         return spending;
     }
-    func addtoBalance(s:Double) -> Bool{
-        if(spending + s < limit){
+    
+    func availableBudget()->Double{
+        return limit - spending;
+    }
+    
+    func getTransactions()->[Double]{
+        return transactions;
+    }
+    func getDescriptions()->[String]{
+        return descriptions;
+    }
+    func getTransactionTypes()->[Int]{
+        return transactionTypes;
+    }
+    func addtoBalance(s:Double, desc:String) -> Bool{
+        if(spending + s <= limit){
             spending += s;
             currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
+            transactions.append(s);
+            descriptions.append(desc);
+            transactionTypes.append(0);
             return true;
         }else{
             return false;
         }
         
+    }
+
+    func addTransfer(amt:Double, desc:String, sign:Int){
+        if(sign == 1){
+            limit += amt;
+        }else{
+            limit -= amt;
+        }
+        currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
+        transactions.append(amt);
+        descriptions.append(desc);
+        transactionTypes.append(1);
     }
     func subtractFromBalance(s:Double){
         spending -= s;

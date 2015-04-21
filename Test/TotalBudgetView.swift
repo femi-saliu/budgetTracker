@@ -35,8 +35,9 @@ class TotalBudgetView: UIView {
         textFrameW = frame.width * (1 - 2 * xmarginProportion);
         textFrameH = frame.height * (1 - 2 * ymarginProportion);
         budgetNum = UILabel(frame: CGRect(x: textFrameX, y: textFrameY, width: textFrameW, height: textFrameH));
+        budgetNum.adjustsFontSizeToFitWidth = true;
         budgetNum.text = String(format:"%.02f / %.02f", currentSpending, totalLimit);
-        budgetNum.font = UIFont(name: budgetNum.font.fontName, size: 35)
+        budgetNum.font = UIFont(name: budgetNum.font.fontName, size: 30)
         budgetNum.textAlignment = NSTextAlignment.Center;
         //sbudgetNum.textColor = UIColor(red: textR, green: textG, blue: textB, alpha: defaultAlpha);
         self.addSubview(budgetNum);
@@ -48,6 +49,11 @@ class TotalBudgetView: UIView {
     
     func setTotalBudget(limit:Double){
         self.totalLimit = limit;
+        budgetNum.text = String(format:"%.02f / %.02f", currentSpending, totalLimit);
+    }
+    
+    func setSpending(spend:Double){
+        self.currentSpending = spend;
         budgetNum.text = String(format:"%.02f / %.02f", currentSpending, totalLimit);
     }
     

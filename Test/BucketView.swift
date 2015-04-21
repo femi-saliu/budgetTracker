@@ -15,6 +15,11 @@
 **/
 import UIKit
 
+protocol BucketViewProtocol{
+    func addTapped();
+    func minusTapped();
+}
+
 class BucketView:UIView {
     var subFrames = [CGRect]();
     
@@ -34,6 +39,8 @@ class BucketView:UIView {
     
     var nameLabel = UILabel();
     var budgetLabel = UILabel();
+    
+    var delegate:BucketViewProtocol!;
     
     @IBOutlet var addButton:UIButton!;
     @IBOutlet var minusButton:UIButton!;
@@ -76,6 +83,9 @@ class BucketView:UIView {
         self.nameLabel.font = UIFont(name: "Helvetica", size: 35);
         self.budgetLabel.font = UIFont(name: "Helvetica", size: 40);
         
+        self.nameLabel.adjustsFontSizeToFitWidth = true;
+        self.budgetLabel.adjustsFontSizeToFitWidth = true;
+        
         self.addSubview(nameLabel);
         self.addSubview(budgetLabel);
         
@@ -83,19 +93,24 @@ class BucketView:UIView {
         addButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
         addButton.backgroundColor = UIColor.whiteColor();
         addButton.alpha = 0.5;
+        addButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), forState: .Normal);
+        addButton.addTarget(self, action: "addTapped:", forControlEvents: .TouchUpInside);
         self.addSubview(addButton);
+        
         
         minusButton.setTitle("-", forState: UIControlState.Normal);
         minusButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
         minusButton.backgroundColor = UIColor.whiteColor();
         minusButton.alpha = 0.5;
+        minusButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), forState: .Normal);
+        minusButton.addTarget(self, action: "minusTapped:", forControlEvents: .TouchUpInside);
         self.addSubview(minusButton);
     }
     
     func setColor(color:UIColor){
         self.backgroundColor = color;
-        self.addButton.setTitleColor(color, forState: UIControlState.Normal);
-        self.minusButton.setTitleColor(color, forState: UIControlState.Normal);
+        //self.addButton.setTitleColor(color, forState: UIControlState.Normal);
+        //self.minusButton.setTitleColor(color, forState: UIControlState.Normal);
     }
     
     func setTitle(name:String){
@@ -104,5 +119,23 @@ class BucketView:UIView {
     
     func setSpending(limit:Double, spending:Double){
         self.budgetLabel.text = String(format:"%.02f / %.02f", spending, limit);
+    }
+    
+    func setCancelMinus(){
+        self.minusButton.setTitle("Cancel", forState: .Normal);
+        minusButton.titleLabel?.font = UIFont(name: "Helvetica", size: 30);
+    }
+    
+    func setOriginalMinus(){
+        self.minusButton.setTitle("-", forState: .Normal);
+        minusButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
+    }
+    
+    @IBAction func addTapped(sender:AnyObject){
+        self.delegate.addTapped();
+    }
+    
+    @IBAction func minusTapped(sender:AnyObject){
+                self.delegate.minusTapped();
     }
 }

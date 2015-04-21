@@ -30,6 +30,8 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     var totalBudgetView:TotalBudgetView!
     
     var delete = false;
+    var transfer = false;
+    var transferFromSelected = false;
     var firstTime = true;
     
     var trackerModel:TrackerModel = TrackerModel();
@@ -37,15 +39,19 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     var selectedBucketModel:BucketModel!
     var selectedBucketName = "";
     
+    var transferFromName = "";
+    var transferToName = "";
+    
     @IBOutlet var addButton:UIButton!;
     @IBOutlet var deleteButton:UIButton!;
+    @IBOutlet var transferButton:UIButton!;
     @IBOutlet var addOptionsContainer:UIVisualEffectView!;
     @IBOutlet var addOptions:AddOptionsView!;
     @IBOutlet var firstTimeSetUp:FirstTimeView!;
     
     
     override func viewDidLoad() {
-        println("ADDViewControllerVDL");
+        //println("ADDViewControllerVDL");
         super.viewDidLoad()
         self.setUpBucketList();
         self.setUpTotalBudgetView();
@@ -72,7 +78,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         }
     }
     
-    //to do
+    //to do, read from core data
     func setTotalBudget(totalBudget: Double, hue:CGFloat){
         self.trackerModel.setTotalBudget(totalBudget);
         self.trackerModel.setMainHue(hue);
@@ -217,21 +223,60 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         }
     }
     
+    @IBAction func transferTapped(sender:AnyObject){
+        if(!transfer){
+            self.transferButton.setTitle("Cancel", forState: .Normal);
+            self.transfer = true;
+            self.transferFromSelected = false;
+            self.bucketList.setTransferMode(1);
+        }else{
+            self.transferButton.setTitle("Transfer", forState: .Normal);
+            self.transfer = false;
+            self.transferFromSelected = false;
+            self.bucketList.setTransferMode(0);
+        }
+    }
+    
     func deleteBucketCell(bucket:BucketCell){
+        self.trackerModel.removeBucket(bucket.getName());
         self.bucketList!.deleteBucketCell(bucket);
+        self.loadBucketsWithModel();
+    }
+    
+    func loadBucketsWithModel(){
+        self.totalBudgetView.setSpending(self.trackerModel.getSpending());
+        self.totalBudgetView.setColor(self.trackerModel.getMainColor());
+        let buckets = self.trackerModel.getBuckets();
+        for bucket in buckets{
+            self.bucketList.setBucketColorWithName(bucket.getName(), color:bucket.getColor());
+            self.bucketList.setBucketSpendingWithName(bucket.getName(), s:bucket.currentBalance());
+        }
     }
     
     @IBAction func bucketTapped(sender:BucketCell){
         let bucket = sender;
         if(delete){
             self.deleteBucketCell(bucket);
+        }else if(transfer){
+            if(!transferFromSelected){
+                transferFromName = sender.getName();
+            }else{
+                transferToName = sender.getName();
+            }
         }else{
-//            var bucketModel = self.trackerModel.getBucket(sender.getName());
-//            self.selectedBucketModel = bucketModel;
             self.selectedBucketName = sender.getName();
             self.goToBucketView();
         }
         
+    }
+    
+    func transfer(amt:Double)->Bool{
+        if(self.trackerModel.transfer(transferFromName, to: transferToName, amount: amt)){
+            
+            return true;
+        }else{
+            return false;
+        }
     }
     
     func goToBucketView(){
@@ -240,5 +285,6 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     
     @IBAction func unwindFromBucketViewController(segue: UIStoryboardSegue){
         println("unwind");
+        self.loadBucketsWithModel();
     }
 }
