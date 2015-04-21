@@ -10,6 +10,8 @@ import UIKit
 
 class TransactionCell: UIButton {
     var title:String = "";
+    var tagNum = 0;
+    var type = 0;
     var currentSpending:Double = 0;
     var amount:Double = 0;
     var nameLabel:UILabel = UILabel();
@@ -21,14 +23,16 @@ class TransactionCell: UIButton {
     var blurView:UIVisualEffectView!;
     var deleteMessage:UILabel!;
     
-    init(title: String, amount:Double, frame:CGRect, sign:Double) {
+    init(title: String, amount:Double, frame:CGRect, tag:Int, type:Int) {
         let amountx:CGFloat = 0;
         let titlex:CGFloat = frame.width / 2;
         let labely:CGFloat = 0;
         let labelw = frame.width / 2;
         let labelh = frame.height;
         self.title = title;
+        self.tagNum = tag;
         self.amount = amount;
+        self.type = type;
         nameLabel = UILabel(frame:CGRect(x: titlex, y: labely, width: labelw, height: labelh));
         amountLabel = UILabel(frame:CGRect(x: amountx, y: labely, width: labelw, height: labelh));
         
@@ -54,7 +58,7 @@ class TransactionCell: UIButton {
         nameLabel.textColor = defaultTextColor;
         nameLabel.alpha = 1;
         nameLabel.adjustsFontSizeToFitWidth = true;
-        if(sign == -1){
+        if(type == 0){
             amountLabel.text = String(format:"-%.02f", amount);
         }else{
             amountLabel.text = String(format:"+%.02f", amount);
@@ -79,8 +83,16 @@ class TransactionCell: UIButton {
         return title;
     }
     
+    func getTag()->Int {
+        return tagNum;
+    }
+    
     func getAmount()->Double {
         return amount;
+    }
+    
+    func getType()->Int{
+        return type;
     }
     
 //    func setSpending(spend:Double){
@@ -93,13 +105,14 @@ class TransactionCell: UIButton {
 //    }
     
     func deleteMode(inDeleteMode:Bool){
-        if(inDeleteMode){
-            self.deleteMessage.textColor = currentColor;
+        if(type == 0){
+            if(inDeleteMode){
+                self.deleteMessage.textColor = currentColor;
+            }
+            UIView.animateWithDuration(0.7, delay: 0.2, options: .ShowHideTransitionViews, animations: {
+                self.deleteMessage.hidden = !inDeleteMode;
+                }, completion: { finished in
+            })
         }
-        UIView.animateWithDuration(0.7, delay: 0.2, options: .ShowHideTransitionViews, animations: {
-            self.deleteMessage.hidden = !inDeleteMode;
-            }, completion: { finished in
-        })
-        
     }
 }

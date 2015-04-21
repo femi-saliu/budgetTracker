@@ -44,10 +44,10 @@ class TransactionList:UIScrollView {
         super.init(coder: aDecoder)
     }
     
-    func addNewTransaction(desc:String,amount:Double, sign:Double){
+    func addNewTransaction(desc:String,amount:Double, type:Int){
         println("add transaction");
         var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
-        var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, sign:sign);
+        var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, tag: cellCount, type:type);
         
         buckets.append(newCell);
 
@@ -83,38 +83,37 @@ class TransactionList:UIScrollView {
     
     @IBAction func deleteTransactionCell(sender:TransactionCell){
         println("delete");
-        self.transactionCellDelegate?.transactionDeleted(sender.getName(), amt:sender.getAmount());
-        var index = 0;
-        var found = false;
-        var name = sender.getName();
-        for bucket in buckets{
-            if(bucket.getName()==name){
-                buckets[index].removeFromSuperview();
-                buckets.removeAtIndex(index);
-                found = true;
-                break;
+        if(sender.getType()==0){
+            self.transactionCellDelegate?.transactionDeleted(sender.getName(), amt:sender.getAmount());
+            var index = 0;
+            var found = false;
+            var tagNum = sender.getTag();
+            for bucket in buckets{
+                if(bucket.getTag()==tagNum){
+                    buckets[index].removeFromSuperview();
+                    buckets.removeAtIndex(index);
+                    found = true;
+                    break;
+                }
+                index++;
             }
-            index++;
-        }
-        if(found){
-            for(var i = index; i < buckets.count; i++){
-                UIView.animateWithDuration(0.7, delay: 0.2, options: .CurveEaseOut, animations: {
-                    var bucketFrame = self.buckets[i].frame;
-                    bucketFrame.origin.y -= self.bucketFrameH;
-                    
-                    self.buckets[i].frame = bucketFrame;
-                    }, completion: { finished in
-                        //println("Buckets moved")
-                })
-                //buckets[i-1] = buckets[i];
+            if(found){
+                for(var i = index; i < buckets.count; i++){
+                    UIView.animateWithDuration(0.7, delay: 0.2, options: .CurveEaseOut, animations: {
+                        var bucketFrame = self.buckets[i].frame;
+                        bucketFrame.origin.y -= self.bucketFrameH;
+                        
+                        self.buckets[i].frame = bucketFrame;
+                        }, completion: { finished in
+                    })
+                }
             }
-            //buckets.removeLast();
+            bucketFrameY -= bucketFrameH;
+            currentYOff -=  bucketFrameH;
+            cellCount--;
+            self.currentContentHeight -= bucketFrameH;
+            self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
         }
-        bucketFrameY -= bucketFrameH;
-        currentYOff -=  bucketFrameH;
-        cellCount--;
-        self.currentContentHeight -= bucketFrameH;
-        self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
     }
     
     @IBAction func cellSelected(sender: AnyObject){

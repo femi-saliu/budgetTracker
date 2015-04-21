@@ -84,6 +84,12 @@ class BucketList:UIScrollView {
         }
     }
     
+    func setTransferMode(mode:Int){
+        for bucket in buckets{
+            bucket.transferMode(mode);
+        }
+    }
+    
     @IBAction func deleteBucketCell(sender:BucketCell){
         println("delete");
         var index = 0;

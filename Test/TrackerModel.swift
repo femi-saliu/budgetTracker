@@ -48,6 +48,10 @@ class TrackerModel {
         return self.getBucket(name)!.getDescriptions();
     }
     
+    func getTransactionTypesWithName(name:String) -> [Int]{
+        return self.getBucket(name)!.getTransactionTypes();
+    }
+    
     func setMainHue(hue:CGFloat){
         self.currentHue = hue;
     }
@@ -116,10 +120,15 @@ class TrackerModel {
             index++;
         }
     }
-    func transfer(from:BucketModel,to:BucketModel,amount:Double){
-        if(from.getLimit() > amount){
-            from.addToLimit(-amount);
-            to.addToLimit(amount);
+    func transfer(from:String,to:String,amount:Double)->Bool{
+        let fromBucket = self.getBucket(from)!;
+        let toBucket = self.getBucket(to)!;
+        if(fromBucket.availableBudget() > amount){
+            //fromBucket.addToLimit(amount);
+            //toBucket.addToLimit(amount);
+            return true;
+        }else{
+            return false;
         }
         
     }
@@ -133,6 +142,10 @@ class TrackerModel {
             return false;
         }
     }
+    
+//    func addNewTransfer(name:String, amount:Double, sign:Int){
+//        self.getBucket(name)!.
+//    }
     
     func getColorWithBucket(name:String) -> UIColor?{
         return self.getBucket(name)!.getColor();

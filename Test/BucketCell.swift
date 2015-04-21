@@ -20,7 +20,10 @@ class BucketCell: UIButton {
     var currentColor:UIColor = UIColor.whiteColor();
     
     var blurView:UIVisualEffectView!;
-    var deleteMessage:UILabel!;
+    var message:UILabel!;
+    var deleteString:String = "Tap to delete";
+    var transferFromString:String = "Select transfer from";
+    var transferToString:String = "Select transfer to";
 
     init(title: String, limit:Double, frame:CGRect) {
         let titlex:CGFloat = 0;
@@ -35,11 +38,11 @@ class BucketCell: UIButton {
         
         var deleteFrame = CGRect(x: titlex, y: labely, width: frame.width, height: frame.height);
         
-        self.deleteMessage = UILabel(frame:deleteFrame);
-        self.deleteMessage.backgroundColor = UIColor.blackColor();
-        self.deleteMessage.alpha = 0.7;
-        self.deleteMessage.text = "Tap to delete";
-        self.deleteMessage.textAlignment = NSTextAlignment.Center;
+        self.message = UILabel(frame:deleteFrame);
+        self.message.backgroundColor = UIColor.blackColor();
+        self.message.alpha = 0.7;
+        //self.message.text = "Tap to delete";
+        self.message.textAlignment = NSTextAlignment.Center;
         
         super.init(frame: frame);
 
@@ -61,8 +64,8 @@ class BucketCell: UIButton {
         limitLabel.alpha = 1;
         limitLabel.adjustsFontSizeToFitWidth = true;
         
-        self.addSubview(deleteMessage);
-        self.deleteMessage.hidden = true;
+        //self.addSubview(deleteMessage);
+        self.message.hidden = true;
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -83,12 +86,27 @@ class BucketCell: UIButton {
         self.backgroundColor = currentColor;
     }
     
+    func transferMode(mode:Int){
+        if(mode == 0){
+            self.message.hidden = true;
+        }else if(mode == 1){
+            self.message.text = transferFromString;
+            self.message.textColor = currentColor;
+            self.message.hidden = false;
+        }else{
+            self.message.text = transferToString;
+            self.message.textColor = currentColor;
+            self.message.hidden = false;
+        }
+    }
+    
     func deleteMode(inDeleteMode:Bool){
         if(inDeleteMode){
-            self.deleteMessage.textColor = currentColor;
+            self.message.text = deleteString;
+            self.message.textColor = currentColor;
         }
         UIView.animateWithDuration(0.7, delay: 0.2, options: .ShowHideTransitionViews, animations: {
-            self.deleteMessage.hidden = !inDeleteMode;
+            self.message.hidden = !inDeleteMode;
             }, completion: { finished in
         })
         

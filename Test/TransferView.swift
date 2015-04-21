@@ -1,29 +1,32 @@
 //
-//  BucketAddView.swift
+//  TransferView.swift
 //  Test
 //
-//  Created by Zehao Zhang on 15/4/13.
+//  Created by Zehao Zhang on 15/4/20.
 //  Copyright (c) 2015年 Zehao Zhang. All rights reserved.
 //
 
 import UIKit
 
-protocol BucketAddProtocol{
-    func addTransaction(amt:Double, desc:String, type:Int)->Bool;
-    func cancel();
-    func characterOverFlow();
-    func overBudget();
+import UIKit
+
+protocol TransferProtocol{
+    //func addTransaction(amt:Double, desc:String)->Bool;
+    func transfer(amt:Double)->Bool;
+    func cancelTransfer();
+    //func characterOverFlow();
+    func overTransferBudget();
 }
 
-class BucketAddView:UIView, UITextFieldDelegate {
+class TransferView:UIView, UITextFieldDelegate {
     let viewAlpha:CGFloat = 0.4;
-    let numFrames:CGFloat = 7;
+    let numFrames:CGFloat = 5;
     let frameMargin:CGFloat = 0.1;
     let subFrameGap:CGFloat = 3;
     var frameX:CGFloat = 0;
     var frameY:CGFloat = 0;
     var subFrames = [CGRect]();
-    var delegate:BucketAddProtocol!
+    var delegate:TransferProtocol!
     
     var amountLabel = UILabel();
     var amountField = UITextField();
@@ -40,7 +43,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
         self.makeFrames(numFrames, motherFrame: subFrame);
         self.setUpView();
         self.backgroundColor = UIColor(red: 0.2, green: 0.8, blue: 1, alpha: viewAlpha);
-
+        
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -61,7 +64,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
             }
         }
     }
-
+    
     func setUpView(){
         self.amountLabel = UILabel(frame: subFrames[0]);
         self.amountLabel.text = "Transaction Amount";
@@ -75,24 +78,24 @@ class BucketAddView:UIView, UITextFieldDelegate {
         self.amountField.keyboardType = UIKeyboardType.NumberPad;
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
-        self.descriptionLabel = UILabel(frame: subFrames[2]);
-        self.descriptionLabel.text = "Description(Optional)";
-        self.descriptionLabel.textColor = UIColor.whiteColor();
-        self.descriptionLabel.textAlignment = .Center;
+//        self.descriptionLabel = UILabel(frame: subFrames[2]);
+//        self.descriptionLabel.text = "Description(Optional)";
+//        self.descriptionLabel.textColor = UIColor.whiteColor();
+//        self.descriptionLabel.textAlignment = .Center;
+//        
+//        self.descriptionField = UITextField(frame: subFrames[3]);
+//        self.descriptionField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
+//        //self.descriptionField.alpha = viewAlpha;
+//        self.descriptionField.delegate = self;
+//        self.descriptionField.keyboardType = UIKeyboardType.ASCIICapable;
+//        self.descriptionField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
-        self.descriptionField = UITextField(frame: subFrames[3]);
-        self.descriptionField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-        //self.descriptionField.alpha = viewAlpha;
-        self.descriptionField.delegate = self;
-        self.descriptionField.keyboardType = UIKeyboardType.ASCIICapable;
-        self.descriptionField.keyboardAppearance = UIKeyboardAppearance.Dark;
-        
-        self.doneButton = UIButton(frame: subFrames[6]);
+        self.doneButton = UIButton(frame: subFrames[4]);
         self.doneButton.setTitle("Done", forState: .Normal);
         //self.doneButton.backgroundColor = UIColor.whiteColor();
         self.doneButton.addTarget(self, action: "doneTapped:", forControlEvents: UIControlEvents.TouchUpInside);
         
-        self.cancelButton = UIButton(frame: subFrames[7]);
+        self.cancelButton = UIButton(frame: subFrames[5]);
         self.cancelButton.setTitle("Cancel", forState: .Normal);
         //self.cancelButton.backgroundColor = UIColor.whiteColor();
         self.cancelButton.addTarget(self, action: "cancelTapped:", forControlEvents: UIControlEvents.TouchUpInside);
@@ -106,25 +109,17 @@ class BucketAddView:UIView, UITextFieldDelegate {
     }
     
     @IBAction func cancelTapped(sender:AnyObject){
-        self.delegate.cancel();
+        self.delegate.cancelTransfer();
     }
     
     @IBAction func doneTapped(sender:AnyObject){
         var amount = (self.amountField.text as NSString).doubleValue;
-        var desc = self.descriptionField.text;
-        if(desc == ""){
-            desc = "N/A";
-        }
-        if(countElements(self.descriptionField.text) < 15){
-            if(self.delegate.addTransaction(amount, desc: desc, type:0)){
+            if(self.delegate.transfer(amount)){
                 self.amountField.text = "";
-                self.descriptionField.text = "";
+                //self.descriptionField.text = "";
             }else{
-                self.delegate.overBudget();
+                self.delegate.overTransferBudget();
             }
-        }else{
-            self.delegate.characterOverFlow();
-        }
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {

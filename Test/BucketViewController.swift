@@ -76,10 +76,11 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
     func loadTransactionListWithModel(model:TrackerModel){
         let transactions = model.getTransactionsWithName(bucketName);
         let descriptions = model.getDescriptionsWithName(bucketName);
+        let types = model.getTransactionTypesWithName(bucketName);
         
         assert(transactions.count == descriptions.count, "transaction & descriptions length not equal");
         for(var i = 0; i<transactions.count; i++){
-            self.transactionList.addNewTransaction(descriptions[i], amount: transactions[i], sign: -1);
+            self.transactionList.addNewTransaction(descriptions[i], amount: transactions[i], type:types[i]);
         }
     }
     
@@ -105,11 +106,11 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
         self.loadBucketWithModel(tracker);
     }
     
-    func addTransaction(amt: Double, desc:String) -> Bool{
+    func addTransaction(amt: Double, desc:String, type:Int) -> Bool{
         if(self.tracker.addNewTransaction(bucketName, amount: amt, desc: desc)){
             self.bucketAddView.hidden = true;
             self.subviewContainer.hidden = true;
-            self.transactionList.addNewTransaction(desc, amount: amt, sign: -1);
+            self.transactionList.addNewTransaction(desc, amount: amt, type:type);
             self.loadBucketWithModel(tracker);
             return true;
         }else{
@@ -156,7 +157,7 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
     }
     
     func transactionTapped(sender: TransactionCell) {
-        if(inDelete){
+        if(inDelete && sender.getType() == 0){
             self.transactionList.deleteTransactionCell(sender);
         }
     }

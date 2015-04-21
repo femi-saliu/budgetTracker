@@ -93,6 +93,7 @@ class BucketView:UIView {
         addButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
         addButton.backgroundColor = UIColor.whiteColor();
         addButton.alpha = 0.5;
+        addButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), forState: .Normal);
         addButton.addTarget(self, action: "addTapped:", forControlEvents: .TouchUpInside);
         self.addSubview(addButton);
         
@@ -101,14 +102,15 @@ class BucketView:UIView {
         minusButton.titleLabel?.font = UIFont(name: "Helvetica", size: 50);
         minusButton.backgroundColor = UIColor.whiteColor();
         minusButton.alpha = 0.5;
+        minusButton.setTitleColor(UIColor(red: 0, green: 0, blue: 0, alpha: 1), forState: .Normal);
         minusButton.addTarget(self, action: "minusTapped:", forControlEvents: .TouchUpInside);
         self.addSubview(minusButton);
     }
     
     func setColor(color:UIColor){
         self.backgroundColor = color;
-        self.addButton.setTitleColor(color, forState: UIControlState.Normal);
-        self.minusButton.setTitleColor(color, forState: UIControlState.Normal);
+        //self.addButton.setTitleColor(color, forState: UIControlState.Normal);
+        //self.minusButton.setTitleColor(color, forState: UIControlState.Normal);
     }
     
     func setTitle(name:String){

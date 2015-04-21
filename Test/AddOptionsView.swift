@@ -73,6 +73,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.nameLabel.text = "Bucket Name";
         self.nameLabel.textAlignment = NSTextAlignment.Center;
         self.nameLabel.textColor = UIColor.whiteColor();
+        self.nameLabel.adjustsFontSizeToFitWidth = true;
         
         self.nameField = UITextField(frame: frames[1]);
         self.nameField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
@@ -85,6 +86,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.budgetLabel.text = "Budget";
         self.budgetLabel.textAlignment = NSTextAlignment.Center;
         self.budgetLabel.textColor = UIColor.whiteColor();
+        self.budgetLabel.adjustsFontSizeToFitWidth = true;
         
         self.budgetField = UITextField(frame: frames[3]);
         self.budgetField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
@@ -96,6 +98,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.colorLabel = UILabel(frame:frames[4]);
         self.colorLabel.text = "Color: $";
         self.colorLabel.textAlignment = NSTextAlignment.Center;
+        self.colorLabel.adjustsFontSizeToFitWidth = true;
         
         self.colorSlider = UISlider(frame: frames[5]);
         self.colorSlider.maximumValue = 9;
