@@ -125,7 +125,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         addOptionsContainer.hidden = true;
     }
     
-    func setUpFirstTime(frame:CGRect){
+    func setUpForFirstTime(frame:CGRect){
         var addOptionsX = frame.width * addOptionsMargin;
         var addOptionsY = frame.height * addOptionsMargin;
         var addOptionsW = frame.width * (1 - 2 * addOptionsMargin);
@@ -196,10 +196,12 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "mainToBucket"){
+        if (segue.identifier == "presentBucket"){
             let bucketViewController = segue.destinationViewController as! BucketViewController;
-            let bucketModel = sender as! BucketModel;
-            bucketViewController.bucket = bucketModel;
+            //let bucketModel = sender as BucketModel;
+            //bucketViewController.bucket = self.selectedBucketModel!;
+            bucketViewController.bucketName = self.selectedBucketName;
+            bucketViewController.tracker = self.trackerModel;
         }
     }
     

@@ -133,8 +133,8 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         return true;
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        super.touchesBegan(touches, withEvent: event);
+    override func touchesBegan(touches: Set<NSObject>,  withEvent: UIEvent) {
+        super.touchesBegan(touches, withEvent: withEvent);
         budgetField.resignFirstResponder();
         nameField.resignFirstResponder();
     }
