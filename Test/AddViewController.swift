@@ -203,7 +203,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "presentBucket"){
-            let bucketViewController = segue.destinationViewController as BucketViewController;
+            let bucketViewController = segue.destinationViewController as! BucketViewController;
             bucketViewController.bucketName = self.selectedBucketName;
             bucketViewController.tracker = self.trackerModel;
         }

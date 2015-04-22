@@ -26,6 +26,12 @@
 		5BA971211ADC3ED200E80568 /* BucketAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA971201ADC3ED200E80568 /* BucketAddView.swift */; };
 		5BA971231ADCB3A000E80568 /* TransactionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA971221ADCB3A000E80568 /* TransactionList.swift */; };
 		5BA971251ADCB3AE00E80568 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA971241ADCB3AE00E80568 /* TransactionCell.swift */; };
+		9287DA0E1AE5F1CF006B7404 /* BucketView.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287DA091AE5F1CF006B7404 /* BucketView.png */; };
+		9287DA0F1AE5F1CF006B7404 /* ColorPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287DA0A1AE5F1CF006B7404 /* ColorPicker.png */; };
+		9287DA101AE5F1CF006B7404 /* FirstView.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287DA0B1AE5F1CF006B7404 /* FirstView.png */; };
+		9287DA111AE5F1CF006B7404 /* OverBudget.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287DA0C1AE5F1CF006B7404 /* OverBudget.png */; };
+		9287DA121AE5F1CF006B7404 /* TapToDelte.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287DA0D1AE5F1CF006B7404 /* TapToDelte.png */; };
+		9287DA141AE5F420006B7404 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9287DA131AE5F420006B7404 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +68,12 @@
 		5BA971201ADC3ED200E80568 /* BucketAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketAddView.swift; sourceTree = "<group>"; };
 		5BA971221ADCB3A000E80568 /* TransactionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionList.swift; sourceTree = "<group>"; };
 		5BA971241ADCB3AE00E80568 /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		9287DA091AE5F1CF006B7404 /* BucketView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BucketView.png; sourceTree = "<group>"; };
+		9287DA0A1AE5F1CF006B7404 /* ColorPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorPicker.png; sourceTree = "<group>"; };
+		9287DA0B1AE5F1CF006B7404 /* FirstView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FirstView.png; sourceTree = "<group>"; };
+		9287DA0C1AE5F1CF006B7404 /* OverBudget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OverBudget.png; sourceTree = "<group>"; };
+		9287DA0D1AE5F1CF006B7404 /* TapToDelte.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapToDelte.png; sourceTree = "<group>"; };
+		9287DA131AE5F420006B7404 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +118,7 @@
 				5B2CDCE61AB12F9500F288C7 /* AppDelegate.swift */,
 				5B2CDD061AB1313200F288C7 /* TrackerModel.swift */,
 				5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */,
+				9287DA131AE5F420006B7404 /* SettingsViewController.swift */,
 				5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */,
 				5B09A9CA1AE5C8A100ABEA9D /* TransferView.swift */,
 				5B0EDBB31ACA2B1A00BE505F /* BucketList.swift */,
@@ -138,6 +151,11 @@
 			isa = PBXGroup;
 			children = (
 				5B2CDCFC1AB12F9600F288C7 /* TestTests.swift */,
+				9287DA091AE5F1CF006B7404 /* BucketView.png */,
+				9287DA0A1AE5F1CF006B7404 /* ColorPicker.png */,
+				9287DA0B1AE5F1CF006B7404 /* FirstView.png */,
+				9287DA0C1AE5F1CF006B7404 /* OverBudget.png */,
+				9287DA0D1AE5F1CF006B7404 /* TapToDelte.png */,
 				5B2CDCFA1AB12F9600F288C7 /* Supporting Files */,
 			);
 			path = TestTests;
@@ -241,6 +259,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9287DA121AE5F1CF006B7404 /* TapToDelte.png in Resources */,
+				9287DA111AE5F1CF006B7404 /* OverBudget.png in Resources */,
+				9287DA0E1AE5F1CF006B7404 /* BucketView.png in Resources */,
+				9287DA101AE5F1CF006B7404 /* FirstView.png in Resources */,
+				9287DA0F1AE5F1CF006B7404 /* ColorPicker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +281,7 @@
 				5B22136E1AC25E7400417589 /* BucketCell.swift in Sources */,
 				5B2CDD0B1AB134BD00F288C7 /* BucketModel.swift in Sources */,
 				5BA971211ADC3ED200E80568 /* BucketAddView.swift in Sources */,
+				9287DA141AE5F420006B7404 /* SettingsViewController.swift in Sources */,
 				5B0EDBB61ACA40D600BE505F /* AddOptionsView.swift in Sources */,
 				5B8E6CD81AD4DEAA00E7675E /* BucketViewController.swift in Sources */,
 				5B9A1D171ACC9A7900D9BABC /* BucketView.swift in Sources */,
