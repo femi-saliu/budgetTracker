@@ -32,6 +32,7 @@
 		9287DA111AE5F1CF006B7404 /* OverBudget.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287DA0C1AE5F1CF006B7404 /* OverBudget.png */; };
 		9287DA121AE5F1CF006B7404 /* TapToDelte.png in Resources */ = {isa = PBXBuildFile; fileRef = 9287DA0D1AE5F1CF006B7404 /* TapToDelte.png */; };
 		9287DA141AE5F420006B7404 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9287DA131AE5F420006B7404 /* SettingsViewController.swift */; };
+		928A20A31AE87D4300AB6FD4 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928A20A21AE87D4300AB6FD4 /* DateModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		9287DA0C1AE5F1CF006B7404 /* OverBudget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OverBudget.png; sourceTree = "<group>"; };
 		9287DA0D1AE5F1CF006B7404 /* TapToDelte.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapToDelte.png; sourceTree = "<group>"; };
 		9287DA131AE5F420006B7404 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		928A20A21AE87D4300AB6FD4 /* DateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				5B2CDCE61AB12F9500F288C7 /* AppDelegate.swift */,
 				5B2CDD061AB1313200F288C7 /* TrackerModel.swift */,
 				5B2CDD0A1AB134BD00F288C7 /* BucketModel.swift */,
+				928A20A21AE87D4300AB6FD4 /* DateModel.swift */,
 				9287DA131AE5F420006B7404 /* SettingsViewController.swift */,
 				5B2CDD0C1AB13C1000F288C7 /* AddViewController.swift */,
 				5B09A9CA1AE5C8A100ABEA9D /* TransferView.swift */,
@@ -276,6 +279,7 @@
 			files = (
 				5BA971251ADCB3AE00E80568 /* TransactionCell.swift in Sources */,
 				5B09A9CB1AE5C8A100ABEA9D /* TransferView.swift in Sources */,
+				928A20A31AE87D4300AB6FD4 /* DateModel.swift in Sources */,
 				5B8E6CDA1AD5D3B300E7675E /* TotalBudgetView.swift in Sources */,
 				5B2CDD071AB1313200F288C7 /* TrackerModel.swift in Sources */,
 				5B22136E1AC25E7400417589 /* BucketCell.swift in Sources */,
