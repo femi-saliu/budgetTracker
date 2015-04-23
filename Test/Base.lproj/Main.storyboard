@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UYb-z4-1jI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="UYb-z4-1jI">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
-        <!--budget-->
+        <!--Budget-->
         <scene sceneID="RVK-Wn-rHq">
             <objects>
                 <viewController id="Wbp-oF-bJe" customClass="AddViewController" customModule="Test" customModuleProvider="target" sceneMemberID="viewController">
@@ -24,7 +24,7 @@
                                     <action selector="deleteTapped:" destination="Wbp-oF-bJe" eventType="touchUpInside" id="jHC-87-1kA"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BudgetTrackerBT.png" id="FtN-5b-MGk">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BudgetTrackerBT" id="FtN-5b-MGk">
                                 <rect key="frame" x="40" y="140" width="241" height="288"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -55,7 +55,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="budget" id="0cr-z3-vHk"/>
+                    <tabBarItem key="tabBarItem" title="Budget" image="$" id="0cr-z3-vHk"/>
                     <navigationItem key="navigationItem" id="0VI-8O-bpE"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
@@ -105,7 +105,7 @@
             <objects>
                 <tabBarController id="UYb-z4-1jI" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="B76-Gi-ESL">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="B76-Gi-ESL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -122,7 +122,7 @@
         <!--Settings-->
         <scene sceneID="SKQ-O8-FMW">
             <objects>
-                <tableViewController id="Js1-SQ-vVs" sceneMemberID="viewController">
+                <tableViewController id="Js1-SQ-vVs" customClass="SettingsViewController" customModule="Test" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="33k-JI-Bfl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,7 +131,7 @@
                         <color key="sectionIndexColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <imageView key="tableFooterView" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BudgetTrackerBT.png" id="bki-tW-CX4">
+                        <imageView key="tableFooterView" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BudgetTrackerBT" id="bki-tW-CX4">
                             <rect key="frame" x="0.0" y="172" width="320" height="348"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -154,12 +154,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7ha-5i-9GC">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="7ha-5i-9GC">
                                                     <rect key="frame" x="8" y="5" width="144" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Change Total Budget">
                                                         <color key="titleColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="ChangeTotalButton:" destination="Js1-SQ-vVs" eventType="touchUpInside" id="qOj-Z6-rYn"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -172,8 +175,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="lQ2-Il-fnk">
-                                                    <rect key="frame" x="211" y="6" width="45" height="29"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" id="lQ2-Il-fnk">
+                                                    <rect key="frame" x="267" y="7" width="45" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <segments>
                                                         <segment title="$"/>
@@ -181,13 +184,13 @@
                                                     </segments>
                                                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </segmentedControl>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Change Currency" minimumFontSize="17" id="pfG-Og-vKy">
-                                                    <rect key="frame" x="8" y="5" width="144" height="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Currency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hmE-zV-sfA">
+                                                    <rect key="frame" x="8" y="11" width="134" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                    <color key="textColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -219,7 +222,7 @@
                             <outlet property="delegate" destination="Js1-SQ-vVs" id="Ghr-8P-0dC"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Settings" id="A64-rZ-0tr"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="SmallGear" id="A64-rZ-0tr"/>
                     <navigationItem key="navigationItem" id="5Fj-EP-maK"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yHg-if-wvr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,7 +231,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BudgetTrackerBT.png" width="212" height="270"/>
+        <image name="$" width="15" height="27"/>
+        <image name="BudgetTrackerBT" width="212" height="270"/>
+        <image name="SmallGear" width="20" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
