@@ -2,3 +2,5 @@ Budget Tracker QA Log
 
 - On the settings screen its possible to edit the label "Change Currency"
 - Its technically possible to create a bucket with a negative total amount of money
+- The UI gets distorted when the user rotates the screen. I think it's an easy fix just set the screen perspective to portrait only
+- If the user taps the button to delete a bucket, and then taps the new bucket button, after the new bucket is made, the user will still be in delete mode and when they try to use their new bucket, may accidentally delete it 
