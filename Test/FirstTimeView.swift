@@ -65,7 +65,7 @@ class FirstTimeView: UIView,UITextFieldDelegate {
     func setUpView(frames:[CGRect]){
         
         self.budgetLabel = UILabel(frame:frames[0]);
-        self.budgetLabel.text = "Budget";
+        self.budgetLabel.text = "Total Budget";
         self.budgetLabel.textAlignment = NSTextAlignment.Center;
         self.budgetLabel.textColor = UIColor.whiteColor();
         
