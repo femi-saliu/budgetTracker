@@ -24,6 +24,7 @@ class BucketModel {
     var balances = [Double]();
     var descriptions = [String]();
     var transactionTypes = [Int]();
+    var transactionSigns = [Int]();
     
     init(n:String,newlimit:Double, hue:CGFloat) {
         limit = newlimit;
@@ -76,6 +77,9 @@ class BucketModel {
     func getTransactionTypes()->[Int]{
         return transactionTypes;
     }
+    func getTransactionSigns()->[Int]{
+        return transactionSigns;
+    }
     func addtoBalance(s:Double, desc:String) -> Bool{
         if(spending + s <= limit){
             spending += s;
@@ -83,6 +87,7 @@ class BucketModel {
             transactions.append(s);
             descriptions.append(desc);
             transactionTypes.append(0);
+            transactionSigns.append(-1);
             return true;
         }else{
             return false;
@@ -100,6 +105,7 @@ class BucketModel {
         transactions.append(amt);
         descriptions.append(desc);
         transactionTypes.append(1);
+        transactionSigns.append(sign);
     }
     func subtractFromBalance(s:Double){
         spending -= s;

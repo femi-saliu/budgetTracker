@@ -17,13 +17,14 @@ class TransactionCell: UIButton {
     var nameLabel:UILabel = UILabel();
     var amountLabel:UILabel = UILabel();
     let defaultTextColor = UIColor.blackColor();
+    let transferTextColor = UIColor.redColor();
     
     var currentColor:UIColor = UIColor.whiteColor();
     
     var blurView:UIVisualEffectView!;
     var deleteMessage:UILabel!;
     
-    init(title: String, amount:Double, frame:CGRect, tag:Int, type:Int) {
+    init(title: String, amount:Double, frame:CGRect, tag:Int, type:Int, sign:Int) {
         let amountx:CGFloat = 0;
         let titlex:CGFloat = frame.width / 2;
         let labely:CGFloat = 0;
@@ -55,21 +56,30 @@ class TransactionCell: UIButton {
         nameLabel.font = UIFont(name: "Helvetica",
             size: 16.0)
         nameLabel.textAlignment = NSTextAlignment.Center;
-        nameLabel.textColor = defaultTextColor;
         nameLabel.alpha = 1;
         nameLabel.adjustsFontSizeToFitWidth = true;
-        if(type == 0){
-            amountLabel.text = String(format:"-%.02f", amount);
-        }else{
-            amountLabel.text = String(format:"+%.02f", amount);
-        }
         
         amountLabel.font = UIFont(name: "Helvetica",
             size: 16.0)
         amountLabel.textAlignment = NSTextAlignment.Center;
-        amountLabel.textColor = defaultTextColor;
         amountLabel.alpha = 1;
         amountLabel.adjustsFontSizeToFitWidth = true;
+        
+        if(type == 0){
+            nameLabel.textColor = defaultTextColor;
+            amountLabel.textColor = defaultTextColor;
+            amountLabel.text = String(format:"-%.02f", amount);
+        }else{
+            nameLabel.textColor = transferTextColor;
+            amountLabel.textColor = transferTextColor;
+            if(sign == 1){
+                amountLabel.text = String(format:"+%.02f", amount);
+            }else{
+                amountLabel.text = String(format:"-%.02f", amount);
+            }
+        }
+        
+        
         
         self.addSubview(deleteMessage);
         self.deleteMessage.hidden = true;

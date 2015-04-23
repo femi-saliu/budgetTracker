@@ -20,10 +20,13 @@ class BucketCell: UIButton {
     var currentColor:UIColor = UIColor.whiteColor();
     
     var blurView:UIVisualEffectView!;
-    var message:UILabel!;
-    var deleteString:String = "Tap to delete";
-    var transferFromString:String = "Select transfer from";
-    var transferToString:String = "Select transfer to";
+    var deleteMessage:UILabel!;
+    var transferFromMessage:UILabel!;
+    var transferToMessage:UILabel!;
+    
+    var deleteString = "Tap to delete";
+    var transferFromString = "Tap to select transfer from";
+    var transferToString = "Tap to select transfer to";
 
     init(title: String, limit:Double, frame:CGRect) {
         let titlex:CGFloat = 0;
@@ -36,13 +39,25 @@ class BucketCell: UIButton {
         nameLabel = UILabel(frame:CGRect(x: titlex, y: labely, width: labelw, height: labelh));
         limitLabel = UILabel(frame:CGRect(x: limitx, y: labely, width: labelw, height: labelh));
         
-        var deleteFrame = CGRect(x: titlex, y: labely, width: frame.width, height: frame.height);
+        var messageFrame = CGRect(x: titlex, y: labely, width: frame.width, height: frame.height);
         
-        self.message = UILabel(frame:deleteFrame);
-        self.message.backgroundColor = UIColor.blackColor();
-        self.message.alpha = 0.7;
-        //self.message.text = "Tap to delete";
-        self.message.textAlignment = NSTextAlignment.Center;
+        self.deleteMessage = UILabel(frame:messageFrame);
+        self.deleteMessage.backgroundColor = UIColor.blackColor();
+        self.deleteMessage.alpha = 0.7;
+        self.deleteMessage.text = "Tap to delete";
+        self.deleteMessage.textAlignment = NSTextAlignment.Center;
+        
+        self.transferFromMessage = UILabel(frame:messageFrame);
+        self.transferFromMessage.backgroundColor = UIColor.blackColor();
+        self.transferFromMessage.alpha = 0.7;
+        self.transferFromMessage.text = "Tap to select transfer from";
+        self.transferFromMessage.textAlignment = NSTextAlignment.Center;
+        
+        self.transferToMessage = UILabel(frame:messageFrame);
+        self.transferToMessage.backgroundColor = UIColor.blackColor();
+        self.transferToMessage.alpha = 0.7;
+        self.transferToMessage.text = "Tap to select transfer to";
+        self.transferToMessage.textAlignment = NSTextAlignment.Center;
         
         super.init(frame: frame);
 
@@ -64,8 +79,12 @@ class BucketCell: UIButton {
         limitLabel.alpha = 1;
         limitLabel.adjustsFontSizeToFitWidth = true;
         
-        //self.addSubview(deleteMessage);
-        self.message.hidden = true;
+        self.addSubview(deleteMessage);
+        self.addSubview(transferFromMessage);
+        self.addSubview(transferToMessage);
+        self.deleteMessage.hidden = true;
+        self.transferFromMessage.hidden = true;
+        self.transferToMessage.hidden = true;
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -81,34 +100,47 @@ class BucketCell: UIButton {
         limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
     }
     
+    func setLimit(l:Double){
+        self.limit = l;
+        limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
+    }
+    
     func setColor(color:UIColor){
         self.currentColor = color;
         self.backgroundColor = currentColor;
     }
     
     func transferMode(mode:Int){
+        self.deleteMessage.hidden = true;
         if(mode == 0){
-            self.message.hidden = true;
+            self.transferFromMessage.hidden = true;
+            self.transferToMessage.hidden = true;
         }else if(mode == 1){
-            self.message.text = transferFromString;
-            self.message.textColor = currentColor;
-            self.message.hidden = false;
+            self.transferFromMessage.textColor = currentColor;
+            self.transferToMessage.hidden = true;
+            self.transferFromMessage.hidden = false;
         }else{
-            self.message.text = transferToString;
-            self.message.textColor = currentColor;
-            self.message.hidden = false;
+            self.transferToMessage.textColor = currentColor;
+            self.transferFromMessage.hidden = true;
+            self.transferToMessage.hidden = false;
         }
     }
     
     func deleteMode(inDeleteMode:Bool){
         if(inDeleteMode){
-            self.message.text = deleteString;
-            self.message.textColor = currentColor;
+            self.deleteMessage.textColor = currentColor;
+            self.transferFromMessage.hidden = true;
+            self.transferToMessage.hidden = true;
         }
         UIView.animateWithDuration(0.7, delay: 0.2, options: .ShowHideTransitionViews, animations: {
-            self.message.hidden = !inDeleteMode;
+            self.deleteMessage.hidden = !inDeleteMode;
             }, completion: { finished in
         })
         
+    }
+    
+    func transferDone(){
+        self.transferToMessage.hidden = true;
+        self.transferFromMessage.hidden = true;
     }
 }

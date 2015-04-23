@@ -78,17 +78,6 @@ class TransferView:UIView, UITextFieldDelegate {
         self.amountField.keyboardType = UIKeyboardType.NumberPad;
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
-//        self.descriptionLabel = UILabel(frame: subFrames[2]);
-//        self.descriptionLabel.text = "Description(Optional)";
-//        self.descriptionLabel.textColor = UIColor.whiteColor();
-//        self.descriptionLabel.textAlignment = .Center;
-//        
-//        self.descriptionField = UITextField(frame: subFrames[3]);
-//        self.descriptionField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-//        //self.descriptionField.alpha = viewAlpha;
-//        self.descriptionField.delegate = self;
-//        self.descriptionField.keyboardType = UIKeyboardType.ASCIICapable;
-//        self.descriptionField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.doneButton = UIButton(frame: subFrames[4]);
         self.doneButton.setTitle("Done", forState: .Normal);
@@ -116,7 +105,6 @@ class TransferView:UIView, UITextFieldDelegate {
         var amount = (self.amountField.text as NSString).doubleValue;
             if(self.delegate.transfer(amount)){
                 self.amountField.text = "";
-                //self.descriptionField.text = "";
             }else{
                 self.delegate.overTransferBudget();
             }
