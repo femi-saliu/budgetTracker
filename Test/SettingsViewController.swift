@@ -37,46 +37,7 @@ class SettingsViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func CalculateStartDate () {
-        let calendar = NSCalendar.currentCalendar()
-        let Start = NSDate()
-        let components = calendar.components(.MonthCalendarUnit | .DayCalendarUnit | .YearCalendarUnit, fromDate: Start)
-        
-        var month = components.month
-        
-        var year = components.year
-        
-        var day = components.day
-        
-        func GetMonth()->Int{
-            return month
-        }
-        func GetYear()->Int{
-            return year
-        }
-        func Reset()->Bool{
-            let calendar = NSCalendar(identifier: NSGregorianCalendar)
-            
-            let components = NSDateComponents()
-            components.year = 1987
-            components.month = 3
-            components.day = 17
-            components.hour = 14
-            components.minute = 20
-            components.second = 0
-            
-            let date = calendar!.dateFromComponents(components)
-            if date != Start{
-                return true
-            }
-            else{
-                return false
-
-            }
-        }
-   
-        
-    }
+    
 }
 
 
