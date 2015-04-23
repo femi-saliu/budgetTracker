@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol {
+class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol {
     let screenSize:CGRect = UIScreen.mainScreen().bounds;
     let addOptionsMargin:CGFloat = 0.15;
     
@@ -47,6 +47,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     @IBOutlet var transferButton:UIButton!;
     @IBOutlet var addOptionsContainer:UIVisualEffectView!;
     @IBOutlet var addOptions:AddOptionsView!;
+    @IBOutlet var transferView:TransferView!;
     @IBOutlet var firstTimeSetUp:FirstTimeView!;
     
     
@@ -57,6 +58,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         self.setUpTotalBudgetView();
         self.setUpAddOptions(self.view.frame);
         self.setUpForFirstTime(self.view.frame);
+        self.setUpTransferView(self.view.frame);
         if(firstTime){
             firstTimeSetUp.hidden = false;
             addOptionsContainer.hidden = false;
@@ -144,6 +146,19 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         addOptionsContainer.hidden = true;
     }
     
+    func setUpTransferView(frame:CGRect){
+        var addOptionsX = frame.width * addOptionsMargin;
+        var addOptionsY = frame.height * addOptionsMargin;
+        var addOptionsW = frame.width * (1 - 2 * addOptionsMargin);
+        var addOptionsH = frame.height * (1 - 2 * addOptionsMargin);
+        var addOptionsFrame = CGRect(x: addOptionsX, y: addOptionsY, width: addOptionsW, height: addOptionsH);
+        self.transferView = TransferView(frame: addOptionsFrame);
+        self.view.addSubview(transferView);
+        transferView.delegate = self;
+        transferView.hidden = true;
+        addOptionsContainer.hidden = true;
+    }
+    
     @IBAction func addTapped(sender : AnyObject) {
         self.addOptions.setAvailableAmt(self.trackerModel.getAvailableBudget());
         self.addOptions.hidden = false;
@@ -223,10 +238,14 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
     
     @IBAction func transferTapped(sender:AnyObject){
         if(!transfer){
-            self.transferButton.setTitle("Cancel", forState: .Normal);
-            self.transfer = true;
-            self.transferFromSelected = false;
-            self.bucketList.setTransferMode(1);
+            if(self.trackerModel.numOfBuckets()>1){
+                self.transferButton.setTitle("Cancel", forState: .Normal);
+                self.transfer = true;
+                self.transferFromSelected = false;
+                self.bucketList.setTransferMode(1);
+            }else{
+                self.insufficientBuckets();
+            }
         }else{
             self.transferButton.setTitle("Transfer", forState: .Normal);
             self.transfer = false;
@@ -248,6 +267,7 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         for bucket in buckets{
             self.bucketList.setBucketColorWithName(bucket.getName(), color:bucket.getColor());
             self.bucketList.setBucketSpendingWithName(bucket.getName(), s:bucket.currentBalance());
+            self.bucketList.setBucketLimitWithName(bucket.getName(), l: bucket.getLimit());
         }
     }
     
@@ -257,9 +277,13 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
             self.deleteBucketCell(bucket);
         }else if(transfer){
             if(!transferFromSelected){
+                self.bucketList.setTransferMode(2);
+                transferFromSelected = true;
                 transferFromName = sender.getName();
             }else{
                 transferToName = sender.getName();
+                self.transferView.hidden = false;
+                self.addOptionsContainer.hidden = false;
             }
         }else{
             self.selectedBucketName = sender.getName();
@@ -268,9 +292,36 @@ class AddViewController: UIViewController, addOptionsProtocol, bucketCellProtoco
         
     }
     
+    func cancelTransfer() {
+        self.transferView.hidden = true;
+        self.addOptionsContainer.hidden = true;
+    }
+    
+    func overTransferBudget() {
+        let alertController = UIAlertController(title: "Insufficient budget", message:
+            "Not enough budget to be transfered", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func insufficientBuckets() {
+        let alertController = UIAlertController(title: "Insufficient buckets", message:
+            "Not enough bucket to perform transfer", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     func transfer(amt:Double)->Bool{
         if(self.trackerModel.transfer(transferFromName, to: transferToName, amount: amt)){
-            
+            self.loadBucketsWithModel();
+            self.transferView.hidden = true;
+            self.addOptionsContainer.hidden = true;
+            self.transferFromSelected = false;
+            self.transfer = false;
+            self.bucketList.setTransferDone();
+            self.transferButton.setTitle("Transfer", forState: .Normal);
             return true;
         }else{
             return false;

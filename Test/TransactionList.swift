@@ -44,10 +44,10 @@ class TransactionList:UIScrollView {
         super.init(coder: aDecoder)
     }
     
-    func addNewTransaction(desc:String,amount:Double, type:Int){
+    func addNewTransaction(desc:String,amount:Double, type:Int, sign:Int){
         println("add transaction");
         var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
-        var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, tag: cellCount, type:type);
+        var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, tag: cellCount, type:type, sign:sign);
         
         buckets.append(newCell);
 

@@ -77,10 +77,11 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
         let transactions = model.getTransactionsWithName(bucketName);
         let descriptions = model.getDescriptionsWithName(bucketName);
         let types = model.getTransactionTypesWithName(bucketName);
+        let signs = model.getTransactionSignsWithName(bucketName);
         
         assert(transactions.count == descriptions.count, "transaction & descriptions length not equal");
         for(var i = 0; i<transactions.count; i++){
-            self.transactionList.addNewTransaction(descriptions[i], amount: transactions[i], type:types[i]);
+            self.transactionList.addNewTransaction(descriptions[i], amount: transactions[i], type:types[i], sign:signs[i]);
         }
     }
     
@@ -110,7 +111,7 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
         if(self.tracker.addNewTransaction(bucketName, amount: amt, desc: desc)){
             self.bucketAddView.hidden = true;
             self.subviewContainer.hidden = true;
-            self.transactionList.addNewTransaction(desc, amount: amt, type:type);
+            self.transactionList.addNewTransaction(desc, amount: amt, type:type, sign:-1);
             self.loadBucketWithModel(tracker);
             return true;
         }else{

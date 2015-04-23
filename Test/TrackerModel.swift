@@ -31,6 +31,10 @@ class TrackerModel {
         self.currentSaturation = saturationLowerLimit;
     }
     
+    func loadTrackerWithData(){
+        
+    }
+    
     func setTotalBudget(totalBudget:Double){
         totalLimit = totalBudget;
 
@@ -50,6 +54,10 @@ class TrackerModel {
     
     func getTransactionTypesWithName(name:String) -> [Int]{
         return self.getBucket(name)!.getTransactionTypes();
+    }
+    
+    func getTransactionSignsWithName(name:String) -> [Int]{
+        return self.getBucket(name)!.getTransactionSigns();
     }
     
     func setMainHue(hue:CGFloat){
@@ -81,6 +89,10 @@ class TrackerModel {
     func removeTransactionWithName(name:String, desc:String, amt:Double){
         self.currentSpending -= amt;
         self.getBucket(name)!.removeTransaction(desc);
+    }
+    
+    func numOfBuckets()->Int{
+        return numBuckets;
     }
     
     func getSpending()->Double{
@@ -123,9 +135,9 @@ class TrackerModel {
     func transfer(from:String,to:String,amount:Double)->Bool{
         let fromBucket = self.getBucket(from)!;
         let toBucket = self.getBucket(to)!;
-        if(fromBucket.availableBudget() > amount){
-            //fromBucket.addToLimit(amount);
-            //toBucket.addToLimit(amount);
+        if(fromBucket.availableBudget() >= amount){
+            fromBucket.addTransfer(amount, desc: "Transfer to "+to, sign: -1);
+            toBucket.addTransfer(amount, desc: "Transfer from "+from, sign: 1);
             return true;
         }else{
             return false;
@@ -142,11 +154,7 @@ class TrackerModel {
             return false;
         }
     }
-    
-//    func addNewTransfer(name:String, amount:Double, sign:Int){
-//        self.getBucket(name)!.
-//    }
-    
+        
     func getColorWithBucket(name:String) -> UIColor?{
         return self.getBucket(name)!.getColor();
     }

@@ -78,6 +78,10 @@ class BucketList:UIScrollView {
         self.getBucket(name)?.setSpending(s);
     }
     
+    func setBucketLimitWithName(name:String, l:Double){
+        self.getBucket(name)!.setLimit(l);
+    }
+    
     func setDeleteMode(inDeleteMode:Bool){
         for bucket in buckets{
             bucket.deleteMode(inDeleteMode);
@@ -87,6 +91,12 @@ class BucketList:UIScrollView {
     func setTransferMode(mode:Int){
         for bucket in buckets{
             bucket.transferMode(mode);
+        }
+    }
+    
+    func setTransferDone(){
+        for bucket in buckets{
+            bucket.transferDone();
         }
     }
     
