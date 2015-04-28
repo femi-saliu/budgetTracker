@@ -22,7 +22,7 @@ class BucketModel {
     let defaultAlpha:CGFloat = 1;
     
     var transactions = [Double]();
-    var transactiontags = [Double]();
+    var transactionTags = [Int]();
     var descriptions = [String]();
     var transactionTypes = [Int]();
     var transactionSigns = [Int]();
@@ -34,20 +34,41 @@ class BucketModel {
         spending = 0;
         currentSaturation = saturationLowerLimit;
     }
-    func removeTransaction(desc:String){
+//    func removeTransaction(desc:String){
+//        var index = 0;
+//        var found = true;
+//        for description in descriptions{
+//            if(desc == description){
+//                descriptions.removeAtIndex(index);
+//                found = true;
+//                break;
+//            }
+//            index++ ;
+//        }
+//        if(found){
+//            self.spending -= transactions[index];
+//            transactions.removeAtIndex(index);
+//            currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
+//        }
+//    }
+    func removeTransaction(tag:Int){
         var index = 0;
         var found = true;
-        for description in descriptions{
-            if(desc == description){
+        for tagNum in transactionTags{
+            if(tag == tagNum){
                 descriptions.removeAtIndex(index);
+                self.removeTransactionData(transactionTags[index]);
                 found = true;
                 break;
             }
-            index++ ;
+            index++;
         }
         if(found){
             self.spending -= transactions[index];
             transactions.removeAtIndex(index);
+            transactionTags.removeAtIndex(index);
+            transactionTypes.removeAtIndex(index);
+            transactionSigns.removeAtIndex(index);
             currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
         }
     }
@@ -81,7 +102,10 @@ class BucketModel {
     func getTransactionSigns()->[Int]{
         return transactionSigns;
     }
-    func addtoBalance(s:Double, desc:String) -> Bool{
+    func getTransactionTags()->[Int]{
+        return transactionTags;
+    }
+    func addtoBalance(s:Double, desc:String, tag:Int) -> Bool{
         if(spending + s <= limit){
             spending += s;
             currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
@@ -89,7 +113,8 @@ class BucketModel {
             descriptions.append(desc);
             transactionTypes.append(0);
             transactionSigns.append(-1);
-            self.saveTransaction(s, desc: desc, sign: -1, type: 0);
+            transactionTags.append(tag);
+            self.saveTransaction(s, desc: desc, sign: -1, type: 0, tag:tag);
             return true;
         }else{
             return false;
@@ -108,10 +133,11 @@ class BucketModel {
         descriptions.append(desc);
         transactionTypes.append(1);
         transactionSigns.append(sign);
-        self.saveTransaction(amt, desc: desc, sign: sign, type: 1);
+        transactionTags.append(-1);
+        self.saveTransaction(amt, desc: desc, sign: sign, type: 1, tag:-1);
     }
     
-    func saveTransaction(amt:Double, desc:String, sign:Int, type:Int){
+    func saveTransaction(amt:Double, desc:String, sign:Int, type:Int, tag:Int){
         let appDelegate =
         UIApplication.sharedApplication().delegate! as AppDelegate;
         
@@ -131,7 +157,7 @@ class BucketModel {
         transaction.setValue(amt, forKey: "amount");
         transaction.setValue(type, forKey: "type");
         transaction.setValue(name, forKey: "bucket");
-        
+        transaction.setValue(tag, forKey: "tag");
         //4
         var error: NSError?
         if !managedContext.save(&error) {
@@ -139,7 +165,34 @@ class BucketModel {
         }
     }
     
-    func addTransaction(amt:Double, desc:String, sign:Int, type:Int){
+    func removeTransactionData(tag:Int){
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        let transactionFetchRequest = NSFetchRequest(entityName: "Transactions");
+        
+        
+        var error: NSError?
+        
+        let fetchedTransactionResult = managedContext.executeFetchRequest(transactionFetchRequest, error: &error) as? [NSManagedObject];
+        
+        if let trResult = fetchedTransactionResult {
+            for transactionData in trResult{
+                if(transactionData.valueForKey("tag")! as Int == tag){
+                    managedContext.deleteObject(transactionData);
+                }
+            }
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)");
+        }
+
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+    }
+    
+    func addTransaction(amt:Double, desc:String, sign:Int, type:Int, tag:Int){
         if(type == 0){
             spending += amt;
         }else{
@@ -154,6 +207,7 @@ class BucketModel {
         descriptions.append(desc);
         transactionTypes.append(type);
         transactionSigns.append(sign);
+        transactionTags.append(tag);
     }
     func subtractFromBalance(s:Double){
         spending -= s;

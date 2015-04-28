@@ -78,10 +78,11 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
         let descriptions = model.getDescriptionsWithName(bucketName);
         let types = model.getTransactionTypesWithName(bucketName);
         let signs = model.getTransactionSignsWithName(bucketName);
+        let tags = model.getTransactionTagsWithName(bucketName);
         
         assert(transactions.count == descriptions.count, "transaction & descriptions length not equal");
         for(var i = 0; i<transactions.count; i++){
-            self.transactionList.addNewTransaction(descriptions[i], amount: transactions[i], type:types[i], sign:signs[i]);
+            self.transactionList.addNewTransaction(descriptions[i], amount: transactions[i], type:types[i], sign:signs[i], tag:tags[i]);
         }
     }
     
@@ -102,16 +103,17 @@ class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProto
         subviewContainer.hidden = true;
     }
     
-    func transactionDeleted(name: String, amt:Double) {
-        self.tracker.removeTransactionWithName(bucketName, desc: name, amt:amt);
+    func transactionDeleted(tag:Int, amt:Double) {
+        self.tracker.removeTransactionWithName(bucketName, tag:tag, amt:amt);
         self.loadBucketWithModel(tracker);
     }
     
     func addTransaction(amt: Double, desc:String, type:Int) -> Bool{
-        if(self.tracker.addNewTransaction(bucketName, amount: amt, desc: desc)){
+        var tag = self.tracker.getTagNumber();
+        if(self.tracker.addNewTransaction(bucketName, amount: amt, desc: desc, tag:tag)){
             self.bucketAddView.hidden = true;
             self.subviewContainer.hidden = true;
-            self.transactionList.addNewTransaction(desc, amount: amt, type:type, sign:-1);
+            self.transactionList.addNewTransaction(desc, amount: amt, type:type, sign:-1, tag:tag);
             self.loadBucketWithModel(tracker);
             return true;
         }else{

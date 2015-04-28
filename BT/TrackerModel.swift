@@ -23,6 +23,7 @@ class TrackerModel {
     var overLimit = "overlimit";
     var emptyName = "empty";
     var success = "success";
+    var tagNumber = 0;
     
     var currentHue:CGFloat = 0;
     let saturationLowerLimit:CGFloat = 20 / 100;
@@ -63,7 +64,11 @@ class TrackerModel {
             let amount = transaction.valueForKey("amount")! as Double;
             let type = transaction.valueForKey("type")! as Int;
             let sign = transaction.valueForKey("sign")! as Int;
-            self.loadTransactionData(bucketName, amount: amount, desc: description, type: type, sign: sign);
+            let tag = transaction.valueForKey("tag")! as Int;
+            if(tag > tagNumber){
+                tagNumber = tag+1;
+            }
+            self.loadTransactionData(bucketName, amount: amount, desc: description, type: type, sign: sign, tag:tag);
         }
     }
     
@@ -99,6 +104,9 @@ class TrackerModel {
         totalLimit = totalBudget;
         
     }
+    func getTagNumber() -> Int{
+        return self.tagNumber;
+    }
     
     func getBuckets() -> [BucketModel]{
         return buckets;
@@ -120,6 +128,9 @@ class TrackerModel {
         return self.getBucket(name)!.getTransactionSigns();
     }
     
+    func getTransactionTagsWithName(name:String) -> [Int]{
+        return self.getBucket(name)!.getTransactionTags();
+    }
     func setMainHue(hue:CGFloat){
         self.currentHue = hue;
     }
@@ -155,9 +166,9 @@ class TrackerModel {
         return success;
     }
     
-    func removeTransactionWithName(name:String, desc:String, amt:Double){
+    func removeTransactionWithName(name:String, tag:Int, amt:Double){
         self.currentSpending -= amt;
-        self.getBucket(name)!.removeTransaction(desc);
+        self.getBucket(name)!.removeTransaction(tag);
     }
     
     func numOfBuckets()->Int{
@@ -211,6 +222,7 @@ class TrackerModel {
         if(fromBucket.availableBudget() >= amount){
             fromBucket.addTransfer(amount, desc: "Transfer to "+to, sign: -1);
             toBucket.addTransfer(amount, desc: "Transfer from "+from, sign: 1);
+            self.tagNumber+=2;
             return true;
         }else{
             return false;
@@ -218,16 +230,17 @@ class TrackerModel {
         
     }
     
-    func loadTransactionData(name:String, amount:Double, desc:String, type:Int, sign:Int){
-        self.getBucket(name)!.addTransaction(amount, desc: desc, sign: sign, type: type);
+    func loadTransactionData(name:String, amount:Double, desc:String, type:Int, sign:Int, tag:Int){
+        self.getBucket(name)!.addTransaction(amount, desc: desc, sign: sign, type: type, tag:tag);
         if(type == 0){
             self.currentSpending += amount;
             self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
         }
     }
     
-    func addNewTransaction(name:String, amount:Double, desc:String)->Bool{
-        if(self.getBucket(name)!.addtoBalance(amount, desc:desc)){
+    func addNewTransaction(name:String, amount:Double, desc:String, tag:Int)->Bool{
+        if(self.getBucket(name)!.addtoBalance(amount, desc:desc, tag:tag)){
+            self.tagNumber++;
             self.currentSpending += amount;
             self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
             return true;

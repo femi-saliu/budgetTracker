@@ -10,7 +10,7 @@ import UIKit
 
 protocol TransactionCellProtocol{
     func transactionTapped(sender:TransactionCell);
-    func transactionDeleted(name:String, amt:Double);
+    func transactionDeleted(tag:Int, amt:Double);
 }
 
 class TransactionList:UIScrollView {
@@ -44,10 +44,10 @@ class TransactionList:UIScrollView {
         super.init(coder: aDecoder)
     }
     
-    func addNewTransaction(desc:String,amount:Double, type:Int, sign:Int){
+    func addNewTransaction(desc:String,amount:Double, type:Int, sign:Int, tag:Int){
         println("add transaction");
         var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
-        var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, tag: cellCount, type:type, sign:sign);
+        var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, tag:tag, type:type, sign:sign);
         
         buckets.append(newCell);
         
@@ -84,7 +84,7 @@ class TransactionList:UIScrollView {
     @IBAction func deleteTransactionCell(sender:TransactionCell){
         println("delete");
         if(sender.getType()==0){
-            self.transactionCellDelegate?.transactionDeleted(sender.getName(), amt:sender.getAmount());
+            self.transactionCellDelegate?.transactionDeleted(sender.getTag(),amt:sender.getAmount());
             var index = 0;
             var found = false;
             var tagNum = sender.getTag();
