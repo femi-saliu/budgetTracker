@@ -100,7 +100,7 @@ class TrackerModel {
     }
     
     func removeBucketData(name:String){
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -113,7 +113,7 @@ class TrackerModel {
         
         if let bResult = fetchedBucketResult {
             for bucketData in bResult{
-                if(bucketData.valueForKey("name")! as String == name){
+                if(bucketData.valueForKey("name")! as! String == name){
                     managedContext.deleteObject(bucketData);
                 }
             }

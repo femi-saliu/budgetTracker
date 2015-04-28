@@ -24,20 +24,8 @@
                                     <action selector="deleteTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Jlv-Xz-ZiH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9LO-fR-lrw">
-                                <rect key="frame" x="129" y="7" width="62" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Transfer">
-                                    <color key="titleColor" red="1" green="0.90612396790000005" blue="0.047712810379999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="transferTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pLZ-n5-hJn"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="mmc-hE-bpN">
-                                <rect key="frame" x="285" y="3" width="30" height="30"/>
+                                <rect key="frame" x="285" y="19" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="+">
@@ -52,6 +40,18 @@
                                 <rect key="frame" x="0.0" y="234" width="320" height="334"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9LO-fR-lrw">
+                                <rect key="frame" x="129" y="19" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Transfer">
+                                    <color key="titleColor" red="1" green="0.90612396790000005" blue="0.047712810379999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="transferTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pLZ-n5-hJn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="0.90612396790000005" blue="0.047712810379999998" alpha="1" colorSpace="calibratedRGB"/>

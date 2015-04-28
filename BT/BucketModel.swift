@@ -203,7 +203,7 @@ class BucketModel {
     }
     
     func clearTransactionData(){
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -216,7 +216,7 @@ class BucketModel {
         
         if let trResult = fetchedTransactionResult {
             for transactionData in trResult{
-                if(transactionData.valueForKey("bucket")! as String == name){
+                if(transactionData.valueForKey("bucket")! as! String == name){
                     managedContext.deleteObject(transactionData);
                 }
             }
