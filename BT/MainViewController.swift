@@ -83,7 +83,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func readFromData(){
         
-        let appDelegate = UIApplication.sharedApplication().delegate! as AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -138,7 +138,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func saveMain(){
         let appDelegate =
-        UIApplication.sharedApplication().delegate! as AppDelegate;
+        UIApplication.sharedApplication().delegate! as! AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -160,7 +160,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func saveTrackerData(totalBudget:Double, hue:CGFloat){
         let appDelegate =
-        UIApplication.sharedApplication().delegate! as AppDelegate;
+        UIApplication.sharedApplication().delegate! as! AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -387,7 +387,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "presentBucket"){
-            let bucketViewController = segue.destinationViewController as BucketViewController;
+            let bucketViewController = segue.destinationViewController as! BucketViewController;
             bucketViewController.bucketName = self.selectedBucketName;
             bucketViewController.tracker = self.trackerModel;
         }

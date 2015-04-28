@@ -148,7 +148,7 @@ class BucketList:UIScrollView {
     }
     
     @IBAction func bucketSelected(sender: AnyObject){
-        let bucketCell = sender as BucketCell;
+        let bucketCell = sender as! BucketCell;
         self.bucketCellDelegate!.bucketTapped(bucketCell);
     }
     

@@ -106,7 +106,7 @@ class TransferView:UIView, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         amountField.resignFirstResponder();
         //descriptionField.resignFirstResponder();
