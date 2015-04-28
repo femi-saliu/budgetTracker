@@ -43,7 +43,6 @@ class TrackerModel {
         for tracker in self.trackerData{
             //println(tracker.valueForKey("name"));
             if(tracker.valueForKey("name")! as! String == "tracker"){
-                println("blah")
                 self.currentHue = tracker.valueForKey("currentHue")! as! CGFloat;
                 self.totalLimit = tracker.valueForKey("totalLimit")! as! Double;
 
@@ -220,8 +219,8 @@ class TrackerModel {
         let fromBucket = self.getBucket(from)!;
         let toBucket = self.getBucket(to)!;
         if(fromBucket.availableBudget() >= amount){
-            fromBucket.addTransfer(amount, desc: "Transfer to "+to, sign: -1);
-            toBucket.addTransfer(amount, desc: "Transfer from "+from, sign: 1);
+            fromBucket.addTransfer(amount, desc: "Transfer to this bucket "+to, sign: -1);
+            toBucket.addTransfer(amount, desc: "Transfer from this bucket "+from, sign: 1);
             self.tagNumber+=2;
             return true;
         }else{

@@ -65,7 +65,8 @@ class FirstTimeView: UIView,UITextFieldDelegate {
     func setUpView(frames:[CGRect]){
         
         self.budgetLabel = UILabel(frame:frames[0]);
-        self.budgetLabel.text = "Budget";
+        self.budgetLabel.text = "Enter monthly budget: ";
+        self.budgetLabel.adjustsFontSizeToFitWidth = true;
         self.budgetLabel.textAlignment = NSTextAlignment.Center;
         self.budgetLabel.textColor = UIColor.whiteColor();
         
@@ -76,7 +77,7 @@ class FirstTimeView: UIView,UITextFieldDelegate {
         self.budgetField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.colorLabel = UILabel(frame:frames[2]);
-        self.colorLabel.text = "Color: $";
+        self.colorLabel.text = "$ Color $";
         self.colorLabel.textAlignment = NSTextAlignment.Center;
         
         self.colorSlider = UISlider(frame: frames[3]);

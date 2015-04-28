@@ -83,7 +83,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.nameField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.budgetLabel = UILabel(frame:frames[2]);
-        self.budgetLabel.text = "Budget";
+        self.budgetLabel.text = "Enter a Budget";
         self.budgetLabel.textAlignment = NSTextAlignment.Center;
         self.budgetLabel.textColor = UIColor.whiteColor();
         self.budgetLabel.adjustsFontSizeToFitWidth = true;
@@ -96,7 +96,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.budgetField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.colorLabel = UILabel(frame:frames[4]);
-        self.colorLabel.text = "Color: $";
+        self.colorLabel.text = "$ Color $";
         self.colorLabel.textAlignment = NSTextAlignment.Center;
         self.colorLabel.adjustsFontSizeToFitWidth = true;
         
