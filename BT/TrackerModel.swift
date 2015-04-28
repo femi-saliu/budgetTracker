@@ -13,7 +13,7 @@ import CoreData
 class TrackerModel {
     var bucketObjects = [NSManagedObject]();
     var transactionData = [NSManagedObject]();
-    var trackerData = NSManagedObject();
+    var trackerData = [NSManagedObject]();
     var buckets = [BucketModel]();
     var totalLimit:Double = 0;
     var numBuckets=0;
@@ -35,17 +35,27 @@ class TrackerModel {
         self.currentSaturation = saturationLowerLimit;
     }
     
-    func loadTrackerWithData(trackerData: NSManagedObject, bucketData: [NSManagedObject], transactionData: [NSManagedObject]){
+    func loadTrackerWithData(trackerData: [NSManagedObject], bucketData: [NSManagedObject], transactionData: [NSManagedObject]){
         self.bucketObjects = bucketData;
         self.trackerData = trackerData;
         self.transactionData = transactionData;
-        self.currentHue = self.trackerData.valueForKey("currentHue")! as CGFloat;
-        self.totalLimit = self.trackerData.valueForKey("totalLimit")! as Double;
+        for tracker in self.trackerData{
+            //println(tracker.valueForKey("name"));
+            if(tracker.valueForKey("name")! as String == "tracker"){
+                println("blah")
+                self.currentHue = tracker.valueForKey("currentHue")! as CGFloat;
+                self.totalLimit = tracker.valueForKey("totalLimit")! as Double;
+
+            }
+        }
         for bucket in self.bucketObjects{
             let name = bucket.valueForKey("name")! as String;
             let limit = bucket.valueForKey("limit")! as Double;
             let hue = bucket.valueForKey("currentHue")! as CGFloat;
-            self.addNewBucket(name, limit: limit, hue: hue);
+            //if(!name.isEmpty){
+                self.loadNewBucket(name, limit: limit, hue: hue);
+           // }
+            println(hue);
         }
         for transaction in self.transactionData{
             let bucketName = transaction.valueForKey("bucket")! as String;
@@ -55,6 +65,34 @@ class TrackerModel {
             let sign = transaction.valueForKey("sign")! as Int;
             self.loadTransactionData(bucketName, amount: amount, desc: description, type: type, sign: sign);
         }
+    }
+    
+    func saveBucket(name:String, limit:Double, hue:CGFloat){
+        let appDelegate =
+        UIApplication.sharedApplication().delegate! as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("Bucket",
+            inManagedObjectContext:
+            managedContext);
+        
+        let bucket = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext);
+        
+        //3
+        bucket.setValue(name, forKey: "name");
+        bucket.setValue(limit, forKey: "limit");
+        bucket.setValue(hue, forKey: "currentHue");
+        
+        //4
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }  
+        //5
+        //self.bucketObjects.append(bucket);
     }
     
     func setTotalBudget(totalBudget:Double){
@@ -91,6 +129,14 @@ class TrackerModel {
         return currentColor;
     }
     
+    func loadNewBucket(name:String, limit:Double, hue:CGFloat){
+        var newBucket:BucketModel;
+        newBucket = BucketModel(n:name,newlimit:limit, hue:hue);
+        buckets.append(newBucket);
+        bucketTotal += limit;
+        numBuckets++;
+    }
+    
     func addNewBucket(name:String, limit:Double, hue:CGFloat) -> String{
         for bucket in buckets{
             if(bucket.getName() == name){
@@ -105,6 +151,7 @@ class TrackerModel {
         buckets.append(newBucket);
         bucketTotal += limit;
         numBuckets++;
+        self.saveBucket(name, limit: limit, hue: hue);
         return success;
     }
     
@@ -119,6 +166,10 @@ class TrackerModel {
     
     func getSpending()->Double{
         return currentSpending;
+    }
+    
+    func getLimit()->Double{
+        return totalLimit;
     }
     
     func getAvailableBudget() -> Double {

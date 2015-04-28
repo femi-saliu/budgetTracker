@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
-import UIKit
-
-class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol {
+class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol{
     let screenSize:CGRect = UIScreen.mainScreen().bounds;
     let addOptionsMargin:CGFloat = 0.15;
+    
+    var trackerData = [NSManagedObject]();
+    var mainData = [NSManagedObject]();
+    var bucketData = [NSManagedObject]();
+    var transactionData = [NSManagedObject]();
     
     var scrollViewX:CGFloat = 0;
     var scrollViewY:CGFloat = 0;
@@ -34,7 +38,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     var delete = false;
     var transfer = false;
     var transferFromSelected = false;
-    var firstTime = true;
+    var firstTime = false;
     
     var trackerModel:TrackerModel = TrackerModel();
     
@@ -54,8 +58,9 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     
     override func viewDidLoad() {
-        //println("ADDViewControllerVDL");
+        println("ADDViewControllerVDL");
         super.viewDidLoad()
+        self.readFromData();
         self.setUpBucketList();
         self.setUpTotalBudgetView();
         self.setUpAddOptions(self.view.frame);
@@ -74,21 +79,120 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         // Dispose of any resources that can be recreated.
     }
     
-    //to do
-    func setUpModel(){
-        if(!firstTime){
-            //to do, read from core data
-            self.trackerModel.setTotalBudget(5000);
+    func readFromData(){
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        let trackerFetchRequest = NSFetchRequest(entityName:"Tracker");
+        
+        let bucketFetchRequest = NSFetchRequest(entityName: "Bucket");
+        
+        let transactionFetchRequest = NSFetchRequest(entityName: "Transactions");
+        
+        let mainFetchRequest = NSFetchRequest(entityName: "Main");
+        
+        var error: NSError?
+        
+        let fetchedTrackerResult = managedContext.executeFetchRequest(trackerFetchRequest, error: &error) as? [NSManagedObject];
+        
+        let fetchedBucketResult = managedContext.executeFetchRequest(bucketFetchRequest, error: &error) as? [NSManagedObject];
+        
+        let fetchedTransactionResult = managedContext.executeFetchRequest(transactionFetchRequest, error: &error) as? [NSManagedObject];
+        
+        let fetchedMainResult = managedContext.executeFetchRequest(mainFetchRequest, error: &error) as? [NSManagedObject];
+        
+        if let mResult = fetchedMainResult{
+            if(mResult.count < 1){
+                self.firstTime = true;
+            }else{
+                self.mainData = mResult;
+            }
+        }
+        
+        if let tResult = fetchedTrackerResult{
+            if(tResult.count > 0){
+                self.trackerData = tResult;
+            }else{
+                println("no tracker data");
+            }
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)");
+        }
+        
+        if let bResult = fetchedBucketResult {
+            bucketData = bResult;
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)");
+        }
+        
+        if let trResult = fetchedTransactionResult {
+            transactionData = trResult;
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)");
         }
     }
     
-    //to do, read from core data
+    func saveMain(){
+        let appDelegate =
+        UIApplication.sharedApplication().delegate! as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        let entity =  NSEntityDescription.entityForName("Main",
+            inManagedObjectContext:
+            managedContext);
+        
+        let main = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext);
+        
+        main.setValue(false, forKey: "firstTime");
+        main.setValue("main", forKey: "name");
+        
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+    }
+    
+    func saveTrackerData(totalBudget:Double, hue:CGFloat){
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        let entity =  NSEntityDescription.entityForName("Tracker",
+            inManagedObjectContext:
+            managedContext);
+        
+        let tracker = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext);
+        
+        tracker.setValue(hue, forKey: "currentHue");
+        tracker.setValue(totalBudget, forKey: "totalLimit");
+        tracker.setValue("tracker", forKey: "name");
+        
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+        trackerData.append(tracker);
+    }
+    
+    func setUpModel(){
+        self.trackerModel.loadTrackerWithData(trackerData, bucketData: bucketData, transactionData: transactionData);
+        self.loadBucketsWithData();
+    }
+    
     func setTotalBudget(totalBudget: Double, hue:CGFloat){
         self.trackerModel.setTotalBudget(totalBudget);
         self.trackerModel.setMainHue(hue);
         self.totalBudgetView!.setTotalBudget(totalBudget);
         self.totalBudgetView.setColor(self.trackerModel.getMainColor());
         if(firstTime){
+            self.saveMain();
+            self.saveTrackerData(totalBudget, hue: hue);
             firstTimeSetUp.hidden = true;
             addOptionsContainer.hidden = true;
             firstTime = false;
@@ -262,9 +366,22 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.loadBucketsWithModel();
     }
     
+    func loadBucketsWithData(){
+        self.totalBudgetView.setSpending(self.trackerModel.getSpending());
+        self.totalBudgetView.setColor(self.trackerModel.getMainColor());
+        self.totalBudgetView.setTotalBudget(self.trackerModel.getLimit());
+        let buckets = self.trackerModel.getBuckets();
+        for bucket in buckets{
+            self.bucketList.addNewBucket(bucket.getName(), limit: bucket.getLimit());
+            self.bucketList.setBucketColorWithName(bucket.getName(), color:bucket.getColor());
+            self.bucketList.setBucketSpendingWithName(bucket.getName(), s:bucket.currentBalance());
+        }
+    }
+    
     func loadBucketsWithModel(){
         self.totalBudgetView.setSpending(self.trackerModel.getSpending());
         self.totalBudgetView.setColor(self.trackerModel.getMainColor());
+        self.totalBudgetView.setTotalBudget(self.trackerModel.getLimit());
         let buckets = self.trackerModel.getBuckets();
         for bucket in buckets{
             self.bucketList.setBucketColorWithName(bucket.getName(), color:bucket.getColor());

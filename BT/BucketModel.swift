@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class BucketModel {
     var limit:Double = 0.0;
@@ -21,7 +22,7 @@ class BucketModel {
     let defaultAlpha:CGFloat = 1;
     
     var transactions = [Double]();
-    var balances = [Double]();
+    var transactiontags = [Double]();
     var descriptions = [String]();
     var transactionTypes = [Int]();
     var transactionSigns = [Int]();
@@ -88,6 +89,7 @@ class BucketModel {
             descriptions.append(desc);
             transactionTypes.append(0);
             transactionSigns.append(-1);
+            self.saveTransaction(s, desc: desc, sign: -1, type: 0);
             return true;
         }else{
             return false;
@@ -106,6 +108,35 @@ class BucketModel {
         descriptions.append(desc);
         transactionTypes.append(1);
         transactionSigns.append(sign);
+        self.saveTransaction(amt, desc: desc, sign: sign, type: 1);
+    }
+    
+    func saveTransaction(amt:Double, desc:String, sign:Int, type:Int){
+        let appDelegate =
+        UIApplication.sharedApplication().delegate! as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        //2
+        let entity =  NSEntityDescription.entityForName("Transactions",
+            inManagedObjectContext:
+            managedContext);
+        
+        let transaction = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext);
+        
+        //3
+        transaction.setValue(desc, forKey: "desc");
+        transaction.setValue(sign, forKey: "sign");
+        transaction.setValue(amt, forKey: "amount");
+        transaction.setValue(type, forKey: "type");
+        transaction.setValue(name, forKey: "bucket");
+        
+        //4
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
     }
     
     func addTransaction(amt:Double, desc:String, sign:Int, type:Int){
