@@ -100,7 +100,7 @@ class BucketCell: UIButton {
         limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
     }
     
-    func setLimit(l:Double){
+    func setCurrentLimit(l:Double){
         self.limit = l;
         limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
     }
