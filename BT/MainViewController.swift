@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol{
+class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol, resetProtocol{
     let screenSize:CGRect = UIScreen.mainScreen().bounds;
     let addOptionsMargin:CGFloat = 0.15;
     
@@ -207,6 +207,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         totalBudgetW = screenWidth + scrollViewMarginProportion;
         totalBudgetH = screenHeight * scrollViewHeightProportion - totalBudgetY - 2;
         totalBudgetView = TotalBudgetView(frame: CGRect(x: totalBudgetX, y: totalBudgetY, width: totalBudgetW, height: totalBudgetH));
+        totalBudgetView.clearTransactionDelegate = self;
         self.view.addSubview(totalBudgetView!);
     }
     
@@ -315,6 +316,11 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
             }
             return false;
         }
+    }
+    
+    func resetAllTransactions(){
+        self.trackerModel.clearTransactions();
+        self.loadBucketsWithModel();
     }
     
     func cancelAddOption() {

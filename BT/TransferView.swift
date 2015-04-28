@@ -31,7 +31,7 @@ class TransferView:UIView, UITextFieldDelegate {
     var amountLabel = UILabel();
     var amountField = UITextField();
     var descriptionLabel = UILabel();
-    var descriptionField = UITextField();
+    var descriptionLabel2 = UILabel();
     @IBOutlet var doneButton:UIButton!;
     @IBOutlet var cancelButton:UIButton!;
     
@@ -78,7 +78,6 @@ class TransferView:UIView, UITextFieldDelegate {
         self.amountField.keyboardType = UIKeyboardType.NumberPad;
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
-        
         self.doneButton = UIButton(frame: subFrames[4]);
         self.doneButton.setTitle("Done", forState: .Normal);
         //self.doneButton.backgroundColor = UIColor.whiteColor();
@@ -91,8 +90,6 @@ class TransferView:UIView, UITextFieldDelegate {
         
         self.addSubview(amountLabel);
         self.addSubview(amountField);
-        self.addSubview(descriptionLabel);
-        self.addSubview(descriptionField);
         self.addSubview(doneButton);
         self.addSubview(cancelButton);
     }
@@ -113,7 +110,7 @@ class TransferView:UIView, UITextFieldDelegate {
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         amountField.resignFirstResponder();
-        descriptionField.resignFirstResponder();
+        //descriptionField.resignFirstResponder();
     }
     
     func textFieldShouldReturn(input: UITextField!) -> Bool {

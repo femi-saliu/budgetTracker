@@ -8,9 +8,13 @@
 
 import UIKit
 
+
+protocol resetProtocol{
+    func resetAllTransactions();
+}
 class TotalBudgetView: UIView {
     let xmarginProportion:CGFloat = 0.1;
-    let ymarginProportion:CGFloat = 0.1;
+    let ymarginProportion:CGFloat = 0.25;
     
     var totalLimit:Double = 0;
     var currentSpending:Double = 0;
@@ -21,11 +25,18 @@ class TotalBudgetView: UIView {
     var defaultAlpha:CGFloat = 1;
     var budgetText:UILabel = UILabel();
     var budgetNum:UILabel = UILabel();
+    @IBOutlet var clearButton:UIButton!;
+    var clearTransactionDelegate:resetProtocol!
     
     var textFrameX:CGFloat = 0;
     var textFrameY:CGFloat = 0;
     var textFrameW:CGFloat = 0;
     var textFrameH:CGFloat = 0;
+    
+    var buttonFrameX:CGFloat = 0;
+    var buttonFrameY:CGFloat = 0;
+    var buttonFrameW:CGFloat = 0;
+    var buttonFrameH:CGFloat = 0;
     
     override init(frame:CGRect) {
         super.init(frame: frame);
@@ -41,6 +52,19 @@ class TotalBudgetView: UIView {
         budgetNum.textAlignment = NSTextAlignment.Center;
         //sbudgetNum.textColor = UIColor(red: textR, green: textG, blue: textB, alpha: defaultAlpha);
         self.addSubview(budgetNum);
+        
+        buttonFrameX = 0;
+        buttonFrameY = 0;
+        buttonFrameH = frame.height*ymarginProportion;
+        buttonFrameW = frame.width;
+        
+        clearButton = UIButton(frame: CGRect(x: buttonFrameX, y: buttonFrameY, width: buttonFrameW, height: buttonFrameH));
+        clearButton.setTitle("Reset Cycle", forState: .Normal);
+        clearButton.setTitleColor(UIColor.redColor(), forState: .Normal);
+        clearButton.titleLabel?.textAlignment = .Center;
+        clearButton.addTarget(self, action: "clearButtonTapped:", forControlEvents: .TouchUpInside);
+        
+        self.addSubview(clearButton);
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -60,6 +84,10 @@ class TotalBudgetView: UIView {
     func setColor(color:UIColor){
         self.backgroundColor = color;
         //self.alpha = 0.3;
+    }
+    
+    func clearButtonTapped(sender:AnyObject){
+        self.clearTransactionDelegate.resetAllTransactions();
     }
     
 }

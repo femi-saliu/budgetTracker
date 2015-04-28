@@ -246,6 +246,15 @@ class TrackerModel {
             index++;
         }
     }
+    
+    func clearTransactions(){
+        for bucket in buckets{
+            currentSpending -= bucket.currentBalance();
+            bucket.clearTransactions();
+        }
+        self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
+    }
+    
     func transfer(from:String,to:String,amount:Double)->Bool{
         let fromBucket = self.getBucket(from)!;
         let toBucket = self.getBucket(to)!;

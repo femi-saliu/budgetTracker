@@ -52,6 +52,9 @@ class BucketModel {
 //        }
 //    }
     func clearTransactions(){
+        for trans in transactions{
+            self.spending -= trans;
+        }
         self.clearTransactionData();
         self.transactions.removeAll(keepCapacity: false);
         self.transactionTags.removeAll(keepCapacity: false);
