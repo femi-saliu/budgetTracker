@@ -117,7 +117,7 @@ class TransactionList:UIScrollView {
     }
     
     @IBAction func cellSelected(sender: AnyObject){
-        let transactionCell = sender as! TransactionCell;
+        let transactionCell = sender as TransactionCell;
         self.transactionCellDelegate!.transactionTapped(transactionCell);
     }
     

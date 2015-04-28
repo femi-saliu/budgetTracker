@@ -79,13 +79,6 @@ class TransferView:UIView, UITextFieldDelegate {
         self.amountField.keyboardType = UIKeyboardType.NumberPad;
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
-        self.descriptionLabel = UILabel(frame: subFrames[2]);
-        self.descriptionLabel.text = "This will transfer between remaining balance";
-        self.descriptionLabel.adjustsFontSizeToFitWidth = true;
-        self.descriptionLabel.textAlignment = .Center;
-        self.descriptionLabel.textColor = UIColor.whiteColor();
-        
-    
         self.doneButton = UIButton(frame: subFrames[4]);
         self.doneButton.setTitle("Done", forState: .Normal);
         //self.doneButton.backgroundColor = UIColor.whiteColor();
@@ -98,7 +91,6 @@ class TransferView:UIView, UITextFieldDelegate {
         
         self.addSubview(amountLabel);
         self.addSubview(amountField);
-        self.addSubview(descriptionLabel);
         self.addSubview(doneButton);
         self.addSubview(cancelButton);
     }
@@ -116,9 +108,10 @@ class TransferView:UIView, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         amountField.resignFirstResponder();
+        //descriptionField.resignFirstResponder();
     }
     
     func textFieldShouldReturn(input: UITextField!) -> Bool {

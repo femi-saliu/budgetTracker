@@ -115,7 +115,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
         if(desc == ""){
             desc = "N/A";
         }
-        if(count(self.descriptionField.text) < 15){
+        if(countElements(self.descriptionField.text) < 15){
             if(self.delegate.addTransaction(amount, desc: desc, type:0)){
                 self.amountField.text = "";
                 self.descriptionField.text = "";
@@ -127,8 +127,8 @@ class BucketAddView:UIView, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        super.touchesBegan(touches as Set<NSObject>, withEvent: event);
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        super.touchesBegan(touches as NSSet, withEvent: event);
         amountField.resignFirstResponder();
         descriptionField.resignFirstResponder();
     }

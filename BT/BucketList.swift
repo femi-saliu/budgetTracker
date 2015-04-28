@@ -88,6 +88,18 @@ class BucketList:UIScrollView {
         }
     }
     
+    func setTransferFromWithName(name:String){
+        self.getBucket(name)!.setTransferFromBucket();
+    }
+    
+    func isTransferFromWithName(name:String)->Bool{
+       return self.getBucket(name)!.isTransferFromBucket();
+    }
+    
+    func resetTransferFromWithName(name:String){
+        self.getBucket(name)!.resetTransferFrom();
+    }
+    
     func setTransferMode(mode:Int){
         for bucket in buckets{
             bucket.transferMode(mode);
@@ -136,7 +148,7 @@ class BucketList:UIScrollView {
     }
     
     @IBAction func bucketSelected(sender: AnyObject){
-        let bucketCell = sender as! BucketCell;
+        let bucketCell = sender as BucketCell;
         self.bucketCellDelegate!.bucketTapped(bucketCell);
     }
     

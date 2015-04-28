@@ -52,6 +52,9 @@ class BucketModel {
 //        }
 //    }
     func clearTransactions(){
+        for trans in transactions{
+            self.spending -= trans;
+        }
         self.clearTransactionData();
         self.transactions.removeAll(keepCapacity: false);
         self.transactionTags.removeAll(keepCapacity: false);
@@ -149,7 +152,7 @@ class BucketModel {
     
     func saveTransaction(amt:Double, desc:String, sign:Int, type:Int, tag:Int){
         let appDelegate =
-        UIApplication.sharedApplication().delegate! as! AppDelegate;
+        UIApplication.sharedApplication().delegate! as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -176,7 +179,7 @@ class BucketModel {
     }
     
     func removeTransactionData(tag:Int){
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -189,7 +192,7 @@ class BucketModel {
         
         if let trResult = fetchedTransactionResult {
             for transactionData in trResult{
-                if(transactionData.valueForKey("tag")! as! Int == tag){
+                if(transactionData.valueForKey("tag")! as Int == tag){
                     managedContext.deleteObject(transactionData);
                 }
             }

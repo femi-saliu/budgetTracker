@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol{
+class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol, resetProtocol{
     let screenSize:CGRect = UIScreen.mainScreen().bounds;
     let addOptionsMargin:CGFloat = 0.15;
     
@@ -81,7 +81,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func readFromData(){
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate! as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -136,7 +136,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func saveMain(){
         let appDelegate =
-        UIApplication.sharedApplication().delegate! as! AppDelegate;
+        UIApplication.sharedApplication().delegate! as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -158,7 +158,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func saveTrackerData(totalBudget:Double, hue:CGFloat){
         let appDelegate =
-        UIApplication.sharedApplication().delegate as! AppDelegate;
+        UIApplication.sharedApplication().delegate! as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -207,6 +207,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         totalBudgetW = screenWidth + scrollViewMarginProportion;
         totalBudgetH = screenHeight * scrollViewHeightProportion - totalBudgetY - 2;
         totalBudgetView = TotalBudgetView(frame: CGRect(x: totalBudgetX, y: totalBudgetY, width: totalBudgetW, height: totalBudgetH));
+        totalBudgetView.clearTransactionDelegate = self;
         self.view.addSubview(totalBudgetView!);
     }
     
@@ -317,6 +318,11 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         }
     }
     
+    func resetAllTransactions(){
+        self.trackerModel.clearTransactions();
+        self.loadBucketsWithModel();
+    }
+    
     func cancelAddOption() {
         self.addOptions.hidden = true;
         self.addOptionsContainer.hidden = true;
@@ -324,7 +330,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "presentBucket"){
-            let bucketViewController = segue.destinationViewController as! BucketViewController;
+            let bucketViewController = segue.destinationViewController as BucketViewController;
             bucketViewController.bucketName = self.selectedBucketName;
             bucketViewController.tracker = self.trackerModel;
         }
@@ -396,13 +402,16 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
             self.deleteBucketCell(bucket);
         }else if(transfer){
             if(!transferFromSelected){
+                transferFromName = sender.getName();
+                self.bucketList.setTransferFromWithName(transferFromName);
                 self.bucketList.setTransferMode(2);
                 transferFromSelected = true;
-                transferFromName = sender.getName();
             }else{
-                transferToName = sender.getName();
-                self.transferView.hidden = false;
-                self.addOptionsContainer.hidden = false;
+                if(!self.bucketList.isTransferFromWithName(sender.getName())){
+                    transferToName = sender.getName();
+                    self.transferView.hidden = false;
+                    self.addOptionsContainer.hidden = false;
+                }
             }
         }else{
             self.selectedBucketName = sender.getName();
@@ -440,6 +449,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
             self.transferFromSelected = false;
             self.transfer = false;
             self.bucketList.setTransferDone();
+            self.bucketList.resetTransferFromWithName(transferFromName);
             self.transferButton.setTitle("Transfer", forState: .Normal);
             return true;
         }else{
