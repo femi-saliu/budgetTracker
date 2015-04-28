@@ -168,7 +168,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     }
     
     func displayNameAlert(name:String){
-        let alertController = UIAlertController(title: "Name used", message:
+        let alertController = UIAlertController(title: "Name Used", message:
             "Bucket:" + name + " has already been created", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         
@@ -184,7 +184,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     }
     
     func emptyAlert(){
-        let alertController = UIAlertController(title: "Name/Budget empty", message:
+        let alertController = UIAlertController(title: "Name/Budget Empty", message:
             "Name / Budget field cannot be empty", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         

@@ -42,7 +42,7 @@ class TransactionCell: UIButton {
         self.deleteMessage = UILabel(frame:deleteFrame);
         self.deleteMessage.backgroundColor = UIColor.blackColor();
         self.deleteMessage.alpha = 0.7;
-        self.deleteMessage.text = "Tap to delete bucket";
+        self.deleteMessage.text = "Tap to delete transaction";
         self.deleteMessage.textAlignment = NSTextAlignment.Center;
         
         super.init(frame: frame);
