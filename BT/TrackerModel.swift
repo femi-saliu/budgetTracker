@@ -49,21 +49,21 @@ class TrackerModel {
             }
         }
         for bucket in self.bucketObjects{
-            let name = bucket.valueForKey("name")! as! String;
-            let limit = bucket.valueForKey("limit")! as! Double;
-            let hue = bucket.valueForKey("currentHue")! as! CGFloat;
+            let name = bucket.valueForKey("name")! as String;
+            let limit = bucket.valueForKey("limit")! as Double;
+            let hue = bucket.valueForKey("currentHue")! as CGFloat;
             //if(!name.isEmpty){
                 self.loadNewBucket(name, limit: limit, hue: hue);
            // }
             println(hue);
         }
         for transaction in self.transactionData{
-            let bucketName = transaction.valueForKey("bucket")! as! String;
-            let description = transaction.valueForKey("desc")!as! String;
-            let amount = transaction.valueForKey("amount")!as! Double;
-            let type = transaction.valueForKey("type")!as! Int;
-            let sign = transaction.valueForKey("sign")!as! Int;
-            let tag = transaction.valueForKey("tag")!as! Int;
+            let bucketName = transaction.valueForKey("bucket")! as String;
+            let description = transaction.valueForKey("desc")!as String;
+            let amount = transaction.valueForKey("amount")!as Double;
+            let type = transaction.valueForKey("type")!as Int;
+            let sign = transaction.valueForKey("sign")!as Int;
+            let tag = transaction.valueForKey("tag")!as Int;
             if(tag > tagNumber){
                 tagNumber = tag+1;
             }
@@ -73,7 +73,7 @@ class TrackerModel {
     
     func saveBucket(name:String, limit:Double, hue:CGFloat){
         let appDelegate =
-        UIApplication.sharedApplication().delegate!as! AppDelegate;
+        UIApplication.sharedApplication().delegate!as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         

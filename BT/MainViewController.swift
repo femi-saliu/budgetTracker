@@ -83,7 +83,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func readFromData(){
         
-        let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate! as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -138,7 +138,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func saveMain(){
         let appDelegate =
-        UIApplication.sharedApplication().delegate! as! AppDelegate;
+        UIApplication.sharedApplication().delegate as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -160,7 +160,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func saveTrackerData(totalBudget:Double, hue:CGFloat){
         let appDelegate =
-        UIApplication.sharedApplication().delegate! as! AppDelegate;
+        UIApplication.sharedApplication().delegate! as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -387,7 +387,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "presentBucket"){
-            let bucketViewController = segue.destinationViewController as! BucketViewController;
+            let bucketViewController = segue.destinationViewController as BucketViewController;
             bucketViewController.bucketName = self.selectedBucketName;
             bucketViewController.tracker = self.trackerModel;
         }
@@ -456,7 +456,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     @IBAction func bucketTapped(sender:BucketCell){
         let bucket = sender;
         if(delete){
-            self.deleteBucketCell(bucket);
+            self.makeSureDelete(bucket);
         }else if(transfer){
             if(!transferFromSelected){
                 transferFromName = sender.getName();
@@ -475,6 +475,21 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
             self.goToBucketView();
         }
         
+    }
+    
+    func makeSureDelete(bucket:BucketCell) {
+        let alertController = UIAlertController(title: "Alert", message:
+            "Are you sure? All transactions in this bucket will be cleared.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        var okAction = UIAlertAction(title: "YES", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            self.deleteBucketCell(bucket);
+        }
+        
+        alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(okAction);
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func cancelTransfer() {
