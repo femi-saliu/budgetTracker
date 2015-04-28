@@ -159,5 +159,6 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         hueValue = CGFloat(Int(colorSlider.value)) / 10;
         var colorTextColor:UIColor = UIColor(hue: hueValue, saturation: initSaturation, brightness: initBrightness, alpha: initAlpha);
         self.colorLabel.textColor = colorTextColor;
+        self.colorSlider.tintColor = colorTextColor;
     }
 }
