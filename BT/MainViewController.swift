@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol, resetProtocol{
+class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtocol, SetUpProtocol, TransferProtocol, resetProtocol, SettingsProtocol{
     let screenSize:CGRect = UIScreen.mainScreen().bounds;
     let addOptionsMargin:CGFloat = 0.15;
     
@@ -55,6 +55,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     @IBOutlet var addOptions:AddOptionsView!;
     @IBOutlet var transferView:TransferView!;
     @IBOutlet var firstTimeSetUp:FirstTimeView!;
+    @IBOutlet var settingsView:BudgetSettingsView!;
     
     
     override func viewDidLoad() {
@@ -66,6 +67,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.setUpAddOptions(self.view.frame);
         self.setUpForFirstTime(self.view.frame);
         self.setUpTransferView(self.view.frame);
+        self.setUpSettingsView(self.view.frame);
         if(firstTime){
             firstTimeSetUp.hidden = false;
             addOptionsContainer.hidden = false;
@@ -177,7 +179,33 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
         }
-        trackerData.append(tracker);
+        //trackerData.append(tracker);
+    }
+    
+    func refreshTrackerLimitData(limit:Double){
+        let appDelegate = UIApplication.sharedApplication().delegate! as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        let trackerFetchRequest = NSFetchRequest(entityName:"Tracker");
+        
+        var error: NSError?
+        
+        let fetchedTrackerResult = managedContext.executeFetchRequest(trackerFetchRequest, error: &error) as? [NSManagedObject];
+        
+        if let tResult = fetchedTrackerResult{
+            for trackerData in tResult{
+                if(trackerData.valueForKey("name")! as String == "tracker"){
+                    trackerData.setValue(limit, forKey: "totalLimit");
+                }
+            }
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)");
+        }
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+
     }
     
     func setUpModel(){
@@ -185,10 +213,19 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.loadBucketsWithData();
     }
     
+    func resetTotalBudget(totalBudget: Double){
+        self.trackerModel.setTotalBudget(totalBudget);
+        self.totalBudgetView.setTotalBudget(totalBudget);
+        self.totalBudgetView.setColor(self.trackerModel.getMainColor());
+        self.refreshTrackerLimitData(totalBudget);
+        self.settingsView.hidden = true;
+        self.addOptionsContainer.hidden = true;
+    }
+    
     func setTotalBudget(totalBudget: Double, hue:CGFloat){
         self.trackerModel.setTotalBudget(totalBudget);
         self.trackerModel.setMainHue(hue);
-        self.totalBudgetView!.setTotalBudget(totalBudget);
+        self.totalBudgetView.setTotalBudget(totalBudget);
         self.totalBudgetView.setColor(self.trackerModel.getMainColor());
         if(firstTime){
             self.saveMain();
@@ -207,7 +244,8 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         totalBudgetW = screenWidth + scrollViewMarginProportion;
         totalBudgetH = screenHeight * scrollViewHeightProportion - totalBudgetY - 2;
         totalBudgetView = TotalBudgetView(frame: CGRect(x: totalBudgetX, y: totalBudgetY, width: totalBudgetW, height: totalBudgetH));
-        totalBudgetView.clearTransactionDelegate = self;
+        //totalBudgetView.clearTransactionDelegate = self;
+        totalBudgetView.addTarget(self, action: "totalBudgetTapped:", forControlEvents: .TouchUpInside);
         self.view.addSubview(totalBudgetView!);
     }
     
@@ -264,6 +302,25 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         transferView.delegate = self;
         transferView.hidden = true;
         addOptionsContainer.hidden = true;
+    }
+    
+    func setUpSettingsView(frame:CGRect){
+        var addOptionsX = frame.width * addOptionsMargin;
+        var addOptionsY = frame.height * addOptionsMargin;
+        var addOptionsW = frame.width * (1 - 2 * addOptionsMargin);
+        var addOptionsH = frame.height * (1 - 2 * addOptionsMargin);
+        var addOptionsFrame = CGRect(x: addOptionsX, y: addOptionsY, width: addOptionsW, height: addOptionsH);
+        self.settingsView = BudgetSettingsView(frame: addOptionsFrame);
+        self.view.addSubview(settingsView);
+        settingsView.delegate = self;
+        settingsView.hidden = true;
+        addOptionsContainer.hidden = true;
+    }
+    
+    @IBAction func totalBudgetTapped(sender:AnyObject){
+        self.settingsView.setLimit(self.trackerModel.totalLimit);
+        self.settingsView.hidden = false;
+        self.addOptionsContainer.hidden = false;
     }
     
     @IBAction func addTapped(sender : AnyObject) {
@@ -459,6 +516,21 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func goToBucketView(){
         self.performSegueWithIdentifier("presentBucket", sender: self);
+    }
+    
+    func makeSureResetAllTransactions() {
+        let alertController = UIAlertController(title: "Alert", message:
+            "Are you sure? All transactions will be cleared.", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        var okAction = UIAlertAction(title: "YES", style: UIAlertActionStyle.Default) {
+            UIAlertAction in
+            self.resetAllTransactions();
+        }
+        
+        alertController.addAction(UIAlertAction(title: "NO", style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(okAction);
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     @IBAction func unwindFromBucketViewController(segue: UIStoryboardSegue){

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B7D323C1AEF5BFF0071C319 /* BudgetSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D323B1AEF5BFF0071C319 /* BudgetSettingsView.swift */; };
 		5B9703F31AE87D6A00DD6AA6 /* TrackerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9703F21AE87D6A00DD6AA6 /* TrackerModel.swift */; };
 		5B9703F51AE87D8100DD6AA6 /* BucketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9703F41AE87D8100DD6AA6 /* BucketModel.swift */; };
 		5B9703F71AE87DA200DD6AA6 /* TransferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9703F61AE87DA200DD6AA6 /* TransferView.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B7D323B1AEF5BFF0071C319 /* BudgetSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetSettingsView.swift; sourceTree = "<group>"; };
 		5B9703F21AE87D6A00DD6AA6 /* TrackerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerModel.swift; sourceTree = "<group>"; };
 		5B9703F41AE87D8100DD6AA6 /* BucketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketModel.swift; sourceTree = "<group>"; };
 		5B9703F61AE87DA200DD6AA6 /* TransferView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransferView.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				5B9703F21AE87D6A00DD6AA6 /* TrackerModel.swift */,
 				5B9703F41AE87D8100DD6AA6 /* BucketModel.swift */,
 				5B9703F61AE87DA200DD6AA6 /* TransferView.swift */,
+				5B7D323B1AEF5BFF0071C319 /* BudgetSettingsView.swift */,
 				5B9703F81AE87DB800DD6AA6 /* BucketList.swift */,
 				5B9703FA1AE87DD600DD6AA6 /* TotalBudgetView.swift */,
 				5B9703FC1AE87E5200DD6AA6 /* BucketCell.swift */,
@@ -274,6 +277,7 @@
 				5B9703FF1AE87E6A00DD6AA6 /* BucketViewController.swift in Sources */,
 				5B9703FD1AE87E5200DD6AA6 /* BucketCell.swift in Sources */,
 				5B9703F91AE87DB800DD6AA6 /* BucketList.swift in Sources */,
+				5B7D323C1AEF5BFF0071C319 /* BudgetSettingsView.swift in Sources */,
 				5BDE52101AE6EF14000B0ADB /* AppDelegate.swift in Sources */,
 				5B9704051AE87EB600DD6AA6 /* BucketView.swift in Sources */,
 				5B9703F31AE87D6A00DD6AA6 /* TrackerModel.swift in Sources */,

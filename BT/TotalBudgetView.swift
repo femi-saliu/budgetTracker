@@ -12,7 +12,7 @@ import UIKit
 protocol resetProtocol{
     func resetAllTransactions();
 }
-class TotalBudgetView: UIView {
+class TotalBudgetView: UIButton {
     let xmarginProportion:CGFloat = 0.1;
     let ymarginProportion:CGFloat = 0.25;
     
@@ -53,18 +53,18 @@ class TotalBudgetView: UIView {
         //sbudgetNum.textColor = UIColor(red: textR, green: textG, blue: textB, alpha: defaultAlpha);
         self.addSubview(budgetNum);
         
-        buttonFrameX = 0;
-        buttonFrameY = 0;
-        buttonFrameH = frame.height*ymarginProportion;
-        buttonFrameW = frame.width;
-        
-        clearButton = UIButton(frame: CGRect(x: buttonFrameX, y: buttonFrameY, width: buttonFrameW, height: buttonFrameH));
-        clearButton.setTitle("Reset Cycle", forState: .Normal);
-        clearButton.setTitleColor(UIColor.redColor(), forState: .Normal);
-        clearButton.titleLabel?.textAlignment = .Center;
-        clearButton.addTarget(self, action: "clearButtonTapped:", forControlEvents: .TouchUpInside);
-        
-        self.addSubview(clearButton);
+//        buttonFrameX = 0;
+//        buttonFrameY = 0;
+//        buttonFrameH = frame.height*ymarginProportion;
+//        buttonFrameW = frame.width;
+//        
+//        clearButton = UIButton(frame: CGRect(x: buttonFrameX, y: buttonFrameY, width: buttonFrameW, height: buttonFrameH));
+//        clearButton.setTitle("Reset Cycle", forState: .Normal);
+//        clearButton.setTitleColor(UIColor.redColor(), forState: .Normal);
+//        clearButton.titleLabel?.textAlignment = .Center;
+//        clearButton.addTarget(self, action: "clearButtonTapped:", forControlEvents: .TouchUpInside);
+//        
+//        self.addSubview(clearButton);
     }
     
     required init(coder aDecoder: NSCoder) {

@@ -43,7 +43,6 @@ class TrackerModel {
         for tracker in self.trackerData{
             //println(tracker.valueForKey("name"));
             if(tracker.valueForKey("name")! as String == "tracker"){
-                println("blah")
                 self.currentHue = tracker.valueForKey("currentHue")! as CGFloat;
                 self.totalLimit = tracker.valueForKey("totalLimit")! as Double;
 
@@ -101,7 +100,7 @@ class TrackerModel {
     }
     
     func removeBucketData(name:String){
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -114,7 +113,7 @@ class TrackerModel {
         
         if let bResult = fetchedBucketResult {
             for bucketData in bResult{
-                if(bucketData.valueForKey("name")! as! String == name){
+                if(bucketData.valueForKey("name") as String == name){
                     managedContext.deleteObject(bucketData);
                 }
             }
@@ -130,7 +129,7 @@ class TrackerModel {
     
     func setTotalBudget(totalBudget:Double){
         totalLimit = totalBudget;
-        
+        self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
     }
     func getTagNumber() -> Int{
         return self.tagNumber;

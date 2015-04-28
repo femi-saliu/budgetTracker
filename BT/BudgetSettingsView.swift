@@ -1,22 +1,22 @@
 //
-//  TransferView.swift
-//  Test
+//  BudgetSettingsView.swift
+//  BT
 //
-//  Created by Zehao Zhang on 15/4/20.
+//  Created by Zehao Zhang on 15/4/27.
 //  Copyright (c) 2015年 Zehao Zhang. All rights reserved.
 //
 
 import UIKit
 
-protocol TransferProtocol{
-    //func addTransaction(amt:Double, desc:String)->Bool;
-    func transfer(amt:Double)->Bool;
-    func cancelTransfer();
-    //func characterOverFlow();
-    func overTransferBudget();
+protocol SettingsProtocol{
+    //func resetAllTransactions();
+    func makeSureResetAllTransactions();
+    //func allowOverBudget(overBudget:Bool);
+    //func returnFromSettings();
+    func resetTotalBudget(totalBudget:Double);
 }
 
-class TransferView:UIView, UITextFieldDelegate {
+class BudgetSettingsView:UIView, UITextFieldDelegate {
     let viewAlpha:CGFloat = 0.4;
     let numFrames:CGFloat = 5;
     let frameMargin:CGFloat = 0.1;
@@ -24,14 +24,19 @@ class TransferView:UIView, UITextFieldDelegate {
     var frameX:CGFloat = 0;
     var frameY:CGFloat = 0;
     var subFrames = [CGRect]();
-    var delegate:TransferProtocol!
+    var limit:Double = 0;
+    var overBudget:Bool = false;
+    var delegate:SettingsProtocol!
+    
+    var overBudgetNO = "Allow Over-budget: NO";
+    var overBudgetYES = "Allow Over-budget: YES";
     
     var amountLabel = UILabel();
     var amountField = UITextField();
-    var descriptionLabel = UILabel();
-    var descriptionLabel2 = UILabel();
+    @IBOutlet var clearButton:UIButton!;
+    @IBOutlet var overBudgetButton:UIButton!;
     @IBOutlet var doneButton:UIButton!;
-    @IBOutlet var cancelButton:UIButton!;
+    //@IBOutlet var cancelButton:UIButton!;
     
     override init(frame:CGRect) {
         super.init(frame: frame);
@@ -48,18 +53,23 @@ class TransferView:UIView, UITextFieldDelegate {
         super.init(coder: aDecoder)
     }
     
+    func setLimit(totalLimit:Double){
+        self.limit = totalLimit;
+        self.amountField.text = String(format:"%.02f", limit);
+    }
+    
     func makeFrames(numFrames:CGFloat, motherFrame:CGRect){
         var subFrameH = motherFrame.height / numFrames;
         var numFramesInt = Int(numFrames);
         var currentFrameY:CGFloat = frameY;
         for(var i = 0; i < numFramesInt; i++){
-            if(i != numFramesInt-1){
+            //if(i != numFramesInt-1){
                 subFrames.append(CGRect(x: frameX, y: currentFrameY, width: motherFrame.width, height: subFrameH));
                 currentFrameY += subFrameH;
-            }else{
-                subFrames.append(CGRect(x: frameX, y: currentFrameY, width: motherFrame.width / 2, height: subFrameH));
-                subFrames.append(CGRect(x: frameX + motherFrame.width/2, y: currentFrameY, width: motherFrame.width/2, height: subFrameH));
-            }
+//            }else{
+//                subFrames.append(CGRect(x: frameX, y: currentFrameY, width: motherFrame.width / 2, height: subFrameH));
+//                subFrames.append(CGRect(x: frameX + motherFrame.width/2, y: currentFrameY, width: motherFrame.width/2, height: subFrameH));
+//            }
         }
     }
     
@@ -72,44 +82,54 @@ class TransferView:UIView, UITextFieldDelegate {
         
         self.amountField = UITextField(frame: subFrames[1]);
         self.amountField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-        //self.amountField.alpha = viewAlpha;
+        self.amountField.text = String(format:"%.02f", limit);
         self.amountField.delegate = self;
         self.amountField.keyboardType = UIKeyboardType.NumberPad;
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
+//        self.overBudgetButton = UIButton(frame: subFrames[2]);
+//        self.overBudgetButton.setTitle(overBudgetNO, forState: .Normal);
+//        self.overBudgetButton.addTarget(self, action: "overBudgetTapped:", forControlEvents: .TouchUpInside);
+        
+        self.clearButton = UIButton(frame: subFrames[3]);
+        self.clearButton.setTitle("Reset Cycle", forState: .Normal);
+        self.clearButton.setTitleColor(UIColor.redColor(), forState: .Normal);
+        self.clearButton.addTarget(self, action: "resetTapped:", forControlEvents: .TouchUpInside);
+        
         self.doneButton = UIButton(frame: subFrames[4]);
         self.doneButton.setTitle("Done", forState: .Normal);
-        //self.doneButton.backgroundColor = UIColor.whiteColor();
-        self.doneButton.addTarget(self, action: "doneTapped:", forControlEvents: UIControlEvents.TouchUpInside);
-        
-        self.cancelButton = UIButton(frame: subFrames[5]);
-        self.cancelButton.setTitle("Cancel", forState: .Normal);
-        //self.cancelButton.backgroundColor = UIColor.whiteColor();
-        self.cancelButton.addTarget(self, action: "cancelTapped:", forControlEvents: UIControlEvents.TouchUpInside);
+        self.doneButton.addTarget(self, action: "doneTapped:", forControlEvents: .TouchUpInside);
         
         self.addSubview(amountLabel);
         self.addSubview(amountField);
+        //self.addSubview(overBudgetButton);
+        self.addSubview(clearButton);
         self.addSubview(doneButton);
-        self.addSubview(cancelButton);
-    }
-    
-    @IBAction func cancelTapped(sender:AnyObject){
-        self.delegate.cancelTransfer();
     }
     
     @IBAction func doneTapped(sender:AnyObject){
         var amount = (self.amountField.text as NSString).doubleValue;
-        if(self.delegate.transfer(amount)){
-            self.amountField.text = "";
+        self.delegate.resetTotalBudget(amount);
+    }
+    
+    @IBAction func overBudgetTapped(sender:AnyObject){
+        if(overBudget){
+            self.overBudgetButton.setTitle(overBudgetNO, forState: .Normal);
+            self.overBudget = false;
         }else{
-            self.delegate.overTransferBudget();
+            self.overBudgetButton.setTitle(overBudgetYES, forState: .Normal);
+            self.overBudget = true;
         }
+        //self.delegate.allowOverBudget(overBudget);
+    }
+    
+    @IBAction func resetTapped(sender:AnyObject){
+        self.delegate.makeSureResetAllTransactions();
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         amountField.resignFirstResponder();
-        //descriptionField.resignFirstResponder();
     }
     
     func textFieldShouldReturn(input: UITextField!) -> Bool {
