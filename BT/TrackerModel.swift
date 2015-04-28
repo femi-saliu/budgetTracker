@@ -101,7 +101,7 @@ class TrackerModel {
     }
     
     func removeBucketData(name:String){
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
         
         let managedContext = appDelegate.managedObjectContext!;
         
@@ -114,7 +114,7 @@ class TrackerModel {
         
         if let bResult = fetchedBucketResult {
             for bucketData in bResult{
-                if(bucketData.valueForKey("name")! as String == name){
+                if(bucketData.valueForKey("name")! as! String == name){
                     managedContext.deleteObject(bucketData);
                 }
             }
@@ -259,8 +259,8 @@ class TrackerModel {
         let fromBucket = self.getBucket(from)!;
         let toBucket = self.getBucket(to)!;
         if(fromBucket.availableBudget() >= amount){
-            fromBucket.addTransfer(amount, desc: "Transfer to "+to, sign: -1);
-            toBucket.addTransfer(amount, desc: "Transfer from "+from, sign: 1);
+            fromBucket.addTransfer(amount, desc: "Transfer to this bucket "+to, sign: -1);
+            toBucket.addTransfer(amount, desc: "Transfer from this bucket "+from, sign: 1);
             self.tagNumber+=2;
             return true;
         }else{

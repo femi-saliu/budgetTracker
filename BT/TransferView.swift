@@ -67,7 +67,8 @@ class TransferView:UIView, UITextFieldDelegate {
     
     func setUpView(){
         self.amountLabel = UILabel(frame: subFrames[0]);
-        self.amountLabel.text = "Transaction Amount";
+        self.amountLabel.text = "Transfer Balance: ";
+        self.amountLabel.adjustsFontSizeToFitWidth = true;
         self.amountLabel.textAlignment = .Center;
         self.amountLabel.textColor = UIColor.whiteColor();
         
