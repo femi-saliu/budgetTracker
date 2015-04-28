@@ -96,7 +96,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         self.budgetField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.colorLabel = UILabel(frame:frames[4]);
-        self.colorLabel.text = "Color: $";
+        self.colorLabel.text = "$ Bucket Color $";
         self.colorLabel.textAlignment = NSTextAlignment.Center;
         self.colorLabel.adjustsFontSizeToFitWidth = true;
         
@@ -128,7 +128,7 @@ class AddOptionsView:UIView, UITextFieldDelegate{
     }
     
     func setAvailableAmt(amt: Double){
-        budgetLabel.text = String(format:"Budget (%.02f left)", amt);
+        budgetLabel.text = String(format:"Monthly Budget (%.02f left)", amt);
     }
     
     func textFieldShouldReturn(input: UITextField!) -> Bool {
@@ -136,8 +136,8 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         return true;
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        super.touchesBegan(touches, withEvent: event);
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        super.touchesBegan(touches as Set<NSObject>, withEvent: event);
         budgetField.resignFirstResponder();
         nameField.resignFirstResponder();
     }

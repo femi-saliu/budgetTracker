@@ -8,8 +8,6 @@
 
 import UIKit
 
-import UIKit
-
 protocol TransferProtocol{
     //func addTransaction(amt:Double, desc:String)->Bool;
     func transfer(amt:Double)->Bool;
@@ -110,7 +108,7 @@ class TransferView:UIView, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         amountField.resignFirstResponder();
         descriptionField.resignFirstResponder();

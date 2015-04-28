@@ -27,6 +27,15 @@
 		5BDE521A1AE6EF14000B0ADB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BDE52191AE6EF14000B0ADB /* Images.xcassets */; };
 		5BDE521D1AE6EF14000B0ADB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BDE521B1AE6EF14000B0ADB /* LaunchScreen.xib */; };
 		5BDE52291AE6EF14000B0ADB /* BTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE52281AE6EF14000B0ADB /* BTTests.swift */; };
+		92212DAB1AE895810081B896 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92212DAA1AE895810081B896 /* DateModel.swift */; };
+		92212DAD1AE895B10081B896 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DAC1AE895B10081B896 /* Logo.png */; };
+		92212DB11AE895E80081B896 /* BucketView.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DAE1AE895E80081B896 /* BucketView.png */; };
+		92212DB21AE895E80081B896 /* ColorPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DAF1AE895E80081B896 /* ColorPicker.png */; };
+		92212DB31AE895E80081B896 /* FirstView.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DB01AE895E80081B896 /* FirstView.png */; };
+		92212DB51AE8960F0081B896 /* BudgetTrackerBT.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DB41AE8960F0081B896 /* BudgetTrackerBT.png */; };
+		92212DB71AE896280081B896 /* Screen Shot 2015-04-22 at 7.16.43 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DB61AE896280081B896 /* Screen Shot 2015-04-22 at 7.16.43 PM.png */; };
+		92212DBA1AE896410081B896 /* OverBudget.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DB81AE896410081B896 /* OverBudget.png */; };
+		92212DBB1AE896410081B896 /* TapToDelte.png in Resources */ = {isa = PBXBuildFile; fileRef = 92212DB91AE896410081B896 /* TapToDelte.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +73,15 @@
 		5BDE52221AE6EF14000B0ADB /* BTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BDE52271AE6EF14000B0ADB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BDE52281AE6EF14000B0ADB /* BTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTTests.swift; sourceTree = "<group>"; };
+		92212DAA1AE895810081B896 /* DateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
+		92212DAC1AE895B10081B896 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		92212DAE1AE895E80081B896 /* BucketView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BucketView.png; sourceTree = "<group>"; };
+		92212DAF1AE895E80081B896 /* ColorPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ColorPicker.png; sourceTree = "<group>"; };
+		92212DB01AE895E80081B896 /* FirstView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FirstView.png; sourceTree = "<group>"; };
+		92212DB41AE8960F0081B896 /* BudgetTrackerBT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BudgetTrackerBT.png; sourceTree = "<group>"; };
+		92212DB61AE896280081B896 /* Screen Shot 2015-04-22 at 7.16.43 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2015-04-22 at 7.16.43 PM.png"; sourceTree = "<group>"; };
+		92212DB81AE896410081B896 /* OverBudget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OverBudget.png; sourceTree = "<group>"; };
+		92212DB91AE896410081B896 /* TapToDelte.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapToDelte.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +129,7 @@
 				5B9703F41AE87D8100DD6AA6 /* BucketModel.swift */,
 				5B9703F61AE87DA200DD6AA6 /* TransferView.swift */,
 				5B9703F81AE87DB800DD6AA6 /* BucketList.swift */,
+				92212DAA1AE895810081B896 /* DateModel.swift */,
 				5B9703FA1AE87DD600DD6AA6 /* TotalBudgetView.swift */,
 				5B9703FC1AE87E5200DD6AA6 /* BucketCell.swift */,
 				5B9703FE1AE87E6A00DD6AA6 /* BucketViewController.swift */,
@@ -122,6 +141,8 @@
 				5B97040A1AE87F0600DD6AA6 /* FirstTimeView.swift */,
 				5BDE52161AE6EF14000B0ADB /* Main.storyboard */,
 				5BDE52191AE6EF14000B0ADB /* Images.xcassets */,
+				92212DAC1AE895B10081B896 /* Logo.png */,
+				92212DB41AE8960F0081B896 /* BudgetTrackerBT.png */,
 				5BDE521B1AE6EF14000B0ADB /* LaunchScreen.xib */,
 				5BDE52111AE6EF14000B0ADB /* BT.xcdatamodeld */,
 				5BDE520D1AE6EF14000B0ADB /* Supporting Files */,
@@ -140,6 +161,12 @@
 		5BDE52251AE6EF14000B0ADB /* BTTests */ = {
 			isa = PBXGroup;
 			children = (
+				92212DAE1AE895E80081B896 /* BucketView.png */,
+				92212DAF1AE895E80081B896 /* ColorPicker.png */,
+				92212DB61AE896280081B896 /* Screen Shot 2015-04-22 at 7.16.43 PM.png */,
+				92212DB01AE895E80081B896 /* FirstView.png */,
+				92212DB81AE896410081B896 /* OverBudget.png */,
+				92212DB91AE896410081B896 /* TapToDelte.png */,
 				5BDE52281AE6EF14000B0ADB /* BTTests.swift */,
 				5BDE52261AE6EF14000B0ADB /* Supporting Files */,
 			);
@@ -234,8 +261,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92212DAD1AE895B10081B896 /* Logo.png in Resources */,
 				5BDE52181AE6EF14000B0ADB /* Main.storyboard in Resources */,
 				5BDE521D1AE6EF14000B0ADB /* LaunchScreen.xib in Resources */,
+				92212DB51AE8960F0081B896 /* BudgetTrackerBT.png in Resources */,
 				5BDE521A1AE6EF14000B0ADB /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +273,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92212DB11AE895E80081B896 /* BucketView.png in Resources */,
+				92212DBB1AE896410081B896 /* TapToDelte.png in Resources */,
+				92212DB31AE895E80081B896 /* FirstView.png in Resources */,
+				92212DB71AE896280081B896 /* Screen Shot 2015-04-22 at 7.16.43 PM.png in Resources */,
+				92212DB21AE895E80081B896 /* ColorPicker.png in Resources */,
+				92212DBA1AE896410081B896 /* OverBudget.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +291,7 @@
 			files = (
 				5B97040B1AE87F0600DD6AA6 /* FirstTimeView.swift in Sources */,
 				5B9704071AE87ECF00DD6AA6 /* BucketAddView.swift in Sources */,
+				92212DAB1AE895810081B896 /* DateModel.swift in Sources */,
 				5B9704091AE87EEA00DD6AA6 /* AddOptionsView.swift in Sources */,
 				5BDE52151AE6EF14000B0ADB /* MainViewController.swift in Sources */,
 				5B9703F71AE87DA200DD6AA6 /* TransferView.swift in Sources */,

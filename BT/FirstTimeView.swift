@@ -65,7 +65,8 @@ class FirstTimeView: UIView,UITextFieldDelegate {
     func setUpView(frames:[CGRect]){
         
         self.budgetLabel = UILabel(frame:frames[0]);
-        self.budgetLabel.text = "Budget";
+        self.budgetLabel.adjustsFontSizeToFitWidth = true;
+        self.budgetLabel.text = "Enter A Monthly Budget";
         self.budgetLabel.textAlignment = NSTextAlignment.Center;
         self.budgetLabel.textColor = UIColor.whiteColor();
         
@@ -76,7 +77,8 @@ class FirstTimeView: UIView,UITextFieldDelegate {
         self.budgetField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.colorLabel = UILabel(frame:frames[2]);
-        self.colorLabel.text = "Color: $";
+        self.colorLabel.text = "$ Budget Color $";
+        self.colorLabel.font = UIFont(name: "Helvetica", size: 15);
         self.colorLabel.textAlignment = NSTextAlignment.Center;
         
         self.colorSlider = UISlider(frame: frames[3]);
@@ -104,7 +106,7 @@ class FirstTimeView: UIView,UITextFieldDelegate {
         return true;
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         budgetField.resignFirstResponder();
     }

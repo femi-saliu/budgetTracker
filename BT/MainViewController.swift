@@ -177,7 +177,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func displayOverLimitAlert(){
         let alertController = UIAlertController(title: "Over Budget", message:
-            "You have exceeded the totoal budget", preferredStyle: UIAlertControllerStyle.Alert)
+            "You have entered a transaction exceeding your totoal budget", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -185,7 +185,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func emptyAlert(){
         let alertController = UIAlertController(title: "Name/Budget empty", message:
-            "Name / Budget field cannot be emoty", preferredStyle: UIAlertControllerStyle.Alert)
+            "Name / Budget field cannot be empty", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -220,7 +220,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "presentBucket"){
-            let bucketViewController = segue.destinationViewController as BucketViewController;
+            let bucketViewController = segue.destinationViewController as! BucketViewController;
             bucketViewController.bucketName = self.selectedBucketName;
             bucketViewController.tracker = self.trackerModel;
         }
@@ -301,7 +301,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func overTransferBudget() {
         let alertController = UIAlertController(title: "Insufficient budget", message:
-            "Not enough budget to be transfered", preferredStyle: UIAlertControllerStyle.Alert)
+            "Not enough remaining budget to be transfered", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -309,7 +309,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func insufficientBuckets() {
         let alertController = UIAlertController(title: "Insufficient buckets", message:
-            "Not enough bucket to perform transfer", preferredStyle: UIAlertControllerStyle.Alert)
+            "Not enough buckets to perform transfer", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)

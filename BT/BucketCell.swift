@@ -24,9 +24,9 @@ class BucketCell: UIButton {
     var transferFromMessage:UILabel!;
     var transferToMessage:UILabel!;
     
-    var deleteString = "Tap to delete";
-    var transferFromString = "Tap to select transfer from";
-    var transferToString = "Tap to select transfer to";
+    var deleteString = "Tap to delete bucket";
+    var transferFromString = "Tap to select transfer from bucket";
+    var transferToString = "Tap to select transfer to bucket";
     
     init(title: String, limit:Double, frame:CGRect) {
         let titlex:CGFloat = 0;
@@ -44,19 +44,19 @@ class BucketCell: UIButton {
         self.deleteMessage = UILabel(frame:messageFrame);
         self.deleteMessage.backgroundColor = UIColor.blackColor();
         self.deleteMessage.alpha = 0.7;
-        self.deleteMessage.text = "Tap to delete";
+        self.deleteMessage.text = "Tap to delete bucket";
         self.deleteMessage.textAlignment = NSTextAlignment.Center;
         
         self.transferFromMessage = UILabel(frame:messageFrame);
         self.transferFromMessage.backgroundColor = UIColor.blackColor();
         self.transferFromMessage.alpha = 0.7;
-        self.transferFromMessage.text = "Tap to select transfer from";
+        self.transferFromMessage.text = "Tap to select transfer from bucket";
         self.transferFromMessage.textAlignment = NSTextAlignment.Center;
         
         self.transferToMessage = UILabel(frame:messageFrame);
         self.transferToMessage.backgroundColor = UIColor.blackColor();
         self.transferToMessage.alpha = 0.7;
-        self.transferToMessage.text = "Tap to select transfer to";
+        self.transferToMessage.text = "Tap to select transfer to bucket";
         self.transferToMessage.textAlignment = NSTextAlignment.Center;
         
         super.init(frame: frame);
@@ -100,7 +100,7 @@ class BucketCell: UIButton {
         limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
     }
     
-    func setLimit(l:Double){
+    func setCurrentLimit(l:Double){
         self.limit = l;
         limitLabel.text = String(format:"%.02f / %.02f", currentSpending, limit);
     }

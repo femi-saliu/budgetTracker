@@ -39,20 +39,20 @@ class TrackerModel {
         self.bucketObjects = bucketData;
         self.trackerData = trackerData;
         self.transactionData = transactionData;
-        self.currentHue = self.trackerData.valueForKey("currentHue")! as CGFloat;
-        self.totalLimit = self.trackerData.valueForKey("totalLimit")! as Double;
+        self.currentHue = self.trackerData.valueForKey("currentHue")! as! CGFloat;
+        self.totalLimit = self.trackerData.valueForKey("totalLimit")!as! Double;
         for bucket in self.bucketObjects{
-            let name = bucket.valueForKey("name")! as String;
-            let limit = bucket.valueForKey("limit")! as Double;
-            let hue = bucket.valueForKey("currentHue")! as CGFloat;
+            let name = bucket.valueForKey("name")!as! String;
+            let limit = bucket.valueForKey("limit")! as! Double;
+            let hue = bucket.valueForKey("currentHue")! as! CGFloat;
             self.addNewBucket(name, limit: limit, hue: hue);
         }
         for transaction in self.transactionData{
-            let bucketName = transaction.valueForKey("bucket")! as String;
-            let description = transaction.valueForKey("desc")! as String;
-            let amount = transaction.valueForKey("amount")! as Double;
-            let type = transaction.valueForKey("type")! as Int;
-            let sign = transaction.valueForKey("sign")! as Int;
+            let bucketName = transaction.valueForKey("bucket")! as! String;
+            let description = transaction.valueForKey("desc")! as! String;
+            let amount = transaction.valueForKey("amount")! as! Double;
+            let type = transaction.valueForKey("type")! as! Int;
+            let sign = transaction.valueForKey("sign")! as! Int;
             self.loadTransactionData(bucketName, amount: amount, desc: description, type: type, sign: sign);
         }
     }

@@ -76,7 +76,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.descriptionLabel = UILabel(frame: subFrames[2]);
-        self.descriptionLabel.text = "Description(Optional)";
+        self.descriptionLabel.text = "Description (Optional)";
         self.descriptionLabel.textColor = UIColor.whiteColor();
         self.descriptionLabel.textAlignment = .Center;
         
@@ -115,7 +115,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
         if(desc == ""){
             desc = "N/A";
         }
-        if(countElements(self.descriptionField.text) < 15){
+        if(count(self.descriptionField.text) < 15){
             if(self.delegate.addTransaction(amount, desc: desc, type:0)){
                 self.amountField.text = "";
                 self.descriptionField.text = "";
@@ -127,7 +127,7 @@ class BucketAddView:UIView, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         amountField.resignFirstResponder();
         descriptionField.resignFirstResponder();

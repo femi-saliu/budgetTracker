@@ -79,7 +79,7 @@ class BucketList:UIScrollView {
     }
     
     func setBucketLimitWithName(name:String, l:Double){
-        self.getBucket(name)!.setLimit(l);
+        self.getBucket(name)!.setCurrentLimit(l);
     }
     
     func setDeleteMode(inDeleteMode:Bool){
@@ -136,7 +136,7 @@ class BucketList:UIScrollView {
     }
     
     @IBAction func bucketSelected(sender: AnyObject){
-        let bucketCell = sender as BucketCell;
+        let bucketCell = sender as! BucketCell;
         self.bucketCellDelegate!.bucketTapped(bucketCell);
     }
     
