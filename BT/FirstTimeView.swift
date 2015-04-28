@@ -105,8 +105,8 @@ class FirstTimeView: UIView,UITextFieldDelegate {
         return true;
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        super.touchesBegan(touches as NSSet, withEvent: event);
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        super.touchesBegan(touches as Set<NSObject>, withEvent: event);
         budgetField.resignFirstResponder();
     }
     
