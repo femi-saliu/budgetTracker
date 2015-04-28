@@ -51,6 +51,16 @@ class BucketModel {
 //            currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
 //        }
 //    }
+    func clearTransactions(){
+        self.clearTransactionData();
+        self.transactions.removeAll(keepCapacity: false);
+        self.transactionTags.removeAll(keepCapacity: false);
+        self.transactionSigns.removeAll(keepCapacity: false);
+        self.transactionTypes.removeAll(keepCapacity: false);
+        self.descriptions.removeAll(keepCapacity: false);
+    }
+    
+    
     func removeTransaction(tag:Int){
         var index = 0;
         var found = true;
@@ -187,6 +197,33 @@ class BucketModel {
             println("Could not fetch \(error), \(error!.userInfo)");
         }
 
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+    }
+    
+    func clearTransactionData(){
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        let transactionFetchRequest = NSFetchRequest(entityName: "Transactions");
+        
+        
+        var error: NSError?
+        
+        let fetchedTransactionResult = managedContext.executeFetchRequest(transactionFetchRequest, error: &error) as? [NSManagedObject];
+        
+        if let trResult = fetchedTransactionResult {
+            for transactionData in trResult{
+                if(transactionData.valueForKey("bucket")! as String == name){
+                    managedContext.deleteObject(transactionData);
+                }
+            }
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)");
+        }
+        
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
         }
