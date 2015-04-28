@@ -24,6 +24,8 @@ class BucketCell: UIButton {
     var transferFromMessage:UILabel!;
     var transferToMessage:UILabel!;
     
+    var transferFromBucket = false;
+    
     var deleteString = "Tap to delete";
     var transferFromString = "Tap to select transfer from";
     var transferToString = "Tap to select transfer to";
@@ -109,6 +111,17 @@ class BucketCell: UIButton {
         self.currentColor = color;
         self.backgroundColor = currentColor;
     }
+    func setTransferFromBucket(){
+        self.transferFromBucket = true;
+    }
+    
+    func isTransferFromBucket() -> Bool{
+        return transferFromBucket;
+    }
+    
+    func resetTransferFrom(){
+        self.transferFromBucket = false;
+    }
     
     func transferMode(mode:Int){
         self.deleteMessage.hidden = true;
@@ -120,9 +133,11 @@ class BucketCell: UIButton {
             self.transferToMessage.hidden = true;
             self.transferFromMessage.hidden = false;
         }else{
-            self.transferToMessage.textColor = currentColor;
             self.transferFromMessage.hidden = true;
-            self.transferToMessage.hidden = false;
+            if(!transferFromBucket){
+                self.transferToMessage.textColor = currentColor;
+                self.transferToMessage.hidden = false;
+            }
         }
     }
     
