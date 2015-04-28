@@ -100,6 +100,34 @@ class TrackerModel {
         //self.bucketObjects.append(bucket);
     }
     
+    func removeBucketData(name:String){
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate;
+        
+        let managedContext = appDelegate.managedObjectContext!;
+        
+        let bucketFetchRequest = NSFetchRequest(entityName: "Bucket");
+        
+        
+        var error: NSError?
+        
+        let fetchedBucketResult = managedContext.executeFetchRequest(bucketFetchRequest, error: &error) as? [NSManagedObject];
+        
+        if let bResult = fetchedBucketResult {
+            for bucketData in bResult{
+                if(bucketData.valueForKey("name")! as String == name){
+                    managedContext.deleteObject(bucketData);
+                }
+            }
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)");
+        }
+        
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }
+    }
+
+    
     func setTotalBudget(totalBudget:Double){
         totalLimit = totalBudget;
         
@@ -209,7 +237,9 @@ class TrackerModel {
                 bucketTotal -= bucket.limit;
                 currentSpending -= bucket.currentBalance();
                 self.currentSaturation = saturationLowerLimit + CGFloat(currentSpending / totalLimit) * (saturationUpperLimit - saturationLowerLimit);
+                bucket.clearTransactions();
                 buckets.removeAtIndex(index);
+                self.removeBucketData(name);
                 numBuckets--;
                 break;
             }
