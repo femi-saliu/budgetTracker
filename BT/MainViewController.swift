@@ -177,7 +177,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func displayOverLimitAlert(){
         let alertController = UIAlertController(title: "Over Budget", message:
-            "You have entered a transaction exceeding your totoal budget", preferredStyle: UIAlertControllerStyle.Alert)
+            "You have entered a transaction exceeding your total budget", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         
         self.presentViewController(alertController, animated: true, completion: nil)
