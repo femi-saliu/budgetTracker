@@ -8,6 +8,10 @@
 
 import UIKit
 
+/*
+ *Due to complexities that could arise with the addition of an allowOverBudget feature, 
+ *we've decided not to implement that for this version
+ */
 protocol SettingsProtocol{
     //func resetAllTransactions();
     func makeSureResetAllTransactions();
@@ -36,7 +40,6 @@ class BudgetSettingsView:UIView, UITextFieldDelegate {
     @IBOutlet var clearButton:UIButton!;
     @IBOutlet var overBudgetButton:UIButton!;
     @IBOutlet var doneButton:UIButton!;
-    //@IBOutlet var cancelButton:UIButton!;
     
     override init(frame:CGRect) {
         super.init(frame: frame);
@@ -63,19 +66,14 @@ class BudgetSettingsView:UIView, UITextFieldDelegate {
         var numFramesInt = Int(numFrames);
         var currentFrameY:CGFloat = frameY;
         for(var i = 0; i < numFramesInt; i++){
-            //if(i != numFramesInt-1){
-                subFrames.append(CGRect(x: frameX, y: currentFrameY, width: motherFrame.width, height: subFrameH));
-                currentFrameY += subFrameH;
-//            }else{
-//                subFrames.append(CGRect(x: frameX, y: currentFrameY, width: motherFrame.width / 2, height: subFrameH));
-//                subFrames.append(CGRect(x: frameX + motherFrame.width/2, y: currentFrameY, width: motherFrame.width/2, height: subFrameH));
-//            }
+            subFrames.append(CGRect(x: frameX, y: currentFrameY, width: motherFrame.width, height: subFrameH));
+            currentFrameY += subFrameH;
         }
     }
     
     func setUpView(){
         self.amountLabel = UILabel(frame: subFrames[0]);
-        self.amountLabel.text = "Transfer Balance: ";
+        self.amountLabel.text = "Total Budget Amount:";
         self.amountLabel.adjustsFontSizeToFitWidth = true;
         self.amountLabel.textAlignment = .Center;
         self.amountLabel.textColor = UIColor.whiteColor();
@@ -91,7 +89,7 @@ class BudgetSettingsView:UIView, UITextFieldDelegate {
 //        self.overBudgetButton.setTitle(overBudgetNO, forState: .Normal);
 //        self.overBudgetButton.addTarget(self, action: "overBudgetTapped:", forControlEvents: .TouchUpInside);
         
-        self.clearButton = UIButton(frame: subFrames[3]);
+        self.clearButton = UIButton(frame: subFrames[2]);
         self.clearButton.setTitle("Reset Cycle", forState: .Normal);
         self.clearButton.setTitleColor(UIColor.redColor(), forState: .Normal);
         self.clearButton.addTarget(self, action: "resetTapped:", forControlEvents: .TouchUpInside);

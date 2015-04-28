@@ -20,7 +20,6 @@ class AddOptionsView:UIView, UITextFieldDelegate{
     let frameMargin:CGFloat = 0.1;
     var frameX:CGFloat = 0;
     var frameY:CGFloat = 0;
-    //var subFrameH:CGFloat = 0;
     var subFrames = [CGRect]();
     var nameField:UITextField = UITextField();
     var budgetField:UITextField = UITextField();
@@ -77,7 +76,6 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         
         self.nameField = UITextField(frame: frames[1]);
         self.nameField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-        //self.nameField.alpha = viewAlpha;
         self.nameField.delegate = self;
         self.nameField.keyboardType = UIKeyboardType.ASCIICapable;
         self.nameField.keyboardAppearance = UIKeyboardAppearance.Dark;
@@ -90,7 +88,6 @@ class AddOptionsView:UIView, UITextFieldDelegate{
         
         self.budgetField = UITextField(frame: frames[3]);
         self.budgetField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-        //self.budgetField.alpha = viewAlpha;
         self.budgetField.delegate = self;
         self.budgetField.keyboardType = UIKeyboardType.NumberPad;
         self.budgetField.keyboardAppearance = UIKeyboardAppearance.Dark;

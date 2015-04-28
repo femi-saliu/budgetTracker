@@ -25,11 +25,9 @@ class BucketList:UIScrollView {
     var currentContentHeight:CGFloat = 0;
     var viewStart:CGFloat = 0;
     var bucketCellDelegate:bucketCellProtocol?
-    //var cells = [CGRect]();
     var cellCount = 0;
     
     override init(frame:CGRect) {
-        //self.gapSize = frame.width * cellGap;
         self.bucketFrameW = frame.width;
         self.viewStart = 0;
         self.frameWidth = frame.width;
@@ -37,19 +35,15 @@ class BucketList:UIScrollView {
         self.currentContentHeight = bucketFrameH;
         super.init(frame: frame);
         self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
-        //self.backgroundColor = UIColor.whiteColor();
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func addNewBucket(name:String,limit:Double){
-        println("add");
         var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
         var newCell = BucketCell(title:name, limit:limit, frame:newFrame);
-        //newCell.addTarget(self, action: "deleteBucketCell:", forControlEvents: UIControlEvents.TouchUpInside);
         buckets.append(newCell);
-        //cells.append(newFrame);
         self.addSubview(newCell);
         cellCount++;
         
@@ -113,7 +107,6 @@ class BucketList:UIScrollView {
     }
     
     @IBAction func deleteBucketCell(sender:BucketCell){
-        println("delete");
         var index = 0;
         var found = false;
         var name = sender.getName();
@@ -134,11 +127,9 @@ class BucketList:UIScrollView {
                     
                     self.buckets[i].frame = bucketFrame;
                     }, completion: { finished in
-                        //println("Buckets moved")
+ 
                 })
-                //buckets[i-1] = buckets[i];
             }
-            //buckets.removeLast();
         }
         bucketFrameY -= bucketFrameH;
         currentYOff -=  bucketFrameH;

@@ -31,7 +31,6 @@ class TrackerModel {
     var currentSaturation:CGFloat = 0;
     let defaultBrightness:CGFloat = 100 / 100;
     let defaultAlpha:CGFloat = 1;
-    //let falseBucket = BucketModel(n: "", newlimit: 0, hue: 0);
     init() {
         self.currentSaturation = saturationLowerLimit;
     }
@@ -41,7 +40,6 @@ class TrackerModel {
         self.trackerData = trackerData;
         self.transactionData = transactionData;
         for tracker in self.trackerData{
-            //println(tracker.valueForKey("name"));
             if(tracker.valueForKey("name")! as String == "tracker"){
                 self.currentHue = tracker.valueForKey("currentHue")! as CGFloat;
                 self.totalLimit = tracker.valueForKey("totalLimit")! as Double;
@@ -52,10 +50,7 @@ class TrackerModel {
             let name = bucket.valueForKey("name")! as String;
             let limit = bucket.valueForKey("limit")! as Double;
             let hue = bucket.valueForKey("currentHue")! as CGFloat;
-            //if(!name.isEmpty){
-                self.loadNewBucket(name, limit: limit, hue: hue);
-           // }
-            println(hue);
+            self.loadNewBucket(name, limit: limit, hue: hue);
         }
         for transaction in self.transactionData{
             let bucketName = transaction.valueForKey("bucket")! as String;
@@ -77,7 +72,6 @@ class TrackerModel {
         
         let managedContext = appDelegate.managedObjectContext!;
         
-        //2
         let entity =  NSEntityDescription.entityForName("Bucket",
             inManagedObjectContext:
             managedContext);
@@ -85,18 +79,14 @@ class TrackerModel {
         let bucket = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext:managedContext);
         
-        //3
         bucket.setValue(name, forKey: "name");
         bucket.setValue(limit, forKey: "limit");
         bucket.setValue(hue, forKey: "currentHue");
         
-        //4
         var error: NSError?
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
-        }  
-        //5
-        //self.bucketObjects.append(bucket);
+        }
     }
     
     func removeBucketData(name:String){

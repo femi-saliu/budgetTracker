@@ -105,15 +105,6 @@ class TransactionCell: UIButton {
         return type;
     }
     
-    //    func setSpending(spend:Double){
-    //        currentSpending = spend;
-    //    }
-    
-    //    func setColor(color:UIColor){
-    //        self.currentColor = color;
-    //        self.backgroundColor = currentColor;
-    //    }
-    
     func deleteMode(inDeleteMode:Bool){
         if(type == 0){
             if(inDeleteMode){

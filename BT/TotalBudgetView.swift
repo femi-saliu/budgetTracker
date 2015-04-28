@@ -40,7 +40,6 @@ class TotalBudgetView: UIButton {
     
     override init(frame:CGRect) {
         super.init(frame: frame);
-        //self.backgroundColor = UIColor.whiteColor();
         textFrameX = frame.width * xmarginProportion;
         textFrameY = frame.height * ymarginProportion;
         textFrameW = frame.width * (1 - 2 * xmarginProportion);
@@ -50,21 +49,7 @@ class TotalBudgetView: UIButton {
         budgetNum.text = String(format:"%.02f / %.02f", currentSpending, totalLimit);
         budgetNum.font = UIFont(name: budgetNum.font.fontName, size: 30)
         budgetNum.textAlignment = NSTextAlignment.Center;
-        //sbudgetNum.textColor = UIColor(red: textR, green: textG, blue: textB, alpha: defaultAlpha);
         self.addSubview(budgetNum);
-        
-//        buttonFrameX = 0;
-//        buttonFrameY = 0;
-//        buttonFrameH = frame.height*ymarginProportion;
-//        buttonFrameW = frame.width;
-//        
-//        clearButton = UIButton(frame: CGRect(x: buttonFrameX, y: buttonFrameY, width: buttonFrameW, height: buttonFrameH));
-//        clearButton.setTitle("Reset Cycle", forState: .Normal);
-//        clearButton.setTitleColor(UIColor.redColor(), forState: .Normal);
-//        clearButton.titleLabel?.textAlignment = .Center;
-//        clearButton.addTarget(self, action: "clearButtonTapped:", forControlEvents: .TouchUpInside);
-//        
-//        self.addSubview(clearButton);
     }
     
     required init(coder aDecoder: NSCoder) {

@@ -8,10 +8,12 @@
 
 import UIKit
 
+/*
+ *this class handles all interactions pertaining to a single bucket
+ */
 class BucketViewController: UIViewController, BucketAddProtocol, BucketViewProtocol, TransactionCellProtocol {
     var bucketView:BucketView!
     var bucketName:String = "";
-    //var bucket:BucketModel!
     var tracker:TrackerModel!
     
     let popUpViewMargin:CGFloat = 0.15;

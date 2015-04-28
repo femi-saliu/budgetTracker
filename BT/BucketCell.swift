@@ -16,10 +16,8 @@ class BucketCell: UIButton {
     var nameLabel:UILabel = UILabel();
     var limitLabel:UILabel = UILabel();
     let defaultTextColor = UIColor.blackColor();
-    
     var currentColor:UIColor = UIColor.whiteColor();
     
-    var blurView:UIVisualEffectView!;
     var deleteMessage:UILabel!;
     var transferFromMessage:UILabel!;
     var transferToMessage:UILabel!;

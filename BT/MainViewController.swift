@@ -51,7 +51,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     @IBOutlet var addButton:UIButton!;
     @IBOutlet var deleteButton:UIButton!;
     @IBOutlet var transferButton:UIButton!;
-    @IBOutlet var addOptionsContainer:UIVisualEffectView!;
+    @IBOutlet var blurView:UIVisualEffectView!;
     @IBOutlet var addOptions:AddOptionsView!;
     @IBOutlet var transferView:TransferView!;
     @IBOutlet var firstTimeSetUp:FirstTimeView!;
@@ -59,7 +59,6 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     
     override func viewDidLoad() {
-        println("ADDViewControllerVDL");
         super.viewDidLoad()
         self.readFromData();
         self.setUpBucketList();
@@ -70,7 +69,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.setUpSettingsView(self.view.frame);
         if(firstTime){
             firstTimeSetUp.hidden = false;
-            addOptionsContainer.hidden = false;
+            blurView.hidden = false;
         }else{
             self.setUpModel();
         }
@@ -116,8 +115,6 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         if let tResult = fetchedTrackerResult{
             if(tResult.count > 0){
                 self.trackerData = tResult;
-            }else{
-                println("no tracker data");
             }
         } else {
             println("Could not fetch \(error), \(error!.userInfo)");
@@ -219,7 +216,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.totalBudgetView.setColor(self.trackerModel.getMainColor());
         self.refreshTrackerLimitData(totalBudget);
         self.settingsView.hidden = true;
-        self.addOptionsContainer.hidden = true;
+        self.blurView.hidden = true;
     }
     
     func setTotalBudget(totalBudget: Double, hue:CGFloat){
@@ -231,7 +228,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
             self.saveMain();
             self.saveTrackerData(totalBudget, hue: hue);
             firstTimeSetUp.hidden = true;
-            addOptionsContainer.hidden = true;
+            blurView.hidden = true;
             firstTime = false;
         }
     }
@@ -263,19 +260,19 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func setUpAddOptions(frame:CGRect){
         var blurEffect:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light);
-        self.addOptionsContainer = UIVisualEffectView(effect: blurEffect);
-        self.addOptionsContainer.frame = self.view.frame;
+        self.blurView = UIVisualEffectView(effect: blurEffect);
+        self.blurView.frame = self.view.frame;
         var addOptionsX = frame.width * addOptionsMargin;
         var addOptionsY = frame.height * addOptionsMargin;
         var addOptionsW = frame.width * (1 - 2 * addOptionsMargin);
         var addOptionsH = frame.height * (1 - 2 * addOptionsMargin);
         var addOptionsFrame = CGRect(x: addOptionsX, y: addOptionsY, width: addOptionsW, height: addOptionsH);
         self.addOptions = AddOptionsView(frame: addOptionsFrame);
-        self.view.addSubview(addOptionsContainer)
+        self.view.addSubview(blurView)
         self.view.addSubview(addOptions);
         addOptions.delegate = self;
         addOptions.hidden = true;
-        addOptionsContainer.hidden = true;
+        blurView.hidden = true;
     }
     
     func setUpForFirstTime(frame:CGRect){
@@ -288,7 +285,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.view.addSubview(firstTimeSetUp);
         firstTimeSetUp.delegate = self;
         firstTimeSetUp.hidden = true;
-        addOptionsContainer.hidden = true;
+        blurView.hidden = true;
     }
     
     func setUpTransferView(frame:CGRect){
@@ -301,7 +298,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.view.addSubview(transferView);
         transferView.delegate = self;
         transferView.hidden = true;
-        addOptionsContainer.hidden = true;
+        blurView.hidden = true;
     }
     
     func setUpSettingsView(frame:CGRect){
@@ -314,19 +311,19 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         self.view.addSubview(settingsView);
         settingsView.delegate = self;
         settingsView.hidden = true;
-        addOptionsContainer.hidden = true;
+        blurView.hidden = true;
     }
     
     @IBAction func totalBudgetTapped(sender:AnyObject){
         self.settingsView.setLimit(self.trackerModel.totalLimit);
         self.settingsView.hidden = false;
-        self.addOptionsContainer.hidden = false;
+        self.blurView.hidden = false;
     }
     
     @IBAction func addTapped(sender : AnyObject) {
         self.addOptions.setAvailableAmt(self.trackerModel.getAvailableBudget());
         self.addOptions.hidden = false;
-        self.addOptionsContainer.hidden = false;
+        self.blurView.hidden = false;
     }
     
     func displayNameAlert(name:String){
@@ -363,7 +360,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
                 self.bucketList?.setBucketColorWithName(name, color: bucketColor!);
             }
             self.addOptions.hidden = true;
-            self.addOptionsContainer.hidden = true;
+            self.blurView.hidden = true;
             return true;
         }else{
             if(result == "replicate"){
@@ -382,7 +379,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func cancelAddOption() {
         self.addOptions.hidden = true;
-        self.addOptionsContainer.hidden = true;
+        self.blurView.hidden = true;
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -467,7 +464,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
                 if(!self.bucketList.isTransferFromWithName(sender.getName())){
                     transferToName = sender.getName();
                     self.transferView.hidden = false;
-                    self.addOptionsContainer.hidden = false;
+                    self.blurView.hidden = false;
                 }
             }
         }else{
@@ -494,7 +491,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     
     func cancelTransfer() {
         self.transferView.hidden = true;
-        self.addOptionsContainer.hidden = true;
+        self.blurView.hidden = true;
     }
     
     func overTransferBudget() {
@@ -517,7 +514,7 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
         if(self.trackerModel.transfer(transferFromName, to: transferToName, amount: amt)){
             self.loadBucketsWithModel();
             self.transferView.hidden = true;
-            self.addOptionsContainer.hidden = true;
+            self.blurView.hidden = true;
             self.transferFromSelected = false;
             self.transfer = false;
             self.bucketList.setTransferDone();
@@ -549,7 +546,6 @@ class MainViewController: UIViewController, addOptionsProtocol, bucketCellProtoc
     }
     
     @IBAction func unwindFromBucketViewController(segue: UIStoryboardSegue){
-        println("unwind");
         self.loadBucketsWithModel();
     }
 }

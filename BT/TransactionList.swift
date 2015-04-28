@@ -26,11 +26,9 @@ class TransactionList:UIScrollView {
     var currentContentHeight:CGFloat = 0;
     var viewStart:CGFloat = 0;
     var transactionCellDelegate:TransactionCellProtocol?
-    //var cells = [CGRect]();
     var cellCount = 0;
     
     override init(frame:CGRect) {
-        //self.gapSize = frame.width * cellGap;
         self.bucketFrameW = frame.width;
         self.viewStart = 0;
         self.frameWidth = frame.width;
@@ -38,14 +36,12 @@ class TransactionList:UIScrollView {
         self.currentContentHeight = bucketFrameH;
         super.init(frame: frame);
         self.contentSize = CGSize(width:frameWidth, height:currentContentHeight);
-        //self.backgroundColor = UIColor.whiteColor();
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     func addNewTransaction(desc:String,amount:Double, type:Int, sign:Int, tag:Int){
-        println("add transaction");
         var newFrame = CGRect(x: bucketFrameX, y: bucketFrameY, width: bucketFrameW, height: bucketFrameH);
         var newCell = TransactionCell(title:desc, amount:amount, frame:newFrame, tag:tag, type:type, sign:sign);
         
@@ -71,10 +67,6 @@ class TransactionList:UIScrollView {
         return nil;
     }
     
-    //    func setBucketColorWithName(name:String, color:UIColor){
-    //        self.getBucket(name)?.setColor(color);
-    //    }
-    
     func setDeleteMode(inDeleteMode:Bool){
         for bucket in buckets{
             bucket.deleteMode(inDeleteMode);
@@ -82,7 +74,6 @@ class TransactionList:UIScrollView {
     }
     
     @IBAction func deleteTransactionCell(sender:TransactionCell){
-        println("delete");
         if(sender.getType()==0){
             self.transactionCellDelegate?.transactionDeleted(sender.getTag(),amt:sender.getAmount());
             var index = 0;

@@ -20,7 +20,6 @@ class FirstTimeView: UIView,UITextFieldDelegate {
     let frameMargin:CGFloat = 0.1;
     var frameX:CGFloat = 0;
     var frameY:CGFloat = 0;
-    //var subFrameH:CGFloat = 0;
     var subFrames = [CGRect]();
     
     var delegate:SetUpProtocol!;

@@ -70,7 +70,6 @@ class BucketAddView:UIView, UITextFieldDelegate {
         
         self.amountField = UITextField(frame: subFrames[1]);
         self.amountField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-        //self.amountField.alpha = viewAlpha;
         self.amountField.delegate = self;
         self.amountField.keyboardType = UIKeyboardType.NumberPad;
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
@@ -82,19 +81,16 @@ class BucketAddView:UIView, UITextFieldDelegate {
         
         self.descriptionField = UITextField(frame: subFrames[3]);
         self.descriptionField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-        //self.descriptionField.alpha = viewAlpha;
         self.descriptionField.delegate = self;
         self.descriptionField.keyboardType = UIKeyboardType.ASCIICapable;
         self.descriptionField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.doneButton = UIButton(frame: subFrames[6]);
         self.doneButton.setTitle("Done", forState: .Normal);
-        //self.doneButton.backgroundColor = UIColor.whiteColor();
         self.doneButton.addTarget(self, action: "doneTapped:", forControlEvents: UIControlEvents.TouchUpInside);
         
         self.cancelButton = UIButton(frame: subFrames[7]);
         self.cancelButton.setTitle("Cancel", forState: .Normal);
-        //self.cancelButton.backgroundColor = UIColor.whiteColor();
         self.cancelButton.addTarget(self, action: "cancelTapped:", forControlEvents: UIControlEvents.TouchUpInside);
         
         self.addSubview(amountLabel);

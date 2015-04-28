@@ -34,23 +34,7 @@ class BucketModel {
         spending = 0;
         currentSaturation = saturationLowerLimit;
     }
-//    func removeTransaction(desc:String){
-//        var index = 0;
-//        var found = true;
-//        for description in descriptions{
-//            if(desc == description){
-//                descriptions.removeAtIndex(index);
-//                found = true;
-//                break;
-//            }
-//            index++ ;
-//        }
-//        if(found){
-//            self.spending -= transactions[index];
-//            transactions.removeAtIndex(index);
-//            currentSaturation = saturationLowerLimit + CGFloat(spending / limit) * (saturationUpperLimit - saturationLowerLimit);
-//        }
-//    }
+
     func clearTransactions(){
         for trans in transactions{
             self.spending -= trans;
@@ -157,7 +141,6 @@ class BucketModel {
         
         let managedContext = appDelegate.managedObjectContext!;
         
-        //2
         let entity =  NSEntityDescription.entityForName("Transactions",
             inManagedObjectContext:
             managedContext);
@@ -165,14 +148,13 @@ class BucketModel {
         let transaction = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext:managedContext);
         
-        //3
         transaction.setValue(desc, forKey: "desc");
         transaction.setValue(sign, forKey: "sign");
         transaction.setValue(amt, forKey: "amount");
         transaction.setValue(type, forKey: "type");
         transaction.setValue(name, forKey: "bucket");
         transaction.setValue(tag, forKey: "tag");
-        //4
+        
         var error: NSError?
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")

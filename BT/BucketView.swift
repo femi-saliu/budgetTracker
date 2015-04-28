@@ -7,12 +7,9 @@
 //
 
 
-/**
-UI representation of a bucket view;
-
-#to be implemented:
-*add delegate to enable adding/deleting transactions
-**/
+/*
+ *UI representation of a bucket view;
+ */
 import UIKit
 
 protocol BucketViewProtocol{
@@ -109,8 +106,6 @@ class BucketView:UIView {
     
     func setColor(color:UIColor){
         self.backgroundColor = color;
-        //self.addButton.setTitleColor(color, forState: UIControlState.Normal);
-        //self.minusButton.setTitleColor(color, forState: UIControlState.Normal);
     }
     
     func setTitle(name:String){

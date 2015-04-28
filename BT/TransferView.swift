@@ -9,10 +9,8 @@
 import UIKit
 
 protocol TransferProtocol{
-    //func addTransaction(amt:Double, desc:String)->Bool;
     func transfer(amt:Double)->Bool;
     func cancelTransfer();
-    //func characterOverFlow();
     func overTransferBudget();
 }
 
@@ -72,19 +70,16 @@ class TransferView:UIView, UITextFieldDelegate {
         
         self.amountField = UITextField(frame: subFrames[1]);
         self.amountField.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: viewAlpha);
-        //self.amountField.alpha = viewAlpha;
         self.amountField.delegate = self;
         self.amountField.keyboardType = UIKeyboardType.NumberPad;
         self.amountField.keyboardAppearance = UIKeyboardAppearance.Dark;
         
         self.doneButton = UIButton(frame: subFrames[4]);
         self.doneButton.setTitle("Done", forState: .Normal);
-        //self.doneButton.backgroundColor = UIColor.whiteColor();
         self.doneButton.addTarget(self, action: "doneTapped:", forControlEvents: UIControlEvents.TouchUpInside);
         
         self.cancelButton = UIButton(frame: subFrames[5]);
         self.cancelButton.setTitle("Cancel", forState: .Normal);
-        //self.cancelButton.backgroundColor = UIColor.whiteColor();
         self.cancelButton.addTarget(self, action: "cancelTapped:", forControlEvents: UIControlEvents.TouchUpInside);
         
         self.addSubview(amountLabel);
@@ -109,7 +104,6 @@ class TransferView:UIView, UITextFieldDelegate {
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event);
         amountField.resignFirstResponder();
-        //descriptionField.resignFirstResponder();
     }
     
     func textFieldShouldReturn(input: UITextField!) -> Bool {
